@@ -120,6 +120,13 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         }
     }
     
+    public void clearTaskTable() {
+        DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
+        
+        model.setRowCount(0);
+        jTableTasks.setModel(model);
+    }
+    
     public void addTaskTableRow(Task t)
     {
         DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
@@ -341,13 +348,14 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ButtonCreateProject, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ButtonCreateProject)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(88, 88, 88)
@@ -376,17 +384,15 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                     .addComponent(jLabel4))
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonCreateProject)
-                    .addComponent(jButton5)
                     .addComponent(ButtonAddTask)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(setStatusBtn)
                 .addGap(14, 14, 14))
@@ -519,7 +525,29 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_setStatusBtnActionPerformed
 
     private void jListProjectsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListProjectsValueChanged
-        // TODO add your handling code here:
+        //First, clear the Task jTable
+        clearTaskTable();
+        
+        //Get selected project title
+        String projectTitle = (String) jListProjects.getSelectedValue();
+        
+        //Get project object from title
+        Project project = Data.getProjectByTitle(projectTitle);
+        
+        //Get project ID
+        int projectID = project.getID();
+        
+        //For each task in tasks list that has the same project id, 
+        //add task to tasks jTable
+        for (Task task : Data.taskList)
+        {
+            if (task.getProjectID() == projectID)
+            {
+                addTaskTableRow(task);
+            }
+        }
+        
+        
     }//GEN-LAST:event_jListProjectsValueChanged
 
     /**
@@ -577,5 +605,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     private javax.swing.JTable jTableTasks;
     private javax.swing.JButton setStatusBtn;
     // End of variables declaration//GEN-END:variables
+
+   
 
 }
