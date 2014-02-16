@@ -98,7 +98,8 @@ public class Task implements Serializable{
     
     public String[] toTableRow() {
         ArrayList<String> attrs = new ArrayList<>();
-
+        
+        attrs.add(Integer.toString(id));
         attrs.add(title);        
         attrs.add(simpleDate.format(startDate));
         attrs.add(simpleDate.format(endDate));    

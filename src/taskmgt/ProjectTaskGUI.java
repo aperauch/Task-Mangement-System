@@ -7,9 +7,12 @@ import javax.swing.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.*;
+import static taskmgt.Models.ModelType.TeamLeader;
 import taskmgt.Models.Project;
 import taskmgt.Models.Task;
 import taskmgt.Models.State;
+import taskmgt.Models.TeamLeader;
+import taskmgt.Models.User;
 
 
 /**
@@ -147,45 +150,100 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //        //jListTasks.setModel(jListModel);
     }
     
-    public void addTaskTableRow()
-    {
-        //Get the selected element from the Projects jList
-        String projectTitle = (String) jListProjects.getSelectedValue();
-        
-        //If project title is not null or empty
-        if (projectTitle != null && !projectTitle.isEmpty())
-        {
-            //Get the Project object for the select elements
-            Project selectedProject = Data.getProjectByTitle(projectTitle);
-
-            //If a project object was returned
-            if (selectedProject != null){
-                //Get Tasks hashset for the selected project
-                HashSet<Task> tasks = Data.getProjectTasks(selectedProject.getID());
-
-                //Update Tasks List for selected Project
-                if (tasks != null)
-                {
-                    DefaultListModel jListModel = new DefaultListModel();
-                    for(Task task:tasks){
-                        if(task.getStatus() != State.Archived){
-                           jListModel.addElement(task.getTitle());
-                        }
+//    public void addTaskTableRow()
+//    {
+//        //Get the selected element from the Projects jList
+//        String projectTitle = (String) jListProjects.getSelectedValue();
+//        
+//        //If project title is not null or empty
+//        if (projectTitle != null && !projectTitle.isEmpty())
+//        {
+//            //Get the Project object for the select elements
+//            Project selectedProject = Data.getProjectByTitle(projectTitle);
+//
+//            //If a project object was returned
+//            if (selectedProject != null){
+//                //Get Tasks hashset for the selected project
+//                HashSet<Task> tasks = Data.getProjectTasks(selectedProject.getID());
+//
+//                //Update Tasks List for selected Project
+//                if (tasks != null)
+//                {
+//                    DefaultListModel jListModel = new DefaultListModel();
+//                    for(Task task:tasks){
+//                        if(task.getStatus() != State.Archived){
+//                           jListModel.addElement(task.getTitle());
+//                        }
+//                    }
+//                    //jListTasks.setModel(jListModel);
+//                }
+//                else
+//                {
+//                    String empty[] = { "Project " + selectedProject.getTitle() + " has no tasks." };
+//                    //jListTasks.setListData(empty);
+//                }
+//            }
+//            else
+//            {
+//                String empty[] = { "No tasks yet!" };
+//                //jListTasks.setListData(empty);
+//            }
+//        }
+//    }
+    
+    
+    public void cellListener(){
+        Action action = new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                TableCellListener tcl = (TableCellListener)e.getSource();
+                if(tcl.getNewValue().toString().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Please fill in information!","Warning",JOptionPane.WARNING_MESSAGE);
+                    //fillTable();
+                }
+                else{
+                    
+                    TeamLeader currentUser = null;
+                    if ((Data.getCurrentUser()) instanceof TeamLeader)
+                            currentUser = (TeamLeader) Data.getCurrentUser();
+                    else
+                        JOptionPane.showMessageDialog(null,"Only team leaders can edit tasks!","Warning",JOptionPane.WARNING_MESSAGE);
+                    
+                    int col=tcl.getColumn();
+                    int row=tcl.getRow();
+                    int taskId = (int) jTableTasks.getValueAt(row, 0);
+                    String origOwnerEmail=jTableTasks.getValueAt(row, 4).toString();
+                    switch(col){
+                        case 0://ID
+                        case 1://Title
+                        case 2://Start Date
+                        case 3://End Date
+                        case 4://Owner Email
+                            if(Data.getUser(origOwnerEmail)!= null)
+                                JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
+                            else
+                                //currentUser.updateTaskOwner(tcl.getOldValue().toString(), tcl.getNewValue().toString());
+                                currentUser.updateTaskOwner(tcl.getOldValue().toString(), tcl.getNewValue().toString(), taskId);
+                            break;
+                        case 5://Status
+                        case 99://Title
+                            //user.updateName(origOwnerEmail, tcl.getNewValue().toString());
+                            break;
+                        case 98:
+                            if(tcl.getOldValue().toString().equals("Member")&&tcl.getNewValue().toString().equals("Leader")){
+                                //user.changeMemberType(origOwnerEmail, true);
+                            }
+                            else if(tcl.getOldValue().toString().equals("Leader")&&tcl.getNewValue().toString().equals("Member")){
+                                //if(!user.changeMemberType(origOwnerEmail, false))
+                                    JOptionPane.showMessageDialog(null,"This leader is currently in charge of a project!","Warning",JOptionPane.WARNING_MESSAGE);
+                            }
+                            break;
                     }
-                    //jListTasks.setModel(jListModel);
                 }
-                else
-                {
-                    String empty[] = { "Project " + selectedProject.getTitle() + " has no tasks." };
-                    //jListTasks.setListData(empty);
-                }
+                    //fillTable();
             }
-            else
-            {
-                String empty[] = { "No tasks yet!" };
-                //jListTasks.setListData(empty);
-            }
-        }
+        };
+        TableCellListener tcl = new TableCellListener(jTableTasks, action);
     }
     
     /**
@@ -324,15 +382,22 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 
             },
             new String [] {
-                "Name", "Start Date", "End Date", "Owner", "Status"
+                "ID", "Title", "Start Date", "End Date", "Owner", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(jTableTasks);

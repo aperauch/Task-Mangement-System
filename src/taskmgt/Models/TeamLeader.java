@@ -2,6 +2,7 @@ package taskmgt.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import taskmgt.Data;
 
 /**
  *
@@ -37,6 +38,24 @@ public class TeamLeader extends TeamMember implements Serializable {
     }
     public void assignProject(User user){
         
+    }
+    
+    public void updateTaskOwner(String oldEmail, String newEmail, int taskID){
+        //User newUser=Data.getUser(oldEmail);
+        Task changedTask = Data.getTask(taskID);
+        for(Task task:Data.taskList){
+            if(task.getOwner().equalsIgnoreCase(oldEmail) & task.getID() == taskID){
+                task.setOwner(newEmail);
+                break;
+            }
+        }
+        
+        Data.taskList.remove(changedTask);
+        //Data.userList.remove(newUser);
+        changedTask.setOwner(newEmail);
+        //newUser.setEmail(newEmail);
+        Data.taskList.add(changedTask);
+        //Data.userList.add(newUser);
     }
     
     @Override
