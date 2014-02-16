@@ -205,7 +205,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         jComboBox1 = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        ButtonEditTask = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableTasks = new javax.swing.JTable();
 
@@ -313,13 +312,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             }
         });
 
-        ButtonEditTask.setText("Edit Task");
-        ButtonEditTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditTaskActionPerformed(evt);
-            }
-        });
-
         jTableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -360,8 +352,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(88, 88, 88)
                                 .addComponent(ButtonAddTask, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(ButtonEditTask, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -396,8 +386,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                     .addComponent(jButton5)
                     .addComponent(ButtonAddTask)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonEditTask))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(setStatusBtn)
                 .addGap(14, 14, 14))
@@ -442,24 +431,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         }
         
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void ButtonEditTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditTaskActionPerformed
-        if (jListProjects.getModel().getSize() <= 0)
-        {
-            JOptionPane.showMessageDialog(null, "Please create a project first.");
-        }
-        else if (jListProjects.isSelectionEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "Please select a project first.");
-        }       
-        else
-        {
-            //String taskTitle = (String) jListTasks.getSelectedValue();
-            //Task taskToEdit = Data.getTaskByTitle(taskTitle);
-            //AddTaskGUI editTaskForm=new AddTaskGUI(this,true,"edit", taskToEdit);
-            //editTaskForm.setVisible(true);
-        }
-    }//GEN-LAST:event_ButtonEditTaskActionPerformed
 
     private void setStatusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setStatusBtnActionPerformed
  
@@ -590,7 +561,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAddTask;
     private javax.swing.JButton ButtonCreateProject;
-    private javax.swing.JButton ButtonEditTask;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
