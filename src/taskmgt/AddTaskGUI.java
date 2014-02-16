@@ -27,32 +27,33 @@ public class AddTaskGUI extends javax.swing.JDialog {
     
     private void setFormAdd(){
        this.setTitle("Add Task");
-       jButton1.setText("Add");
+       addTaskBtn.setText("Add");
 
        //Populate Start Date and End Date with a date
        Date date = new Date();
-       jTextField2.setText(dateFormat.format(date).toString());
-       jTextField3.setText(dateFormat.format(date).toString());
+       startDateField.setText(dateFormat.format(date).toString());
+       endDateField.setText(dateFormat.format(date).toString());
     }
     
      private void setFormEdit(){
        this.setTitle("Edit Task");
-       jButton1.setText("Edit");
+       addTaskBtn.setText("Edit");
      }
      
     private void setFormEdit(Task task){
        this.setTitle("Edit Task");
-       jButton1.setText("Edit");
+       addTaskBtn.setText("Edit");
        
        //Populate fields for editing
-       jTextField1.setText(task.getTitle());
-       jTextField2.setText(dateFormat.format(task.getStartDate()));
-       jTextField3.setText(dateFormat.format(task.getEndDate()));
+       taskTitleField.setText(task.getTitle());
+       startDateField.setText(dateFormat.format(task.getStartDate()));
+       endDateField.setText(dateFormat.format(task.getEndDate()));
     }
     
     /**
      * Creates new form Task
      */
+    //Default Constructor
     public AddTaskGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -63,13 +64,14 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
       
         //Populate Members list
-        for(User member:Data.userList){
+        for(TeamMember member:Data.getMembers()){
             if(member.checkActive()){
-                jComboBox1.addItem(member.getEmail());
+                ownerComboBox.addItem(member.getEmail());
             }
         }
     }
     
+    //Called when adding a task
     public AddTaskGUI(java.awt.Frame parent, boolean modal, String flag) {
         super(parent, modal);
         initComponents();
@@ -80,9 +82,9 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
         
         //Populate Members list
-        for(User member:Data.userList){
+        for(TeamMember member:Data.getMembers()){
             if(member.checkActive()){
-                jComboBox1.addItem(member.getEmail());
+                ownerComboBox.addItem(member.getEmail());
             }
         }
         
@@ -92,6 +94,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             setFormEdit();
     }
     
+    //Not Called!?!?!?
     public AddTaskGUI(java.awt.Frame parent, boolean modal, String flag, Task task) {
         super(parent, modal);
         initComponents();
@@ -102,9 +105,9 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
         
         //Populate Members list
-        for(User member:Data.userList){
+        for(TeamMember member:Data.getMembers()){
             if(member.checkActive()){
-                jComboBox1.addItem(member.getEmail());
+                ownerComboBox.addItem(member.getEmail());
             }
         }
         
@@ -123,32 +126,32 @@ public class AddTaskGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        taskTitleField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        addTaskBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        ownerComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        startDateField = new javax.swing.JTextField();
+        endDateField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Task");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        taskTitleField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                taskTitleFieldActionPerformed(evt);
             }
         });
 
         jButton2.setText("Request");
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addTaskBtn.setText("Add");
+        addTaskBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addTaskBtnActionPerformed(evt);
             }
         });
 
@@ -179,17 +182,17 @@ public class AddTaskGUI extends javax.swing.JDialog {
                                     .addComponent(jLabel1))))
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(taskTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton2)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(88, 88, 88))
         );
@@ -199,22 +202,22 @@ public class AddTaskGUI extends javax.swing.JDialog {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(taskTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(addTaskBtn)
                     .addComponent(jButton2))
                 .addGap(40, 40, 40))
         );
@@ -222,21 +225,21 @@ public class AddTaskGUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void taskTitleFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskTitleFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_taskTitleFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addTaskBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTaskBtnActionPerformed
         
         //Get attributes that are not given from textfields
         Project project = parentFrame.getSelectProject();
         int projectID = project.getID();
-        String ownerEmail = Data.getCurrentUser().getEmail();
+        String ownerEmail = (String) ownerComboBox.getSelectedItem();
                
         //Get attributes from the textfields
-        String title = jTextField1.getText();
-        String startDate = jTextField2.getText();
-        String endDate = jTextField3.getText();
+        String title = taskTitleField.getText();
+        String startDate = startDateField.getText();
+        String endDate = endDateField.getText();
         
         //Convert date Strings to Date objects
         Date start = new Date();
@@ -249,19 +252,16 @@ public class AddTaskGUI extends javax.swing.JDialog {
         }
         
         //If adding a task
-        if (jButton1.getText().equalsIgnoreCase("add"))
+        if (addTaskBtn.getText().equalsIgnoreCase("add"))
         {
             //Create Task object with attributes
-            Task task = new Task(ownerEmail, title, projectID, start, end);
+            Task task = new Task(title, ownerEmail, projectID, start, end);
 
             //Push task onto task list for the project
             Data.taskList.add(task);
 
-            //Show message
-            JOptionPane.showMessageDialog(null, "Added task " + title + " to project " + project.getTitle() + ".");
-
             //Update parent frame with new tasks
-            parentFrame.refreshTasksList(project);
+            parentFrame.addTaskTableRow(task);
         }
         //Else, editing a task
         else
@@ -277,11 +277,11 @@ public class AddTaskGUI extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Modified task " + title + " for project " + project.getTitle() + ".");
 
                 //Update parent frame with new tasks
-                parentFrame.refreshTasksList(project);
+                parentFrame.addTaskTableRow(taskToEdit);
             }
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addTaskBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,15 +326,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addTaskBtn;
+    private javax.swing.JTextField endDateField;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JComboBox ownerComboBox;
+    private javax.swing.JTextField startDateField;
+    private javax.swing.JTextField taskTitleField;
     // End of variables declaration//GEN-END:variables
 }

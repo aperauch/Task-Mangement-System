@@ -78,7 +78,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //    public void valueChanged(ListSelectionEvent e) {
 //        if (e.getValueIsAdjusting()) {
 //            refreshProjectsList();
-//            refreshTasksList();
+//            addTaskTableRow();
 //        }
 //    }
     
@@ -120,22 +120,27 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         }
     }
     
-    public void refreshTasksList(Project project)
+    public void addTaskTableRow(Task t)
     {
-        //Get Tasks hashset for the selected project
-        HashSet<Task> tasks = Data.getProjectTasks(project.getID());
+        DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
         
-        //Update Tasks List for given project
-        DefaultListModel jListModel = new DefaultListModel();
-        for(Task task:tasks){
-            if(task.getStatus() != State.Archived){
-               jListModel.addElement(task.getTitle());
-            }
-        }
-        //jListTasks.setModel(jListModel);
+        model.addRow(t.toTableRow());
+        jTableTasks.setModel(model);
+        
+//        //Get Tasks hashset for the selected t
+//        HashSet<Task> tasks = Data.getProjectTasks(t.getID());
+//        
+//        //Update Tasks List for given t
+//        DefaultListModel jListModel = new DefaultListModel();
+//        for(Task task:tasks){
+//            if(task.getStatus() != State.Archived){
+//               jListModel.addElement(task.getTitle());
+//            }
+//        }
+//        //jListTasks.setModel(jListModel);
     }
     
-    public void refreshTasksList()
+    public void addTaskTableRow()
     {
         //Get the selected element from the Projects jList
         String projectTitle = (String) jListProjects.getSelectedValue();
@@ -324,7 +329,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -423,7 +428,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         else
         {
             AddTaskGUI addTaskForm=new AddTaskGUI(this,true,"add");
-            addTaskForm.show(true);
+            addTaskForm.setVisible(true);
         }
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
@@ -433,7 +438,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         }
         else{ 
            EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
-            editProjectForm.show();
+            editProjectForm.setVisible(true);
         }
         
     }//GEN-LAST:event_jButton5ActionPerformed

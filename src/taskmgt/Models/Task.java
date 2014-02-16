@@ -95,4 +95,16 @@ public class Task implements Serializable{
 
        return attrs.toArray(new String[attrs.size()]);
     }
+    
+    public String[] toTableRow() {
+        ArrayList<String> attrs = new ArrayList<>();
+
+        attrs.add(title);        
+        attrs.add(simpleDate.format(startDate));
+        attrs.add(simpleDate.format(endDate));    
+        attrs.add(owner);
+        attrs.add(status.name());
+
+       return attrs.toArray(new String[attrs.size()]);
+    }
 }
