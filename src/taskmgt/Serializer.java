@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  
 public class Serializer<Type> {
     private final String fileName;
@@ -80,28 +82,32 @@ public class Serializer<Type> {
     
     @SuppressWarnings("unchecked")
     public HashSet<Type> readObject() {
-        File file = new File(dirPath,fileName);
-        ObjectInputStream ois = null;
-        HashSet<Type> message = null;
         try {
-            ois = new ObjectInputStream(new FileInputStream(file));
-            try {
-                message = (HashSet<Type>)ois.readObject();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            File file = new File(dirPath,fileName);
+            ObjectInputStream ois = null;
+            HashSet<Type> message = null;
+            
+            if(!file.exists())
+                file.createNewFile();
+            
+            FileInputStream fis = new FileInputStream(file);
+            
+            if (fis.available() > 0)
+            {
+                ois = new ObjectInputStream(fis);                
+                message = (HashSet<Type>)ois.readObject();                
+                
+                return message;
+            } 
+            else {
+                return null;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                ois.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException ex) {
+            Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return message;
+        
+        return null;
     }
-    
 }

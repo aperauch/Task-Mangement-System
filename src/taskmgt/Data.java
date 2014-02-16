@@ -38,9 +38,17 @@ public class Data {
         
     }
     public static void checkforEmptyLists(){
-        if(userList == null)userList = new HashSet<>();
-        if(projectList == null)projectList = new HashSet<>();
-        if(taskList==null)taskList = new HashSet<>();
+        if(userList == null) {
+            userList = new HashSet<>();
+        }
+        
+        if(projectList == null) {
+            projectList = new HashSet<>();
+        }
+        
+        if(taskList==null) {
+            taskList = new HashSet<>();
+        }
     }
     
     public static void Finalize(){
