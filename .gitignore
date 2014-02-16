@@ -4,13 +4,13 @@
 !prompt/prompt.jar
 !nbproject/project.properties
 !nbproject/project.xml
+!Data
 
 #TMS - EXCLUDE!
 build.xml
 test/*
 build/*
 dist/*
-Data/*
 core
 nbproject/*
 *.ser
