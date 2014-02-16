@@ -12,7 +12,6 @@ test/*
 build/*
 dist/*
 core
-nbproject/*
 *.ser
 *.enc
 *.key
