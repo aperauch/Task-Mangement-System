@@ -4,7 +4,7 @@
 !prompt/prompt.jar
 !nbproject/project.properties
 !nbproject/project.xml
-!Data
+!Data/
 
 #TMS - EXCLUDE!
 build.xml
