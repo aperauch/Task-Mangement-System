@@ -104,15 +104,20 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     
     public void refreshProjectsList()
     {
-        //Update Projects List
         DefaultListModel jListModel = new DefaultListModel();
-        for(Project project:Data.projectList){
-            if(project.getStatus() != State.Archived){
-               jListModel.addElement(project.getTitle());
+        //If projects exists, then update Projects List
+        if (Data.projectList.size() > 0) {           
+            for(Project project:Data.projectList){
+                if(project.getStatus() != State.Archived){
+                   jListModel.addElement(project.getTitle());
+                }
+
             }
-            
+            jListProjects.setModel(jListModel);
+        } else {
+            jListModel.addElement("<No Projects Yet>");
+            jListProjects.setModel(jListModel);
         }
-        jListProjects.setModel(jListModel);
     }
     
     public void refreshTasksList(Project project)
