@@ -33,9 +33,7 @@ public class Data {
     public static void Initialize(){
         pullUser();
         pullProject();
-        pullTask();
-        checkforEmptyLists();
-        
+        pullTask();              
     }
     public static void checkforEmptyLists(){
         if(userList == null) {

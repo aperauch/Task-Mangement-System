@@ -132,7 +132,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                jListModel.addElement(task.getTitle());
             }
         }
-        jListTasks.setModel(jListModel);
+        //jListTasks.setModel(jListModel);
     }
     
     public void refreshTasksList()
@@ -160,18 +160,18 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                            jListModel.addElement(task.getTitle());
                         }
                     }
-                    jListTasks.setModel(jListModel);
+                    //jListTasks.setModel(jListModel);
                 }
                 else
                 {
                     String empty[] = { "Project " + selectedProject.getTitle() + " has no tasks." };
-                    jListTasks.setListData(empty);
+                    //jListTasks.setListData(empty);
                 }
             }
             else
             {
                 String empty[] = { "No tasks yet!" };
-                jListTasks.setListData(empty);
+                //jListTasks.setListData(empty);
             }
         }
     }
@@ -187,8 +187,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jListProjects = new javax.swing.JList();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jListTasks = new javax.swing.JList();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -216,8 +214,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             }
         });
         jScrollPane1.setViewportView(jListProjects);
-
-        jScrollPane2.setViewportView(jListTasks);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -354,8 +350,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                                 .addComponent(ButtonCreateProject, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(88, 88, 88)
@@ -388,8 +383,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -452,21 +446,13 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         else if (jListProjects.isSelectionEmpty())
         {
             JOptionPane.showMessageDialog(null, "Please select a project first.");
-        }
-        else if (jListTasks.getModel().getSize() <= 0)
-        {
-            JOptionPane.showMessageDialog(null, "Please create a task first.");
-        }
-        else if (jListTasks.isSelectionEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "Please select a task first.");
-        }
+        }       
         else
         {
-            String taskTitle = (String) jListTasks.getSelectedValue();
-            Task taskToEdit = Data.getTaskByTitle(taskTitle);
-            AddTaskGUI editTaskForm=new AddTaskGUI(this,true,"edit", taskToEdit);
-            editTaskForm.show(true);
+            //String taskTitle = (String) jListTasks.getSelectedValue();
+            //Task taskToEdit = Data.getTaskByTitle(taskTitle);
+            //AddTaskGUI editTaskForm=new AddTaskGUI(this,true,"edit", taskToEdit);
+            //editTaskForm.setVisible(true);
         }
     }//GEN-LAST:event_ButtonEditTaskActionPerformed
 
@@ -489,7 +475,8 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         else
         {
             //If no Tasks are selected
-            if (jListTasks.isSelectionEmpty())
+            //if (jListTasks.isSelectionEmpty())
+            if (true)
             {
                 //CODE TO CHANGE THE STATUS OF A PROJECT
                 //The Project list is single-select.
@@ -525,31 +512,31 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                 //The Task list is multi-select, so get all the selected tasks.
               
                 //For each selected object
-                for (Object obj:jListTasks.getSelectedValuesList())
-                {
-                    //Cast the object (i.e., the task title) as String
-                    String taskTitle = (String) obj;
-                    //Get the Task object by its title
-                    Task task = Data.getTaskByTitle(taskTitle);
-                    
-                    //If state is set to completed
-                    if (changeState.equalsIgnoreCase(State.Completed.name()))
-                    {
-                        task.setStatus(State.Completed);
-                        JOptionPane.showMessageDialog(null, "Changed task " + task.getTitle() + " to " + changeState + ".");
-                    }
-                    //Else if, state is set to archived
-                    else if (changeState.equalsIgnoreCase(State.Archived.name()))
-                    {
-                        task.setStatus(State.Archived);
-                        JOptionPane.showMessageDialog(null, "Changed task " + task.getTitle() + " to " + changeState + ".");
-                    }
-                    //Else, show pop-up and do nothing
-                    else
-                    {
-                        JOptionPane.showMessageDialog(null, "Changing task state to " + changeState + " is not implemented.");
-                    }
-                }
+//                for (Object obj:jListTasks.getSelectedValuesList())
+//                {
+//                    //Cast the object (i.e., the task title) as String
+//                    String taskTitle = (String) obj;
+//                    //Get the Task object by its title
+//                    Task task = Data.getTaskByTitle(taskTitle);
+//                    
+//                    //If state is set to completed
+//                    if (changeState.equalsIgnoreCase(State.Completed.name()))
+//                    {
+//                        task.setStatus(State.Completed);
+//                        JOptionPane.showMessageDialog(null, "Changed task " + task.getTitle() + " to " + changeState + ".");
+//                    }
+//                    //Else if, state is set to archived
+//                    else if (changeState.equalsIgnoreCase(State.Archived.name()))
+//                    {
+//                        task.setStatus(State.Archived);
+//                        JOptionPane.showMessageDialog(null, "Changed task " + task.getTitle() + " to " + changeState + ".");
+//                    }
+//                    //Else, show pop-up and do nothing
+//                    else
+//                    {
+//                        JOptionPane.showMessageDialog(null, "Changing task state to " + changeState + " is not implemented.");
+//                    }
+//                }
             }
         }        
         
@@ -608,11 +595,9 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JList jListProjects;
-    private javax.swing.JList jListTasks;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableTasks;
     private javax.swing.JButton setStatusBtn;
