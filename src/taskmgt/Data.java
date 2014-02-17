@@ -5,16 +5,16 @@ package taskmgt;
  */
 import java.util.Date;
 import taskmgt.Models.*;
-import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Data {
     //Properties
     private static User CurrentUser;
     
     //Lists
-    public static HashSet<User> userList = new HashSet();
-    public static HashSet<Project> projectList = new HashSet();
-    public static HashSet<Task> taskList = new HashSet();
+    public static LinkedList<User> userList = new LinkedList();
+    public static LinkedList<Project> projectList = new LinkedList();
+    public static LinkedList<Task> taskList = new LinkedList();
     //Serializer
     private final static Serializer<User> userSerializer=new Serializer(".//Data","User.ser");
     private final static Serializer<Project> projectSerializer=new Serializer(".//Data","Project.ser");
@@ -37,15 +37,15 @@ public class Data {
     }
     public static void checkforEmptyLists(){
         if(userList == null) {
-            userList = new HashSet<>();
+            userList = new LinkedList<>();
         }
         
         if(projectList == null) {
-            projectList = new HashSet<>();
+            projectList = new LinkedList<>();
         }
         
         if(taskList==null) {
-            taskList = new HashSet<>();
+            taskList = new LinkedList<>();
         }
     }
     
@@ -59,7 +59,7 @@ public class Data {
         Administrator admin=new Administrator(name,email,password);
         
         if (userList == null)
-            userList = new HashSet<>();
+            userList = new LinkedList<>();
         
         userList.add(admin);
         Finalize();
@@ -94,16 +94,16 @@ public class Data {
     public static User getCurrentUser() { return CurrentUser; }
     
     //Get List
-    public static HashSet<TeamLeader> getLeaders(){
-        HashSet<TeamLeader> leaders=new HashSet();
+    public static LinkedList<TeamLeader> getLeaders(){
+        LinkedList<TeamLeader> leaders=new LinkedList();
         for(User user:userList){
             if(user.getType()==ModelType.TeamLeader) leaders.add((TeamLeader)user);
         }
         return leaders;
     }
     
-    public static HashSet<TeamMember> getMembers(){
-        HashSet<TeamMember> members=new HashSet();
+    public static LinkedList<TeamMember> getMembers(){
+        LinkedList<TeamMember> members=new LinkedList();
         for(User user:userList){
             if(user instanceof TeamMember) members.add((TeamMember)user);
         }
@@ -147,8 +147,8 @@ public class Data {
         return null;
     }
     
-    public static HashSet<Task> getProjectTasks(int projectID){
-        HashSet<Task> projectTasks=new HashSet();
+    public static LinkedList<Task> getProjectTasks(int projectID){
+        LinkedList<Task> projectTasks=new LinkedList();
         for(Task task:taskList){
             if(task.getProjectID()==projectID){
                 projectTasks.add(task);
@@ -200,9 +200,9 @@ public class Data {
     
     public static void clearAllLists()
     {
-        projectList = new HashSet<>();
-        taskList = new HashSet<>();
-        userList = new HashSet<>();
+        projectList = new LinkedList<>();
+        taskList = new LinkedList<>();
+        userList = new LinkedList<>();
     }
  
 }

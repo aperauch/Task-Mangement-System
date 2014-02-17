@@ -433,11 +433,11 @@ public final class MemberGUI extends javax.swing.JDialog {
                     TeamMember member =(TeamMember)Data.getUser(email);
                     System.out.println("This is a report for " + member.getName());
                            
-                   //HashSet<Project> pl = new HashSet<Project>();
-                   //HashSet<Task> tl = new HashSet<Task>();
+                   //LinkedList<Project> pl = new LinkedList<Project>();
+                   //LinkedList<Task> tl = new LinkedList<Task>();
                    
-                   HashSet<Project> pl = member.getProjects();
-                   HashSet<Task> tl = member.getTasks();
+                   LinkedList<Project> pl = member.getProjects();
+                   LinkedList<Task> tl = member.getTasks();
                  
                    if( pl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any projects","Warning",JOptionPane.WARNING_MESSAGE);}
                    else if(tl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any tasks","Warning",JOptionPane.WARNING_MESSAGE);}

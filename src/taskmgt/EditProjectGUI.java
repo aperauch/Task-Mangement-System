@@ -76,7 +76,7 @@ public class EditProjectGUI extends javax.swing.JDialog {
     private void setTextFields() {
         String title = projectgui.getSelectProject().getTitle();
 
-        HashSet<User> members = projectgui.getSelectProject().getMembers();
+        LinkedList<User> members = projectgui.getSelectProject().getMembers();
         DefaultListModel jListModel = new DefaultListModel();
         for (User membersOnProject : members) {              
             jListModel.addElement(membersOnProject.getEmail());            

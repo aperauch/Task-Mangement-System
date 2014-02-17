@@ -137,8 +137,8 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         model.addRow(t.toTableRow());
         jTableTasks.setModel(model);
         
-//        //Get Tasks hashset for the selected t
-//        HashSet<Task> tasks = Data.getProjectTasks(t.getID());
+//        //Get Tasks LinkedList for the selected t
+//        LinkedList<Task> tasks = Data.getProjectTasks(t.getID());
 //        
 //        //Update Tasks List for given t
 //        DefaultListModel jListModel = new DefaultListModel();
@@ -163,8 +163,8 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //
 //            //If a project object was returned
 //            if (selectedProject != null){
-//                //Get Tasks hashset for the selected project
-//                HashSet<Task> tasks = Data.getProjectTasks(selectedProject.getID());
+//                //Get Tasks LinkedList for the selected project
+//                LinkedList<Task> tasks = Data.getProjectTasks(selectedProject.getID());
 //
 //                //Update Tasks List for selected Project
 //                if (tasks != null)

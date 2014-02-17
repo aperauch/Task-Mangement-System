@@ -16,7 +16,8 @@ public class Project implements Serializable{
     private Date startDate;
     private Date endDate;
     private State status;
-    private HashSet<User> members = new HashSet();
+    private LinkedList<User> members = new LinkedList();
+    private LinkedList<Task> tasks = new LinkedList();
     private ModelType type = ModelType.Project;
     private SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
     
@@ -53,7 +54,7 @@ public class Project implements Serializable{
     public Date getEndDate() { return this.endDate; }
     public State getStatus() { return this.status; }
     public ModelType getType() { return this.type; }
-    public HashSet<User> getMembers() { return this.members; }
+    public LinkedList<User> getMembers() { return this.members; }
     
     //Set
     public void setTitle(String title){ this.title=title;}
@@ -61,7 +62,7 @@ public class Project implements Serializable{
     public void setStartDate(Date startDate){this.startDate=startDate;}
     public void setEndDate(Date endDate){this.endDate=endDate;}
     public void setStatus(State status){this.status=status;}
-    public void setMembers(HashSet<User> members) { this.members = members; }
+    public void setMembers(LinkedList<User> members) { this.members = members; }
     
     //Other methods
     public void addMember(User user) { members.add(user); }
@@ -89,7 +90,7 @@ public class Project implements Serializable{
         return attrs.toArray(new String[attrs.size()]);
     }
     
-    //public void setTasks(HashSet<Task> tasks) { this.tasks = tasks; }
+    //public void setTasks(LinkedList<Task> tasks) { this.tasks = tasks; }
     
 //    //Add to Collection
 //    public void addTask(Task task)

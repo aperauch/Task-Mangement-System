@@ -2,7 +2,7 @@ package taskmgt.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedList;
 import taskmgt.Data;
 
 /**
@@ -41,8 +41,8 @@ public class TeamMember extends User implements Serializable{
         
     }
     
-    public HashSet<Project> getProjects(){
-        HashSet<Project> projectList=new HashSet();
+    public LinkedList<Project> getProjects(){
+        LinkedList<Project> projectList=new LinkedList();
         for(Project project:Data.projectList){
             if(project.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                 projectList.add(project);
@@ -50,8 +50,8 @@ public class TeamMember extends User implements Serializable{
         return projectList;
     }
     
-    public HashSet<Task> getTasks(){
-        HashSet<Task> taskList=new HashSet();
+    public LinkedList<Task> getTasks(){
+        LinkedList<Task> taskList=new LinkedList();
         for(Task task:Data.taskList){
             if(task.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                 taskList.add(task);
@@ -59,8 +59,8 @@ public class TeamMember extends User implements Serializable{
         return taskList;
     }
     
-    public HashSet<Task> getAssignedTasks(int projectID){
-        HashSet<Task> taskList=new HashSet();
+    public LinkedList<Task> getAssignedTasks(int projectID){
+        LinkedList<Task> taskList=new LinkedList();
         for(Task task:Data.taskList){
             if(task.getOwner().toLowerCase().equals(this.email.toLowerCase())&&task.getProjectID()==projectID)
                 taskList.add(task);
