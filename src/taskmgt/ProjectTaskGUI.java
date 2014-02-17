@@ -21,7 +21,7 @@ import taskmgt.Models.User;
  */
 public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelectionListener {
     
-    private Project SelectedProject;
+    private Project currentProject;
     private static boolean jListListenerFlag = false;
     
     
@@ -36,6 +36,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //        addListenertoJList(jList2);
         
         refreshProjectsList();
+        cellListener();
     }
     
     public ProjectTaskGUI(final LoginGUI form){
@@ -46,6 +47,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //        addListenertoJList(jList2);
         
         refreshProjectsList();
+        cellListener();
         this.addWindowListener(new WindowAdapter(){
                 @Override
                 public void windowClosing(WindowEvent we){
@@ -58,22 +60,22 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     
     //Methods
     public Project getSelectProject() { 
-        if (SelectedProject == null) {
+        if (currentProject == null) {
             setSelectedProject();
         }
         
-        return SelectedProject;
+        return currentProject;
     }
     
     public void setSelectedProject (Project project) { 
-        SelectedProject = project; 
+        currentProject = project; 
     }
     
     public void setSelectedProject() { 
         String projectTitle = (String) jListProjects.getSelectedValue();
         
         if (projectTitle != null && !projectTitle.isEmpty()) {
-            SelectedProject = Data.getProjectByTitle(projectTitle);
+            currentProject = Data.getProjectByTitle(projectTitle);
         }
     }
     
@@ -159,12 +161,12 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //        if (projectTitle != null && !projectTitle.isEmpty())
 //        {
 //            //Get the Project object for the select elements
-//            Project selectedProject = Data.getProjectByTitle(projectTitle);
+//            Project currentProject = Data.getProjectByTitle(projectTitle);
 //
 //            //If a project object was returned
-//            if (selectedProject != null){
+//            if (currentProject != null){
 //                //Get Tasks LinkedList for the selected project
-//                LinkedList<Task> tasks = Data.getProjectTasks(selectedProject.getID());
+//                LinkedList<Task> tasks = Data.getProjectTasks(currentProject.getID());
 //
 //                //Update Tasks List for selected Project
 //                if (tasks != null)
@@ -179,7 +181,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //                }
 //                else
 //                {
-//                    String empty[] = { "Project " + selectedProject.getTitle() + " has no tasks." };
+//                    String empty[] = { "Project " + currentProject.getTitle() + " has no tasks." };
 //                    //jListTasks.setListData(empty);
 //                }
 //            }
@@ -192,7 +194,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //    }
     
     
-    public void cellListener(){
+    private void cellListener(){
         Action action = new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -211,7 +213,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                     
                     int col=tcl.getColumn();
                     int row=tcl.getRow();
-                    int taskId = (int) jTableTasks.getValueAt(row, 0);
+                    int taskId = Integer.parseInt(jTableTasks.getValueAt(row, 0).toString());
                     String origOwnerEmail=jTableTasks.getValueAt(row, 4).toString();
                     switch(col){
                         case 0://ID
@@ -222,6 +224,9 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                             if(Data.getUserByEmail(origOwnerEmail)!= null)
                                 JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
                             else
+                                currentUser.setEmail(tcl.getNewValue().toString());
+                                currentProject.getTaskByID(taskId).setOwner(tcl.getNewValue().toString());
+                                        
                                 //currentUser.updateTaskOwner(tcl.getOldValue().toString(), tcl.getNewValue().toString());
                                 //currentUser.updateTaskOwnerAndUpdateUserList(tcl.getOldValue().toString(), tcl.getNewValue().toString(), taskId);
                             break;
@@ -597,12 +602,14 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         String projectTitle = (String) jListProjects.getSelectedValue();
         
         //Get project object from title
-        SelectedProject = Data.getProjectByTitle(projectTitle);
-                
-        for (Task task : SelectedProject.getTasks())
-        {
-                addTaskTableRow(task);
+        currentProject = Data.getProjectByTitle(projectTitle);
+        
+        if (currentProject != null) {
+            for (Task task : currentProject.getTasks()) {
+                    addTaskTableRow(task);
+            }
         }
+        
     }//GEN-LAST:event_jListProjectsValueChanged
 
     /**

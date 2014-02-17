@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
  
 //Good job alex!
 
@@ -84,8 +85,9 @@ public class Serializer<Type> {
     
     @SuppressWarnings("unchecked")
     public LinkedList<Type> readObject() {
+        File file = new File(dirPath,fileName);
         try {
-            File file = new File(dirPath,fileName);
+            
             ObjectInputStream ois = null;
             LinkedList<Type> message = null;
             
@@ -104,10 +106,12 @@ public class Serializer<Type> {
             else {
                 return null;
             }
-        } catch (IOException ex) {
+        }  catch (IOException ex) {
             Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "The file " + file.toString() + " has objects that are not recognized.  Consider deleting.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         return null;
