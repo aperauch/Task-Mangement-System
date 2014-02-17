@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import taskmgt.Data;
 
-public class Task implements Serializable{
+public class Task implements Serializable, Comparable<Task> {
    //Attributes
     private int id;
     private String title;
@@ -74,6 +74,7 @@ public class Task implements Serializable{
     public void setStartDate(Date startDate){this.startDate=startDate;}
     public void setEndDate(Date endDate){this.endDate=endDate;}
     public void setStatus(State status){this.status=status;}
+    
     private void setID(){
         int max=0;
         for(Task task:Data.taskList){
@@ -82,6 +83,13 @@ public class Task implements Serializable{
         }
         this.id=max+1;
     }
+    
+    @Override
+    public int compareTo(Task t)
+    {
+        return this.id - t.getID();
+    }
+    
     public String[] toStringArray() {
         ArrayList<String> attrs = new ArrayList<>();
 
