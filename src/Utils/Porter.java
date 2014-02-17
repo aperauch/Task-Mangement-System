@@ -133,7 +133,7 @@ public class Porter {
                 try {
                     writer.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -206,7 +206,7 @@ public class Porter {
                 try {
                     reader.close();
                 } catch (IOException ex) {
-                Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
