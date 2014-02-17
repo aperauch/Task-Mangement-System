@@ -15,15 +15,18 @@ public class Data {
     public static HashSet<User> userList = new HashSet();
     public static HashSet<Project> projectList = new HashSet();
     public static HashSet<Task> taskList = new HashSet();
+    
     //Serializer
     private final static Serializer<User> userSerializer=new Serializer(".//Data","User.ser");
     private final static Serializer<Project> projectSerializer=new Serializer(".//Data","Project.ser");
     private final static Serializer<Task> taskSerializer=new Serializer(".//Data","Task.ser");
+    
     //Data Manipulation
     //Pull List from File
     public static void pullUser(){ userList=userSerializer.readObject();}
     public static void pullProject(){ projectList=projectSerializer.readObject();}
     public static void pullTask(){ taskList=taskSerializer.readObject();}
+    
     //Push List to File
     public static void pushUser(){ userSerializer.writeObject(userList);}
     public static void pushProject(){ projectSerializer.writeObject(projectList);}
@@ -35,6 +38,7 @@ public class Data {
         pullProject();
         pullTask();              
     }
+    
     public static void checkforEmptyLists(){
         if(userList == null) {
             userList = new HashSet<>();
