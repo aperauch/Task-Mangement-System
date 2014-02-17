@@ -109,11 +109,11 @@ public class Porter {
             for (Project project:Data.projectList)
                 dataList.add(project.toStringArray());
             }
-            else if (type == ModelType.Task)
-            {
-                for (Task task:Data.taskList)
-                    dataList.add(task.toStringArray());
-            }
+//            else if (type == ModelType.Task)
+//            {
+//                for (Task task:Data.taskList)
+//                    dataList.add(task.toStringArray());
+//            }
             else
             {
                 for (User user:Data.userList)
@@ -163,14 +163,14 @@ public class Porter {
                     Data.projectList.add(p);
                 }
             }
-            else if (type == ModelType.Task)
-            {
-                for (String[] strArr:dataList)
-                {
-                    Task t = new Task(strArr);
-                    Data.taskList.add(t);
-                }
-            }
+//            else if (type == ModelType.Task)
+//            {
+//                for (String[] strArr:dataList)
+//                {
+//                    Task t = new Task(strArr);
+//                    Data.taskList.add(t);
+//                }
+//            }
             else
             {
                 for (String[] strArr:dataList)

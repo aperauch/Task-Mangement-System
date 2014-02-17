@@ -431,10 +431,12 @@ public final class AdminGUI extends javax.swing.JFrame{
                 }
             }
             else{
-                for(Task task:Data.taskList){
-                    if(task.getOwner().equals(email1)){
-                        if(task.getStatus()!=State.Archived)
-                            task.setOwner(email2);
+                for (Project project : Data.projectList) {
+                    for(Task task : project.getTasks()){
+                        if(task.getOwner().equals(email1)){
+                            if(task.getStatus()!=State.Archived)
+                                task.setOwner(email2);
+                        }
                     }
                 }
             }

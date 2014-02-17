@@ -54,23 +54,24 @@ public class Administrator extends User implements Serializable{
     
     //update Member Info
     public void updateName(String email, String name){
-        User newUser=Data.getUser(email);
+        User newUser=Data.getUserByEmail(email);
         newUser.setName(name);
         Data.userList.add(newUser);
     }
     
     public void updateEmail(String oldEmail, String newEmail){
-        User newUser=Data.getUser(oldEmail);
+        User newUser = Data.getUserByEmail(oldEmail);
+        
         for(Project project:Data.projectList){
-            if(project.getOwner().toLowerCase().equals(oldEmail)){
+            if(project.getOwner().equalsIgnoreCase(oldEmail)){
                 project.setOwner(newEmail);
+                
+                for (Task task:project.getTasks())
+                    if (task.getOwner().equalsIgnoreCase(oldEmail))
+                        task.setOwner(newEmail);
             }
         }
-        for(Task task:Data.taskList){
-            if(task.getOwner().toLowerCase().equals(oldEmail)){
-                task.setOwner(newEmail);
-            }
-        }
+        
         Data.userList.remove(newUser);
         newUser.setEmail(newEmail);
         Data.userList.add(newUser);
@@ -78,13 +79,13 @@ public class Administrator extends User implements Serializable{
     
     public boolean changeMemberType(String email,boolean leaderFlag){
         if(leaderFlag){
-            TeamMember member=(TeamMember) Data.getUser(email);
+            TeamMember member=(TeamMember) Data.getUserByEmail(email);
             Data.userList.remove(member);
             TeamLeader leader=new TeamLeader(member);
             Data.userList.add(leader);
         }
         else{
-            TeamLeader leader=(TeamLeader) Data.getUser(email);
+            TeamLeader leader = (TeamLeader) Data.getUserByEmail(email);
             if(leader.getProjects().isEmpty()){
                 Data.userList.remove(leader);
                 TeamMember member=new TeamMember(leader);

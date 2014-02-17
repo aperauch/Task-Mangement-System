@@ -298,7 +298,7 @@ public class EditProjectGUI extends javax.swing.JDialog {
                                 emails.add((String) jList2.getModel().getElementAt(i));
                             }
                             for(String s : emails ){
-                                userEmail = Data.getUser(s);
+                                userEmail = Data.getUserByEmail(s);
                                 proj.addMember(userEmail);
                             } 
                         }

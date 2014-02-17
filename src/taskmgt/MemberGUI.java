@@ -75,7 +75,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                     String email=jTable1.getValueAt(row, 0).toString();
                     switch(col){
                         case 0: 
-                            if(Data.getUser(email)!=null)
+                            if(Data.getUserByEmail(email)!=null)
                                 JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
                             else
                                 user.updateEmail(tcl.getOldValue().toString(), tcl.getNewValue().toString());
@@ -387,12 +387,12 @@ public final class MemberGUI extends javax.swing.JDialog {
                     String email=jTable1.getValueAt(rows[i], 0).toString();
                     boolean flag=jTable1.getValueAt(rows[i], 2).toString().equals("Leader");
                     if(flag){
-                        TeamLeader member=(TeamLeader)Data.getUser(email);
+                        TeamLeader member=(TeamLeader)Data.getUserByEmail(email);
                         member.setActive(false);
                         Data.userList.add(member);
                     }
                     else{
-                        TeamMember member=(TeamMember)Data.getUser(email);
+                        TeamMember member=(TeamMember)Data.getUserByEmail(email);
                         member.setActive(false);
                         Data.userList.add(member);                    
                     }
@@ -430,7 +430,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                     String email=jTable1.getValueAt(rows[i], 0).toString();
                     boolean flag=jTable1.getValueAt(rows[i], 2).toString().equals("Leader");
                     
-                    TeamMember member =(TeamMember)Data.getUser(email);
+                    TeamMember member =(TeamMember)Data.getUserByEmail(email);
                     System.out.println("This is a report for " + member.getName());
                            
                    //LinkedList<Project> pl = new LinkedList<Project>();

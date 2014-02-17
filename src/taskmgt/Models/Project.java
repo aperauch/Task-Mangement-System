@@ -1,6 +1,7 @@
 package taskmgt.Models;
 
 import java.io.Serializable;
+import java.lang.reflect.Member;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import taskmgt.Data;
 
-public class Project implements Serializable{
+public class Project implements Serializable, Comparable<Project>{
     //Attributes
     private int id;
     private String title;
@@ -55,6 +56,7 @@ public class Project implements Serializable{
     public State getStatus() { return this.status; }
     public ModelType getType() { return this.type; }
     public LinkedList<User> getMembers() { return this.members; }
+    public LinkedList<Task> getTasks() { return this.tasks; }
     
     //Set
     public void setTitle(String title){ this.title=title;}
@@ -63,9 +65,65 @@ public class Project implements Serializable{
     public void setEndDate(Date endDate){this.endDate=endDate;}
     public void setStatus(State status){this.status=status;}
     public void setMembers(LinkedList<User> members) { this.members = members; }
+    public void setTasks(LinkedList<Task> tasks) { this.tasks = tasks; }
     
     //Other methods
+    //Add to Collection
+    public void addTask(Task task){ 
+        if (task.getID() == 0)
+            task.setID(getNextTaskID());
+        
+        tasks.add(task); 
+    }
+    
     public void addMember(User user) { members.add(user); }
+    
+    //Remove from Collection
+    public void removeTask(Task task) { tasks.remove(task); }
+    public void removeMember(User user) { members.remove(user); }
+    
+    public int getNextTaskID()
+    {
+        int max = 0;
+        for(Task task:tasks){
+            if(task!=null)
+                max=task.getID()>=max?task.getID():max;
+        }
+        return max+1;
+    }
+    
+    public Task getTaskByID(int taskID){
+        for(Task task:tasks){
+            if(task.getID()==taskID){
+                return task;
+            }
+        }
+        return null;
+    }
+    
+//    public LinkedList<Task> getTaskByMember(TeamMember member){
+//        LinkedList<Task> taskList=new LinkedList();
+//        for(Task task:tasks){
+//            if(task.getOwner()).equals(member)
+//                taskList.add(task);
+//        }
+//        return taskList;
+//    }
+    
+    public LinkedList<Task> getTaskByMemberEmail(TeamMember member){
+        LinkedList<Task> taskList=new LinkedList();
+        for(Task task:tasks){
+            if(task.getOwner().equalsIgnoreCase(member.getEmail()))
+                taskList.add(task);
+        }
+        return taskList;
+    }
+    
+    @Override
+    public int compareTo(Project p)
+    {
+        return this.title.compareTo(p.title);
+    }
     
     private void setID(){
         int max=0;
@@ -89,19 +147,5 @@ public class Project implements Serializable{
 
         return attrs.toArray(new String[attrs.size()]);
     }
-    
-    //public void setTasks(LinkedList<Task> tasks) { this.tasks = tasks; }
-    
-//    //Add to Collection
-//    public void addTask(Task task)
-//    {
-//        tasks.add(task);
-//    }
-//    
-//    //Remove from Collection
-//    public void removeTask(Task task)
-//    {
-//        tasks.remove(task);
-//    }
-    
+           
 }

@@ -28,10 +28,10 @@ public class Task implements Serializable, Comparable<Task> {
     private Date startDate;
     private Date endDate;
     private State status;
-    private ModelType type = ModelType.Task;
-    private SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
+    private final ModelType type = ModelType.Task;
+    private final SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
     
-    //Constructor
+    //Constructors
     public Task(String title,String owner,int projectID, Date startDate, Date endDate){
         this.title=title;
         this.owner=owner;
@@ -39,7 +39,16 @@ public class Task implements Serializable, Comparable<Task> {
         this.startDate=startDate;
         this.endDate=endDate;
         this.status=State.New;
-        this.setID();
+    }
+    
+    public Task(int id, String title,String owner,int projectID, Date startDate, Date endDate){
+        this.title=title;
+        this.owner=owner;
+        this.projectID=projectID;
+        this.startDate=startDate;
+        this.endDate=endDate;
+        this.status=State.New;
+        this.id = id;
     }
 
     public Task(String[] strArr) {
@@ -67,22 +76,15 @@ public class Task implements Serializable, Comparable<Task> {
     public Date getEndDate() { return this.endDate; }
     public State getStatus() { return this.status; }
     public ModelType getType() { return this.type; }
+    
     //Set
+    public void setID(int nextTaskID) { this.id = nextTaskID; }
     public void setTitle(String title){ this.title=title;}
     public void setOwner(String owner){this.owner=owner;}
     public void setProjectID(int projectID){this.projectID=projectID;}
     public void setStartDate(Date startDate){this.startDate=startDate;}
     public void setEndDate(Date endDate){this.endDate=endDate;}
-    public void setStatus(State status){this.status=status;}
-    
-    private void setID(){
-        int max=0;
-        for(Task task:Data.taskList){
-            if(task!=null)
-                max=task.getID()>=max?task.getID():max;
-        }
-        this.id=max+1;
-    }
+    public void setStatus(State status){this.status=status;}        
     
     @Override
     public int compareTo(Task t)
@@ -116,4 +118,5 @@ public class Task implements Serializable, Comparable<Task> {
 
        return attrs.toArray(new String[attrs.size()]);
     }
+    
 }

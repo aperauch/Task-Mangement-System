@@ -219,11 +219,11 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                         case 2://Start Date
                         case 3://End Date
                         case 4://Owner Email
-                            if(Data.getUser(origOwnerEmail)!= null)
+                            if(Data.getUserByEmail(origOwnerEmail)!= null)
                                 JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
                             else
                                 //currentUser.updateTaskOwner(tcl.getOldValue().toString(), tcl.getNewValue().toString());
-                                currentUser.updateTaskOwner(tcl.getOldValue().toString(), tcl.getNewValue().toString(), taskId);
+                                //currentUser.updateTaskOwnerAndUpdateUserList(tcl.getOldValue().toString(), tcl.getNewValue().toString(), taskId);
                             break;
                         case 5://Status
                         case 99://Title
@@ -588,7 +588,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         }        
         
     }//GEN-LAST:event_setStatusBtnActionPerformed
-
+    
     private void jListProjectsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListProjectsValueChanged
         //First, clear the Task jTable
         clearTaskTable();
@@ -597,22 +597,12 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         String projectTitle = (String) jListProjects.getSelectedValue();
         
         //Get project object from title
-        Project project = Data.getProjectByTitle(projectTitle);
-        
-        //Get project ID
-        int projectID = project.getID();
-        
-        //For each task in tasks list that has the same project id, 
-        //add task to tasks jTable
-        for (Task task : Data.taskList)
+        SelectedProject = Data.getProjectByTitle(projectTitle);
+                
+        for (Task task : SelectedProject.getTasks())
         {
-            if (task.getProjectID() == projectID)
-            {
                 addTaskTableRow(task);
-            }
         }
-        
-        
     }//GEN-LAST:event_jListProjectsValueChanged
 
     /**

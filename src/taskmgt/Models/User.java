@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class User implements Serializable {
+public abstract class User implements Serializable, Comparable<User> {
     //Properties
     protected String name;
     protected String email;
@@ -52,7 +52,13 @@ public abstract class User implements Serializable {
         }
         return false;
     }
-
+    
+    @Override
+    public int compareTo(User u)
+    {
+        return this.email.compareToIgnoreCase(u.email);
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

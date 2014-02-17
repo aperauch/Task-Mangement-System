@@ -9,7 +9,7 @@ import taskmgt.Data;
  *
  * @author Ray
  */
-public class TeamMember extends User implements Serializable{
+public class TeamMember extends User implements Serializable {
     //Attribute
     private final ModelType type = ModelType.TeamMember;
     
@@ -52,21 +52,22 @@ public class TeamMember extends User implements Serializable{
     
     public LinkedList<Task> getTasks(){
         LinkedList<Task> taskList=new LinkedList();
-        for(Task task:Data.taskList){
-            if(task.getOwner().toLowerCase().equals(this.email.toLowerCase()))
-                taskList.add(task);
+        for(Project project : Data.projectList){
+            for (Task task : project.getTasks())
+                if(task.getOwner().toLowerCase().equals(this.email.toLowerCase()))
+                    taskList.add(task);
         }
         return taskList;
     }
     
-    public LinkedList<Task> getAssignedTasks(int projectID){
-        LinkedList<Task> taskList=new LinkedList();
-        for(Task task:Data.taskList){
-            if(task.getOwner().toLowerCase().equals(this.email.toLowerCase())&&task.getProjectID()==projectID)
-                taskList.add(task);
-        }        
-        return taskList;
-    }
+//    public LinkedList<Task> getAssignedTasks(int projectID){
+//        LinkedList<Task> taskList=new LinkedList();
+//        for(Task task:Data.taskList){
+//            if(task.getOwner().toLowerCase().equals(this.email.toLowerCase())&&task.getProjectID()==projectID)
+//                taskList.add(task);
+//        }        
+//        return taskList;
+//    }
     
     @Override
     public String[] toStringArray() {

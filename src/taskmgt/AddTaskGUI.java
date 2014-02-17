@@ -258,7 +258,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             Task task = new Task(title, ownerEmail, projectID, start, end);
 
             //Push task onto task list for the project
-            Data.taskList.add(task);
+            project.addTask(task);
 
             //Update parent frame with new tasks
             parentFrame.addTaskTableRow(task);
