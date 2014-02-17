@@ -137,7 +137,7 @@ public final class MemberGUI extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonAddMember = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -147,7 +147,7 @@ public final class MemberGUI extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jButtonSearchMember = new javax.swing.JButton();
         jButtonMemberReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -176,10 +176,10 @@ public final class MemberGUI extends javax.swing.JDialog {
 
         jLabel3.setText("Create Member");
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAddMember.setText("Add");
+        jButtonAddMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAddMemberActionPerformed(evt);
             }
         });
 
@@ -208,7 +208,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                             .addComponent(jCheckBox1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(98, 98, 98)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -226,7 +226,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonAddMember)
                 .addContainerGap())
         );
 
@@ -263,10 +263,10 @@ public final class MemberGUI extends javax.swing.JDialog {
 
         jLabel6.setText("Search Member");
 
-        jButton2.setText("Search");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSearchMember.setText("Search");
+        jButtonSearchMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonSearchMemberActionPerformed(evt);
             }
         });
 
@@ -290,7 +290,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                             .addComponent(jTextField3)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(100, 100, 100)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonSearchMember)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -306,7 +306,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                     .addComponent(jLabel5)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jButtonSearchMember)
                 .addContainerGap())
         );
 
@@ -360,7 +360,7 @@ public final class MemberGUI extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMemberActionPerformed
         String name=jTextField1.getText().toString();
         String email=jTextField2.getText().toString();
         if(!Utilities.checkEmail(email)||!Utilities.isName(name)||name.isEmpty()||email.isEmpty()){
@@ -377,7 +377,7 @@ public final class MemberGUI extends javax.swing.JDialog {
             }
         }
         fillTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAddMemberActionPerformed
 
     private void jButtonDeleteMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteMemberActionPerformed
         if(jTable1.getRowCount()!=0){
@@ -406,7 +406,7 @@ public final class MemberGUI extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonSearchMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchMemberActionPerformed
         String name=jTextField4.getText().toString();
         String email=jTextField3.getText().toString();
         if(!Utilities.checkEmail(email)||!Utilities.isName(name)||name.isEmpty()||email.isEmpty()){
@@ -419,7 +419,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                     jTable1.setRowSelectionInterval(i, i);
             }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonSearchMemberActionPerformed
 
     private void jButtonMemberReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMemberReportActionPerformed
     if(jTable1.getRowCount()!=0){
@@ -509,10 +509,10 @@ public final class MemberGUI extends javax.swing.JDialog {
     //User define
     private final Administrator user;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAddMember;
     private javax.swing.JButton jButtonDeleteMember;
     private javax.swing.JButton jButtonMemberReport;
+    private javax.swing.JButton jButtonSearchMember;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
