@@ -2,7 +2,11 @@ package taskmgt;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -23,6 +27,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     
     private Project currentProject;
     private static boolean jListListenerFlag = false;
+    private final SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
     
     
     /**
@@ -216,33 +221,38 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                     int taskId = Integer.parseInt(jTableTasks.getValueAt(row, 0).toString());
                     String origOwnerEmail=jTableTasks.getValueAt(row, 4).toString();
                     switch(col){
-                        case 0://ID
+                        case 0://ID - Non-editable
                         case 1://Title
+                            currentProject.getTaskByID(taskId).setTitle(tcl.getNewValue().toString());
                         case 2://Start Date
+                            try {
+                                currentProject.getTaskByID(taskId).setStartDate(simpleDate.parse(tcl.getNewValue().toString()));
+                            } catch (ParseException ex) {
+                                JOptionPane.showMessageDialog(null,"Inccrrect date format!\nUse MM/dd/yyyy","Warning",JOptionPane.WARNING_MESSAGE);
+                            }
                         case 3://End Date
+                            try {
+                                currentProject.getTaskByID(taskId).setEndDate(simpleDate.parse(tcl.getNewValue().toString()));
+                            } catch (ParseException ex) {
+                                JOptionPane.showMessageDialog(null,"Inccrrect date format!\nUse MM/dd/yyyy","Warning",JOptionPane.WARNING_MESSAGE);
+                            }
                         case 4://Owner Email
-                            if(Data.getUserByEmail(origOwnerEmail)!= null)
-                                JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
-                            else
-                                currentUser.setEmail(tcl.getNewValue().toString());
                                 currentProject.getTaskByID(taskId).setOwner(tcl.getNewValue().toString());
-                                        
-                                //currentUser.updateTaskOwner(tcl.getOldValue().toString(), tcl.getNewValue().toString());
-                                //currentUser.updateTaskOwnerAndUpdateUserList(tcl.getOldValue().toString(), tcl.getNewValue().toString(), taskId);
                             break;
                         case 5://Status
-                        case 99://Title
-                            //user.updateName(origOwnerEmail, tcl.getNewValue().toString());
-                            break;
-                        case 98:
-                            if(tcl.getOldValue().toString().equals("Member")&&tcl.getNewValue().toString().equals("Leader")){
-                                //user.changeMemberType(origOwnerEmail, true);
-                            }
-                            else if(tcl.getOldValue().toString().equals("Leader")&&tcl.getNewValue().toString().equals("Member")){
-                                //if(!user.changeMemberType(origOwnerEmail, false))
-                                    JOptionPane.showMessageDialog(null,"This leader is currently in charge of a project!","Warning",JOptionPane.WARNING_MESSAGE);
-                            }
-                            break;
+                            String state = tcl.getNewValue().toString();
+                            if (state.equalsIgnoreCase(State.Completed.name()))
+                                currentProject.getTaskByID(taskId).setStatus(State.Completed);
+                            else if (state.equalsIgnoreCase(State.New.name()))
+                                currentProject.getTaskByID(taskId).setStatus(State.New);
+                            else if (state.equalsIgnoreCase(State.Pending.name()))
+                                currentProject.getTaskByID(taskId).setStatus(State.Pending);
+                            else if (state.equalsIgnoreCase(State.Rejected.name()))
+                                currentProject.getTaskByID(taskId).setStatus(State.Rejected);
+                            else
+                                JOptionPane.showMessageDialog(null,"Please pick a valid status!"
+                                        + "New\nCompleted\nPending\nRejected","Warning",JOptionPane.WARNING_MESSAGE);
+                            break;                        
                     }
                 }
                     //fillTable();

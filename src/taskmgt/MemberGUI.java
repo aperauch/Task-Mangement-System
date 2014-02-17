@@ -35,14 +35,17 @@ public final class MemberGUI extends javax.swing.JDialog {
     }
     //Fill Whole Table
     public void fillTable(){
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        tableModel.getDataVector().removeAllElements();
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        //tableModel.getDataVector().removeAllElements();
+        tableModel.setRowCount(0);
         for(User member:Data.userList){
-            if(member instanceof Administrator){}
-            else if(member.checkActive()){
+            if(!(member instanceof Administrator) && member.checkActive()){
                 fillTableRow(member);
             }
         }
+        
+        jTable1.setModel(tableModel);
     }
     //Initial Table
     public void initialTable(){
@@ -246,6 +249,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -381,25 +385,28 @@ public final class MemberGUI extends javax.swing.JDialog {
 
     private void jButtonDeleteMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteMemberActionPerformed
         if(jTable1.getRowCount()!=0){
-            int rows[]=jTable1.getSelectedRows();
-            if(rows.length>0){
-                for(int i=0;i<rows.length;i++){
-                    String email=jTable1.getValueAt(rows[i], 0).toString();
-                    boolean flag=jTable1.getValueAt(rows[i], 2).toString().equals("Leader");
-                    if(flag){
-                        TeamLeader member=(TeamLeader)Data.getUserByEmail(email);
-                        member.setActive(false);
-                        Data.userList.add(member);
-                    }
-                    else{
-                        TeamMember member=(TeamMember)Data.getUserByEmail(email);
-                        member.setActive(false);
-                        Data.userList.add(member);                    
-                    }
+            int row = jTable1.getSelectedRow();
+            if (row >= 0)
+            {                 
+                String email=jTable1.getValueAt(row, 0).toString();
+                boolean flag=jTable1.getValueAt(row, 2).toString().equals("Leader");
+                if(flag){
+                    TeamLeader member = (TeamLeader)Data.getUserByEmail(email);
+                    member.setActive(false);
+                    //Data.userList.remove(member);
+                    //Data.userList.add(member);
                 }
-                fillTable();
+                else{
+                    TeamMember member=(TeamMember)Data.getUserByEmail(email);
+                    member.setActive(false);
+                    //Data.userList.remove(member);
+                    //Data.userList.add(member);                    
+                }
             }
+            
         }
+
+        fillTable();
     }//GEN-LAST:event_jButtonDeleteMemberActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -529,4 +536,5 @@ public final class MemberGUI extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
 }
