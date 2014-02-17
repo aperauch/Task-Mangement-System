@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
  
+//Good job alex!
+
 public class Serializer<Type> {
     private final String fileName;
     private final String dirPath;
