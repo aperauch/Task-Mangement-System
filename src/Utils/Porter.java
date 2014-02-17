@@ -99,7 +99,7 @@ public class Porter {
         try {
             List<String[]> dataList = new ArrayList<>();
             
-            //Load the data into the HashSet lists.
+            //Load the data into the LinkedList lists.
             Data.Initialize();
             
             writer = new CSVWriter(new FileWriter(file));

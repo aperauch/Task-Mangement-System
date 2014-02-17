@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +30,7 @@ public final class AdminGUI extends javax.swing.JFrame{
     //User Define Methods
     private void loadLeader(JComboBox comboBox){
         comboBox.removeAllItems();
-        HashSet<TeamLeader> leaders=Data.getLeaders();
+        LinkedList<TeamLeader> leaders=Data.getLeaders();
         for(TeamLeader leader:leaders){
             if(leader.checkActive()){
                 String item=leader.getName()+", "+leader.getEmail();
@@ -41,7 +41,7 @@ public final class AdminGUI extends javax.swing.JFrame{
     
     private void loadMember(JComboBox comboBox){
         comboBox.removeAllItems();
-        HashSet<TeamMember> members=Data.getMembers();
+        LinkedList<TeamMember> members=Data.getMembers();
         for(TeamMember member:members){
             if(member.checkActive()){
                 String item=member.getName()+", "+member.getEmail();

@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
  
@@ -67,7 +67,7 @@ public class Serializer<Type> {
         }
     }
     
-    public void writeObject(HashSet<Type> message) {
+    public void writeObject(LinkedList<Type> message) {
         File file = new File(dirPath,fileName);
         if (file.isFile() == false) { return;}
         try {
@@ -83,11 +83,11 @@ public class Serializer<Type> {
     }
     
     @SuppressWarnings("unchecked")
-    public HashSet<Type> readObject() {
+    public LinkedList<Type> readObject() {
         try {
             File file = new File(dirPath,fileName);
             ObjectInputStream ois = null;
-            HashSet<Type> message = null;
+            LinkedList<Type> message = null;
             
             if(!file.exists())
                 file.createNewFile();
@@ -97,10 +97,10 @@ public class Serializer<Type> {
             if (fis.available() > 0)
             {
                 ois = new ObjectInputStream(fis);                
-                message = (HashSet<Type>)ois.readObject();                
+                message = (LinkedList<Type>)ois.readObject();                
                 
                 return message;
-            } 
+            }  
             else {
                 return null;
             }
