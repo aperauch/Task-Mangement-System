@@ -7,6 +7,8 @@ import java.util.Date;
 import taskmgt.Models.*;
 import java.util.LinkedList;
 
+//Good Job Alex!
+
 public class Data {
     //Properties
     private static User CurrentUser;
