@@ -12,16 +12,10 @@ public class Data {
     private static User CurrentUser;
     
     //Lists
-<<<<<<< HEAD
-    public static HashSet<User> userList = new HashSet();
-    public static HashSet<Project> projectList = new HashSet();
-    public static HashSet<Task> taskList = new HashSet();
-    
-=======
     public static LinkedList<User> userList = new LinkedList();
     public static LinkedList<Project> projectList = new LinkedList();
     public static LinkedList<Task> taskList = new LinkedList();
->>>>>>> 857dcea8fdc4d4c08583f1a0c09cff8950d81f2c
+
     //Serializer
     private final static Serializer<User> userSerializer=new Serializer(".//Data","User.ser");
     private final static Serializer<Project> projectSerializer=new Serializer(".//Data","Project.ser");
