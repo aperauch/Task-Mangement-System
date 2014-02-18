@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.*;
+import taskmgt.Models.ModelType;
 import static taskmgt.Models.ModelType.TeamLeader;
 import taskmgt.Models.Project;
 import taskmgt.Models.Task;
@@ -119,7 +120,8 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         if (Data.projectList.size() > 0) {           
             for(Project project:Data.projectList){
                 if(project.getStatus() != State.Archived){
-                   jListModel.addElement(project.getTitle());
+                    if (Data.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner()))
+                        jListModel.addElement(project.getTitle());
                 }
 
             }
@@ -487,8 +489,12 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateProjectActionPerformed
-        EditProjectGUI createProjectForm=new EditProjectGUI(this,true,"create");
-        createProjectForm.show();
+        if(Data.getCurrentUser().getType() == ModelType.TeamLeader) {
+            EditProjectGUI createProjectForm=new EditProjectGUI(this,true,"create");
+            createProjectForm.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
+        }
     }//GEN-LAST:event_ButtonCreateProjectActionPerformed
 
     private void ButtonAddTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddTaskActionPerformed
@@ -508,11 +514,14 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        if(Data.getCurrentUser().getType() != ModelType.TeamLeader) {
+            JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
+        }
         if(jListProjects.isSelectionEmpty()){
             JOptionPane.showMessageDialog(null, "Please select a project to edit.");
         }
         else{ 
-           EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
+            EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
             editProjectForm.setVisible(true);
         }
         
