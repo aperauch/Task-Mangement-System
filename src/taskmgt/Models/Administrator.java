@@ -33,6 +33,7 @@ public class Administrator extends User implements Serializable{
     public boolean createLeader(String name, String email){
         TeamLeader leader=new TeamLeader(name, email);
         if(Data.userList.contains(leader)){
+            leader.active = true;
             return false;
         }
         else{
@@ -44,6 +45,7 @@ public class Administrator extends User implements Serializable{
     public boolean createMember(String name, String email){  
         TeamMember member=new TeamMember(name, email);
         if(Data.userList.contains(member)){
+            member.active = true;
             return false;
         }
         else{

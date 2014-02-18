@@ -372,12 +372,12 @@ public final class MemberGUI extends javax.swing.JDialog {
         }
         else if(jCheckBox1.isSelected()){
             if(!user.createLeader(name, email)){
-                JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Reactivating member " + name + "!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
         else{
             if(!user.createMember(name, email)){
-                JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Reactivating member " + name + "!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
         fillTable();
