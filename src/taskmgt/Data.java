@@ -70,7 +70,7 @@ public class Data {
     
      public static void InitializeMember(String name,String email,boolean leader) {
         User member;
-         if(leader == true){
+         if(leader){
          member = new TeamLeader(name,email);
          }
          else{

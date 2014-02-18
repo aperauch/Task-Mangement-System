@@ -1,5 +1,6 @@
 package taskmgt;
 
+import java.awt.Color;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,7 @@ import taskmgt.Models.User;
  *
  * @author Ray
  */
-public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelectionListener {
+public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelectionListener {
 
     private Project currentProject;
     private static boolean jListListenerFlag = false;
@@ -29,16 +30,16 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
      */
     public ProjectTaskGUI() {
         initComponents();
-
         refreshProjectsList();
         cellListener();
     }
 
     public ProjectTaskGUI(final LoginGUI form) {
         initComponents();
-
+        initialTable();
         refreshProjectsList();
         if (Data.getCurrentUser() instanceof TeamLeader) {
+            ButtonAddTask.setText("Add Task");
             TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(5);
             JComboBox comboBox = new JComboBox();
             comboBox.addItem("New");
@@ -47,6 +48,9 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             comboBox.addItem("Completed");
             statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
         } else if (Data.getCurrentUser() instanceof TeamMember) {
+            ButtonCreateProject.setVisible(false);
+            jButton5.setVisible(false);
+            ButtonAddTask.setText("Request Task");
             TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(5);
             JComboBox comboBox = new JComboBox();
             comboBox.addItem("ToDo");
@@ -55,11 +59,12 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         }
 
         cellListener();
+        
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
                 form.setVisible(true);
-
+                form.clearTextField();
             }
         }
         );
@@ -70,7 +75,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         if (currentProject == null) {
             setSelectedProject();
         }
-
         return currentProject;
     }
 
@@ -86,25 +90,20 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         }
     }
 
-    //Initial Table -- METHOD NOT USED.
-//    public void initialTable(){
-//        //Inital table
-//        jTableTasks.setShowGrid(false);
-//        jTableTasks.setShowHorizontalLines(false);
-//        jTableTasks.setShowVerticalLines(false);
-//        jTableTasks.setGridColor(Color.BLUE);
-//        jTableTasks.getTableHeader().setReorderingAllowed(false);
-    //Add comboBox
-//        TableColumn thirdColumn = jTableTasks.getColumnModel().getColumn(2);
-//        JComboBox comboBox = new JComboBox();
-//        comboBox.addItem("Pending");
-//        comboBox.addItem("Completed");
-//        thirdColumn.setCellEditor(new DefaultCellEditor(comboBox));
-//    }
+
+    public void initialTable(){
+       //Inital table
+        jTableTasks.setShowGrid(false);
+        jTableTasks.setShowHorizontalLines(false);
+        jTableTasks.setShowVerticalLines(false);
+        jTableTasks.setGridColor(Color.BLUE);
+        jTableTasks.getTableHeader().setReorderingAllowed(false);
+    }
+    
     public void refreshProjectsList() {
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
-        if (Data.projectList.size() > 0) {
+        if (!Data.projectList.isEmpty()) {
             for (Project project : Data.projectList) {
                 if (project.getStatus() != State.Archive) {
                     if (Data.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
@@ -118,7 +117,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                         }
                     }
                 }
-
             }
             jListProjects.setModel(jListModel);
             jListProjects.setEnabled(true);
@@ -126,6 +124,18 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             jListModel.addElement("<No Projects Yet>");
             jListProjects.setModel(jListModel);
             jListProjects.setEnabled(false);
+        }
+    }
+    private void refreshTasksList(){
+        clearTaskTable();
+        //Get selected project title
+        String projectTitle = (String) jListProjects.getSelectedValue();
+        //Get project object from title
+        currentProject = Data.getProjectByTitle(projectTitle);
+        if (currentProject != null) {
+            for (Task task : currentProject.getTasks()) {
+                addTaskTableRow(task);
+            }
         }
     }
 
@@ -150,10 +160,10 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                 TableCellListener tcl = (TableCellListener) e.getSource();
                 if (tcl.getNewValue().toString().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please fill in information!", "Warning", JOptionPane.WARNING_MESSAGE);
-                    //fillTable();
+                    refreshTasksList();
                 } else {
 
-                    TeamLeader currentUser = null;
+                    TeamLeader currentUser;
                     if ((Data.getCurrentUser()) instanceof TeamLeader) {
                         currentUser = (TeamLeader) Data.getCurrentUser();
                     } else {
@@ -263,7 +273,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 623, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 601, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -288,7 +298,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,24 +365,29 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonCreateProject)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButtonAddTask, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(186, 186, 186))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(41, 41, 41))
+                            .addComponent(ButtonCreateProject))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 50, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ButtonAddTask, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(284, 284, 284))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,7 +440,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-
         if (Data.getCurrentUser() instanceof TeamLeader) {
             try {
                 if (jListProjects.isSelectionEmpty()) {
@@ -441,24 +455,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             JOptionPane.showMessageDialog(null, "Only leaders can edit a project. :/");
 
         }
-
-
-   
-        if(!(Data.getCurrentUser() instanceof TeamLeader)) {
-            try {
-                if(jListProjects.isSelectionEmpty()){
-                    JOptionPane.showMessageDialog(null, "Please select a project to edit.");
-                }
-                EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
-                editProjectForm.setVisible(true);
-            }  
-            catch (NullPointerException e){
-                JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
-            } 
-        } else {
-                JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
-            }
-        
 
     }//GEN-LAST:event_jButton5ActionPerformed
 

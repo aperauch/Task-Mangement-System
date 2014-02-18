@@ -20,6 +20,7 @@ import taskmgt.Models.*;
 public class EditProjectGUI extends javax.swing.JDialog implements ActionListener {
 
     DefaultListModel listmodel = new DefaultListModel();
+    
     ProjectTaskGUI projectgui;
     Project proj;
     Date sDate = null;
@@ -64,8 +65,6 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         } else {
             projectgui = (ProjectTaskGUI) parent;
             setFormEdit();
-            setTextFields();
-
         }
     }
 
@@ -79,9 +78,8 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     private void setFormEdit() {
         this.setTitle("Edit Project");
         jButtonCreateProject.setText("Save");
-        refreshMemberList();
+        refreshEditMemberList();
         setTextFields();
-
         weAreCreating = false;
     }
 
@@ -110,16 +108,29 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     public void refreshMemberList() {
         //Update Member List
         DefaultListModel jListModel = new DefaultListModel();
-        for (User TeamMember : Data.getMembers()) {
-            jListModel.removeAllElements();
             for (User member : Data.getMembers()) {
-                if(member.checkActive())
+                if(member.checkActive()&&!member.equals(Data.getCurrentUser()))
                     jListModel.addElement(member.getEmail());
             }
-        }
         jList1.setModel(jListModel);
     }
-
+    
+    public void refreshEditMemberList(){
+        boolean flag=true;
+        DefaultListModel jListModel = new DefaultListModel();
+        LinkedList<User> projectMembers = projectgui.getSelectProject().getMembers();
+            for (User member : Data.getMembers()) {
+                for(User projMember:projectMembers){
+                    if(member.equals(projMember))
+                        flag=false;
+                }
+                if(member.checkActive()&&!member.equals(Data.getCurrentUser())&&flag){
+                        jListModel.addElement(member.getEmail());
+                }
+                flag=true;
+            }
+        jList1.setModel(jListModel);        
+    }
     /**
      * This method is called from within the constructor to initialize the
      * weAreCreating. WARNING: Do NOT modify this code. The content of this
@@ -213,45 +224,44 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonCreateProject)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jButtonRemoveMember))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(jLabel4)))
-                        .addGap(18, 18, 18)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButtonAddMember, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                                    .addComponent(jButtonRemoveMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel4))
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jTextField1)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(91, 91, 91)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -261,23 +271,23 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addComponent(jButtonAddMember)
                         .addGap(62, 62, 62)
-                        .addComponent(jButtonRemoveMember)
-                        .addGap(26, 26, 26))
+                        .addComponent(jButtonRemoveMember))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGap(7, 7, 7)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jButtonCreateProject)
                 .addContainerGap())
         );
@@ -286,17 +296,17 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateProjectActionPerformed
+       
         if (weAreCreating) {
             title = jTextField1.getText().toString();
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
-
+            
             for (Project p : Data.projectList) {
                 if (p.getTitle().equalsIgnoreCase(title)) {
                     JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-
             }
 
             if (!title.isEmpty()) {
@@ -337,8 +347,9 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             if (projectgui != null) {
                 projectgui.refreshProjectsList();
             }
-        } else if (!weAreCreating) {//functionality is when editprojGUI appears
-            List<String> emails;
+        }
+        //functionality is when editprojGUI appears
+        else if (!weAreCreating) {
 
             title = jTextField1.getText().toString();
             startDate = jTextField2.getText().toString();
@@ -353,40 +364,32 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
                         //editing project details
                         Project editProj = projectgui.getSelectProject();
+                        Data.projectList.remove(editProj);
                         editProj.setTitle(title);
                         editProj.setEndDate(eDate);
                         editProj.setStartDate(sDate);
                         LinkedList<User> projMems = editProj.getMembers();
-                        String sv = (String) jList1.getSelectedValue();
 
-                        User userEmail = null;
+                        User userEmail;
                         List<String> newemails = new ArrayList<>();
                         LinkedList<User> newMembers = new LinkedList<>();
 
                         //adding new members to list   
-                        
-                        
+   
                         if (clicked) {
-                            for (User memEmails : projMems) {
-                                if (!memEmails.getEmail().equalsIgnoreCase(sv)) {
-                                    if (jList2.getModel().getSize() > 0) {
-                                        for (int i = 0; i < jList2.getModel().getSize(); i++) {
-                                            newemails.add((String) jList2.getModel().getElementAt(i));
+                            if (jList2.getModel().getSize() > 0) {
+                                for (int i = 0; i < jList2.getModel().getSize(); i++) {
+                                    newemails.add((String) jList2.getModel().getElementAt(i));
                                             
-                                        }
-                                        for (String s : newemails) {
-                                            userEmail = Data.getUserByEmail(s);
-                                            newMembers.add(userEmail);
-                                            editProj.setMembers(newMembers);
-
-                                        }
-
-                                    }
                                 }
-
+                                for (String s : newemails) {
+                                    userEmail = Data.getUserByEmail(s);
+                                    newMembers.add(userEmail);
+                                    editProj.setMembers(newMembers);
+                                }
                             }
-
                         }
+                        Data.projectList.add(editProj);
                         this.dispose();
                     }
                 } catch (ParseException ex) {
@@ -410,53 +413,40 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
     private void jButtonAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMemberActionPerformed
         // TODO add your handling code here:
-if(!weAreCreating ){
-    clicked = true;
-    
-
-     List<String> usersToAdd = jList1.getSelectedValuesList();
+        if(!weAreCreating ){
+            clicked = true;
+            List<String> usersToAdd = jList1.getSelectedValuesList();
 
             for (String user : usersToAdd) {
                
                 DefaultListModel model1 = (DefaultListModel) jList1.getModel();
-                
                 DefaultListModel model2 = (DefaultListModel)jList2.getModel();
                 
-                    model2.addElement(user);
-                
+                model2.addElement(user);
                 
                 int selectedIndex = jList1.getSelectedIndex();
                 if(selectedIndex != -1){
-                    model1.remove(selectedIndex);
-                   
-                    
-                 
-                }
-                 
+                    model1.remove(selectedIndex);   
+                }                 
             }
-    
-    
-} else
-        if (jList1.isSelectionEmpty()) {
+        } 
+        else if (jList1.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a member to add to a project.");
-        } else {
+        } 
+        else {
             List<String> usersToAdd = jList1.getSelectedValuesList();
 
             for (String user : usersToAdd) {
                 if (!listmodel.contains(user)) {
                     listmodel.addElement(user);
-
                 }
             }
-
             jList2.setModel(listmodel);
-        
-    
+            
             DefaultListModel model = (DefaultListModel) jList1.getModel();
             int selectedIndex = jList1.getSelectedIndex();
             if (selectedIndex != -1) {
-                model.remove(selectedIndex);
-               
+                model.remove(selectedIndex);              
             }
         }
     }//GEN-LAST:event_jButtonAddMemberActionPerformed
@@ -477,24 +467,18 @@ if(!weAreCreating ){
 
         if (jList2.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a member to remove from the project.");
-        } else {
+        } 
+        else {
             List<String> usersToAdd = jList2.getSelectedValuesList();
-
+            DefaultListModel model1 = (DefaultListModel) jList1.getModel();
+            DefaultListModel model2 = (DefaultListModel)jList2.getModel();
             for (String user : usersToAdd) {
-                listmodel.removeElement(user);
+                model2.removeElement(user);
+                model1.add(0,user);
             }
-
-            jList2.setModel(listmodel);
-
-            DefaultListModel model = (DefaultListModel) jList2.getModel();
-            int selectedIndex = jList2.getSelectedIndex();
-            if (selectedIndex != -1) {
-                model.remove(selectedIndex);
-            }
-            
+            jList1.setModel(model1);
+            jList2.setModel(model2);
         }
-        jList1.setModel(listmodel);
-
         
     }//GEN-LAST:event_jButtonRemoveMemberActionPerformed
 

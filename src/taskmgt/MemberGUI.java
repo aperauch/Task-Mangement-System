@@ -36,7 +36,6 @@ public final class MemberGUI extends javax.swing.JDialog {
     //Fill Whole Table
     public void fillTable(){
         DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
-        //tableModel.getDataVector().removeAllElements();
         tableModel.setRowCount(0);
         for(User member:Data.userList){
             if(!(member instanceof Administrator) && member.checkActive()){

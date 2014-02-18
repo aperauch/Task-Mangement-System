@@ -134,7 +134,7 @@ public class LoginGUI extends javax.swing.JFrame {
         else{
             User user=Data.getUser(email,password);
             if(user==null){
-                JOptionPane.showMessageDialog(null,"We can't find your account. Please verify!","Warning",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Invalid User/Password. Please verify!","Warning",JOptionPane.WARNING_MESSAGE);
             }
             else if(user.getPassword().isEmpty()){
                 int indexOfUser=Data.userList.indexOf(user);

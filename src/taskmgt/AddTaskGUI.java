@@ -6,7 +6,6 @@
 
 package taskmgt;
 
-import java.awt.Component;
 import java.text.*;
 import java.util.*;
 import java.util.Locale;
@@ -64,14 +63,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
       
         //Populate Members list
-        if (Data.getCurrentUser() instanceof TeamLeader)
-        {
-            for(User user:Data.userList){
+        if (Data.getCurrentUser() instanceof TeamLeader){
+            LinkedList<User> projMembers=parentFrame.getSelectProject().getMembers();
+            for(User user:projMembers){
                 if(!(user instanceof Administrator) && user.checkActive()){
                     ownerComboBox.addItem(user.getEmail());
                 }
             }
-        } else {
+        } 
+        else {
             ownerComboBox.addItem(Data.getCurrentUser().getEmail());
         }
     }
@@ -87,14 +87,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
         
         //Populate Members list
-        if (Data.getCurrentUser() instanceof TeamLeader)
-        {
-            for(User user:Data.userList){
+        if (Data.getCurrentUser() instanceof TeamLeader){
+            LinkedList<User> projMembers=parentFrame.getSelectProject().getMembers();
+            for(User user:projMembers){
                 if(!(user instanceof Administrator) && user.checkActive()){
                     ownerComboBox.addItem(user.getEmail());
                 }
             }
-        } else {
+        } 
+        else {
             ownerComboBox.addItem(Data.getCurrentUser().getEmail());
         }
         
@@ -174,10 +175,10 @@ public class AddTaskGUI extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(47, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel3)
@@ -196,10 +197,10 @@ public class AddTaskGUI extends javax.swing.JDialog {
                             .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
+                        .addGap(117, 117, 117)
                         .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(88, 88, 88))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,9 +221,9 @@ public class AddTaskGUI extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(addTaskBtn)
-                .addGap(40, 40, 40))
+                .addGap(25, 25, 25))
         );
 
         pack();
