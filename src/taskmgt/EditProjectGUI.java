@@ -50,6 +50,12 @@ public class EditProjectGUI extends javax.swing.JDialog {
         super(parent, modal);
 
         initComponents();
+        
+        //Fill in dates
+        Date today = new Date();
+        jTextField2.setText(sdf.format(today));
+        jTextField3.setText(sdf.format(today));
+        
         if (flag.equals("create")) {
             projectgui = (ProjectTaskGUI) parent;
             setFormCreate();
@@ -294,7 +300,7 @@ public class EditProjectGUI extends javax.swing.JDialog {
                     if (!sdf.format(sDate).equals(startDate) || !sdf.format(eDate).equals(endDate)) {
                         JOptionPane.showMessageDialog(null, "Please enter a valid date.", "Invalid Date", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        Project proj = new Project(title, null, sDate, eDate);
+                        Project proj = new Project(title, Data.getCurrentUser().getEmail(), sDate, eDate);
                         Data.projectList.add(proj);
                         User userEmail = null;
                         List<String> emails = new ArrayList<>();

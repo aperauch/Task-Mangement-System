@@ -226,18 +226,21 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                         case 0://ID - Non-editable
                         case 1://Title
                             currentProject.getTaskByID(taskId).setTitle(tcl.getNewValue().toString());
+                            break;
                         case 2://Start Date
                             try {
                                 currentProject.getTaskByID(taskId).setStartDate(simpleDate.parse(tcl.getNewValue().toString()));
                             } catch (ParseException ex) {
                                 JOptionPane.showMessageDialog(null,"Inccrrect date format!\nUse MM/dd/yyyy","Warning",JOptionPane.WARNING_MESSAGE);
                             }
+                            break;
                         case 3://End Date
                             try {
                                 currentProject.getTaskByID(taskId).setEndDate(simpleDate.parse(tcl.getNewValue().toString()));
                             } catch (ParseException ex) {
                                 JOptionPane.showMessageDialog(null,"Inccrrect date format!\nUse MM/dd/yyyy","Warning",JOptionPane.WARNING_MESSAGE);
                             }
+                            break;
                         case 4://Owner Email
                                 currentProject.getTaskByID(taskId).setOwner(tcl.getNewValue().toString());
                             break;
@@ -489,7 +492,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateProjectActionPerformed
-        if(Data.getCurrentUser().getType() == ModelType.TeamLeader) {
+        if(Data.getCurrentUser() instanceof TeamLeader) {
             EditProjectGUI createProjectForm=new EditProjectGUI(this,true,"create");
             createProjectForm.setVisible(true);
         } else {
@@ -514,7 +517,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(Data.getCurrentUser().getType() != ModelType.TeamLeader) {
+        if(Data.getCurrentUser() instanceof TeamLeader) {
             JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
         }
         if(jListProjects.isSelectionEmpty()){
