@@ -508,13 +508,17 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(jListProjects.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(null, "Please select a project to edit.");
-        }
-        else{ 
+        
+            
+        
+        try { 
            EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
             editProjectForm.setVisible(true);
         }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
+        }
+        
         
     }//GEN-LAST:event_jButton5ActionPerformed
 

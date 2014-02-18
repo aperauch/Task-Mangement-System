@@ -126,6 +126,19 @@ public class Data {
         return null;
     }
     
+    public static User getUser(String email){
+            for(User user:userList){
+            if(user.getEmail().toLowerCase().equals(email.toLowerCase())){
+                 return user;
+            }
+              
+        }
+      return null;
+    }
+
+      
+
+    
     public static User getUserByEmail(String email){
         for(User user:userList){
             if(user.getEmail().toLowerCase().equals(email.toLowerCase())){

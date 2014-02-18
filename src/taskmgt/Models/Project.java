@@ -122,7 +122,13 @@ public class Project implements Serializable, Comparable<Project>{
     @Override
     public int compareTo(Project p)
     {
-        return this.title.compareTo(p.title);
+        return this.title.compareToIgnoreCase(p.title);
+    }
+    
+    
+    public int compareTo(String p)
+    {
+        return this.title.compareToIgnoreCase(p);
     }
     
     private void setID(){
