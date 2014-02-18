@@ -323,12 +323,8 @@ public class EditProjectGUI extends javax.swing.JDialog {
                     if (!sdf.format(sDate).equals(startDate) || !sdf.format(eDate).equals(endDate)) {
                         JOptionPane.showMessageDialog(null, "Please enter a valid date.", "Invalid Date", JOptionPane.WARNING_MESSAGE);
                     } else {
-<<<<<<< HEAD
 
                         proj = new Project(title, owner, sDate, eDate);
-=======
-                        Project proj = new Project(title, Data.getCurrentUser().getEmail(), sDate, eDate);
->>>>>>> ba592fe3b985f8976b6b8d57e19bf1a7bee476da
                         Data.projectList.add(proj);
 
                         User userEmail = null;

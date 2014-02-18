@@ -448,28 +448,21 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-<<<<<<< HEAD
-        
-            
-        
-        try { 
-           EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
-=======
-        if(Data.getCurrentUser() instanceof TeamLeader) {
-            JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
-        }
-        if(jListProjects.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(null, "Please select a project to edit.");
-        }
-        else{ 
-            EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
->>>>>>> ba592fe3b985f8976b6b8d57e19bf1a7bee476da
-            editProjectForm.setVisible(true);
-        }
-        catch (NullPointerException e){
-            JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
-        }
-        
+   
+        if(!(Data.getCurrentUser() instanceof TeamLeader)) {
+            try {
+                if(jListProjects.isSelectionEmpty()){
+                    JOptionPane.showMessageDialog(null, "Please select a project to edit.");
+                }
+                EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
+                editProjectForm.setVisible(true);
+            }  
+            catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
+            } 
+        } else {
+                JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
+            }
         
     }//GEN-LAST:event_jButton5ActionPerformed
     
