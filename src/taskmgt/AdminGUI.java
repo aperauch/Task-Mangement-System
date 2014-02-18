@@ -67,24 +67,23 @@ public final class AdminGUI extends javax.swing.JFrame{
     
     public void exportCSV() throws IOException {
         boolean projectsOK = Porter.exportCSV(".//Exports//Projects.csv", ModelType.Project);
-        boolean tasksOK = Porter.exportCSV(".//Exports//Tasks.csv", ModelType.Task);
+        //boolean tasksOK = Porter.exportCSV(".//Exports//Tasks.csv", ModelType.Task);
         boolean usersOK = Porter.exportCSV(".//Exports//Users.csv", ModelType.AllUsers);
         
-        if (projectsOK && tasksOK && usersOK) {
+        if (projectsOK && usersOK) {
             int answer = 
             JOptionPane.showConfirmDialog(null,"All data has been exported!  View directory?","Export Complete", JOptionPane.YES_NO_OPTION);
                 if (answer == 0){
                     System.out.print("Yes");
-                  Desktop desktop = Desktop.getDesktop();
-                        File dirToOpen = null;
-                        try {
-                            dirToOpen = new File(".//Exports//");
-                            desktop.open(dirToOpen);
-                        } catch (IllegalArgumentException iae) {
-                            System.out.println("Directory Not Found");
-                        }  
-
-                            }
+                    Desktop desktop = Desktop.getDesktop();
+                    File dirToOpen = null;
+                    try {
+                        dirToOpen = new File(".//Exports//");
+                        desktop.open(dirToOpen);
+                    } catch (IllegalArgumentException iae) {
+                        System.out.println("Directory Not Found");
+                    }  
+                }
             jPanelImport.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null,"Oops!  The Export did not work.  Does the Export directory exist?","Export Failed", JOptionPane.WARNING_MESSAGE);
@@ -425,7 +424,7 @@ public final class AdminGUI extends javax.swing.JFrame{
             if(this.transFlag){
                 for(Project project:Data.projectList){
                     if(project.getOwner().equals(email1)){
-                        if(project.getStatus()!=State.Archived)
+                        if(project.getStatus()!=State.Archive)
                             project.setOwner(email2);
                     }
                 }
@@ -434,7 +433,7 @@ public final class AdminGUI extends javax.swing.JFrame{
                 for (Project project : Data.projectList) {
                     for(Task task : project.getTasks()){
                         if(task.getOwner().equals(email1)){
-                            if(task.getStatus()!=State.Archived)
+                            if(task.getStatus()!=State.Archive)
                                 task.setOwner(email2);
                         }
                     }
