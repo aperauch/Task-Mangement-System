@@ -25,8 +25,8 @@ public class LoginGUI extends javax.swing.JFrame {
         initComponents();
         
         //Debug - Remove before turning in!
-        EmailField.setText("mike@mike.com");
-        PasswordField.setText("123456");
+//        EmailField.setText("mike@mike.com");
+//        PasswordField.setText("123456");
         
         //Set button focuse and add enter event
         ButtonLogin.requestFocusInWindow();

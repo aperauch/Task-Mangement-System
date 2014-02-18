@@ -20,34 +20,31 @@ import taskmgt.Models.TeamLeader;
 import taskmgt.Models.TeamMember;
 import taskmgt.Models.User;
 
-
 /**
  *
  * @author Ray
  */
 public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelectionListener {
-    
+
     private Project currentProject;
     private static boolean jListListenerFlag = false;
     private final SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
-    
-    
+
     /**
      * Creates new form Project
      */
     public ProjectTaskGUI() {
         initComponents();
-        
+
         refreshProjectsList();
         cellListener();
     }
-    
-    public ProjectTaskGUI(final LoginGUI form){
+
+    public ProjectTaskGUI(final LoginGUI form) {
         initComponents();
-        
+
         refreshProjectsList();
-        
-        
+
         if (Data.getCurrentUser() instanceof TeamLeader) {
             TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(5);
             JComboBox comboBox = new JComboBox();
@@ -63,39 +60,39 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             comboBox.addItem("Completed");
             statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
         }
-        
+
         cellListener();
-        this.addWindowListener(new WindowAdapter(){
-                @Override
-                public void windowClosing(WindowEvent we){
-                    form.setVisible(true);
-                   
-                }
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                form.setVisible(true);
+
             }
+        }
         );
     }
-    
+
     //Methods
-    public Project getSelectProject() { 
+    public Project getSelectProject() {
         if (currentProject == null) {
             setSelectedProject();
         }
-        
+
         return currentProject;
     }
-    
-    public void setSelectedProject (Project project) { 
-        currentProject = project; 
+
+    public void setSelectedProject(Project project) {
+        currentProject = project;
     }
-    
-    public void setSelectedProject() { 
+
+    public void setSelectedProject() {
         String projectTitle = (String) jListProjects.getSelectedValue();
-        
+
         if (projectTitle != null && !projectTitle.isEmpty()) {
             currentProject = Data.getProjectByTitle(projectTitle);
         }
     }
-    
+
     //Initial Table -- METHOD NOT USED.
 //    public void initialTable(){
 //        //Inital table
@@ -104,25 +101,22 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 //        jTableTasks.setShowVerticalLines(false);
 //        jTableTasks.setGridColor(Color.BLUE);
 //        jTableTasks.getTableHeader().setReorderingAllowed(false);
-        //Add comboBox
+    //Add comboBox
 //        TableColumn thirdColumn = jTableTasks.getColumnModel().getColumn(2);
 //        JComboBox comboBox = new JComboBox();
 //        comboBox.addItem("Pending");
 //        comboBox.addItem("Completed");
 //        thirdColumn.setCellEditor(new DefaultCellEditor(comboBox));
 //    }
-    
-    public void refreshProjectsList()
-    {
+    public void refreshProjectsList() {
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
-        if (Data.projectList.size() > 0) {           
-            for(Project project:Data.projectList){
-                if(project.getStatus() != State.Archive){
+        if (Data.projectList.size() > 0) {
+            for (Project project : Data.projectList) {
+                if (project.getStatus() != State.Archive) {
                     if (Data.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
                         jListModel.addElement(project.getTitle());
-                    }
-                    else {
+                    } else {
                         for (User member : project.getMembers()) {
                             if (Data.getCurrentUser().equals(member)) {
                                 jListModel.addElement(project.getTitle());
@@ -141,45 +135,43 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
             jListProjects.setEnabled(false);
         }
     }
-    
+
     public void clearTaskTable() {
         DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
-        
+
         model.setRowCount(0);
         jTableTasks.setModel(model);
     }
-    
-    public void addTaskTableRow(Task t)
-    {
+
+    public void addTaskTableRow(Task t) {
         DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
-        
+
         model.addRow(t.toTableRow());
         jTableTasks.setModel(model);
     }
-    
-    
-    private void cellListener(){
-        Action action = new AbstractAction(){
+
+    private void cellListener() {
+        Action action = new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e){
-                TableCellListener tcl = (TableCellListener)e.getSource();
-                if(tcl.getNewValue().toString().isEmpty()){
-                    JOptionPane.showMessageDialog(null,"Please fill in information!","Warning",JOptionPane.WARNING_MESSAGE);
+            public void actionPerformed(ActionEvent e) {
+                TableCellListener tcl = (TableCellListener) e.getSource();
+                if (tcl.getNewValue().toString().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in information!", "Warning", JOptionPane.WARNING_MESSAGE);
                     //fillTable();
-                }
-                else{
-                    
+                } else {
+
                     TeamLeader currentUser = null;
-                    if ((Data.getCurrentUser()) instanceof TeamLeader)
-                            currentUser = (TeamLeader) Data.getCurrentUser();
-                    else
-                        JOptionPane.showMessageDialog(null,"Only team leaders can edit tasks!","Warning",JOptionPane.WARNING_MESSAGE);
-                    
-                    int col=tcl.getColumn();
-                    int row=tcl.getRow();
+                    if ((Data.getCurrentUser()) instanceof TeamLeader) {
+                        currentUser = (TeamLeader) Data.getCurrentUser();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Only team leaders can edit tasks!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                    int col = tcl.getColumn();
+                    int row = tcl.getRow();
                     int taskId = Integer.parseInt(jTableTasks.getValueAt(row, 0).toString());
-                    String origOwnerEmail=jTableTasks.getValueAt(row, 4).toString();
-                    switch(col){
+                    String origOwnerEmail = jTableTasks.getValueAt(row, 4).toString();
+                    switch (col) {
                         case 0://ID - Non-editable
                         case 1://Title
                             currentProject.getTaskByID(taskId).setTitle(tcl.getNewValue().toString());
@@ -188,39 +180,40 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                             try {
                                 currentProject.getTaskByID(taskId).setStartDate(simpleDate.parse(tcl.getNewValue().toString()));
                             } catch (ParseException ex) {
-                                JOptionPane.showMessageDialog(null,"Inccrrect date format!\nUse MM/dd/yyyy","Warning",JOptionPane.WARNING_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Inccrrect date format!\nUse MM/dd/yyyy", "Warning", JOptionPane.WARNING_MESSAGE);
                             }
                             break;
                         case 3://End Date
                             try {
                                 currentProject.getTaskByID(taskId).setEndDate(simpleDate.parse(tcl.getNewValue().toString()));
                             } catch (ParseException ex) {
-                                JOptionPane.showMessageDialog(null,"Inccrrect date format!\nUse MM/dd/yyyy","Warning",JOptionPane.WARNING_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Inccrrect date format!\nUse MM/dd/yyyy", "Warning", JOptionPane.WARNING_MESSAGE);
                             }
                             break;
                         case 4://Owner Email
-                                currentProject.getTaskByID(taskId).setOwner(tcl.getNewValue().toString());
+                            currentProject.getTaskByID(taskId).setOwner(tcl.getNewValue().toString());
                             break;
                         case 5://Status
                             String state = tcl.getNewValue().toString();
-                            if (state.equalsIgnoreCase(State.Completed.name()))
+                            if (state.equalsIgnoreCase(State.Completed.name())) {
                                 currentProject.getTaskByID(taskId).setStatus(State.Completed);
-                            else if (state.equalsIgnoreCase(State.New.name()))
+                            } else if (state.equalsIgnoreCase(State.New.name())) {
                                 currentProject.getTaskByID(taskId).setStatus(State.New);
-                            else if (state.equalsIgnoreCase(State.ToDo.name()))
-                                currentProject.getTaskByID(taskId).setStatus(State.ToDo);                            
-                            else
-                                JOptionPane.showMessageDialog(null,"Please pick a valid status!"
-                                        + "New\nCompleted\nPending\nRejected","Warning",JOptionPane.WARNING_MESSAGE);
-                            break;                        
+                            } else if (state.equalsIgnoreCase(State.ToDo.name())) {
+                                currentProject.getTaskByID(taskId).setStatus(State.ToDo);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Please pick a valid status!"
+                                        + "New\nCompleted\nPending\nRejected", "Warning", JOptionPane.WARNING_MESSAGE);
+                            }
+                            break;
                     }
                 }
-                    //fillTable();
+                //fillTable();
             }
         };
         TableCellListener tcl = new TableCellListener(jTableTasks, action);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -418,13 +411,13 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        NotificationsGUI notifyForm=new NotificationsGUI(this,true);
+        NotificationsGUI notifyForm = new NotificationsGUI(this, true);
         notifyForm.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateProjectActionPerformed
-        if(Data.getCurrentUser() instanceof TeamLeader) {
-            EditProjectGUI createProjectForm=new EditProjectGUI(this,true,"create");
+        if (Data.getCurrentUser() instanceof TeamLeader) {
+            EditProjectGUI createProjectForm = new EditProjectGUI(this, true, "create");
             createProjectForm.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
@@ -432,63 +425,53 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     }//GEN-LAST:event_ButtonCreateProjectActionPerformed
 
     private void ButtonAddTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddTaskActionPerformed
-        if (jListProjects.getModel().getSize() <= 0)
-        {
+        if (jListProjects.getModel().getSize() <= 0) {
             JOptionPane.showMessageDialog(null, "Please create a project first.");
-        }
-        else if (jListProjects.isSelectionEmpty())
-        {
+        } else if (jListProjects.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a project to add a task to.");
-        }
-        else
-        {
-            AddTaskGUI addTaskForm=new AddTaskGUI(this,true,"add");
+        } else {
+            AddTaskGUI addTaskForm = new AddTaskGUI(this, true, "add");
             addTaskForm.setVisible(true);
         }
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-<<<<<<< HEAD
-        
-            
-        
-        try { 
-           EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
-=======
-        if(Data.getCurrentUser() instanceof TeamLeader) {
-            JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
+
+        if (Data.getCurrentUser() instanceof TeamLeader) {
+            try {
+                if (jListProjects.isSelectionEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please select a project to edit.");
+                }
+                EditProjectGUI editProjectForm = new EditProjectGUI(this, true, "edit");
+                editProjectForm.setVisible(true);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Only leaders can edit a project. :/");
+
         }
-        if(jListProjects.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(null, "Please select a project to edit.");
-        }
-        else{ 
-            EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
->>>>>>> ba592fe3b985f8976b6b8d57e19bf1a7bee476da
-            editProjectForm.setVisible(true);
-        }
-        catch (NullPointerException e){
-            JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
-        }
-        
-        
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
     private void jListProjectsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListProjectsValueChanged
         //First, clear the Task jTable
         clearTaskTable();
-        
+
         //Get selected project title
         String projectTitle = (String) jListProjects.getSelectedValue();
-        
+
         //Get project object from title
         currentProject = Data.getProjectByTitle(projectTitle);
-        
+
         if (currentProject != null) {
             for (Task task : currentProject.getTasks()) {
-                    addTaskTableRow(task);
+                addTaskTableRow(task);
             }
         }
-        
+
     }//GEN-LAST:event_jListProjectsValueChanged
 
     /**
@@ -524,7 +507,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
                 new ProjectTaskGUI().setVisible(true);
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -543,7 +526,5 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableTasks;
     // End of variables declaration//GEN-END:variables
-
-   
 
 }

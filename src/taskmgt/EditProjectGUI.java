@@ -26,14 +26,14 @@ import org.jdesktop.xswingx.*;
  *
  * @author Ray
  */
-public class EditProjectGUI extends javax.swing.JDialog {
+public class EditProjectGUI extends javax.swing.JDialog implements ActionListener {
 
     DefaultListModel listmodel = new DefaultListModel();
     ProjectTaskGUI projectgui;
     Project proj;
     Date sDate = null;
     Date eDate = null;
-
+    
     String title;
     String startDate;
     String endDate;
@@ -41,6 +41,7 @@ public class EditProjectGUI extends javax.swing.JDialog {
 
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     boolean weAreCreating = false;
+    boolean clicked = false;
 
     /**
      *
@@ -323,12 +324,8 @@ public class EditProjectGUI extends javax.swing.JDialog {
                     if (!sdf.format(sDate).equals(startDate) || !sdf.format(eDate).equals(endDate)) {
                         JOptionPane.showMessageDialog(null, "Please enter a valid date.", "Invalid Date", JOptionPane.WARNING_MESSAGE);
                     } else {
-<<<<<<< HEAD
 
                         proj = new Project(title, owner, sDate, eDate);
-=======
-                        Project proj = new Project(title, Data.getCurrentUser().getEmail(), sDate, eDate);
->>>>>>> ba592fe3b985f8976b6b8d57e19bf1a7bee476da
                         Data.projectList.add(proj);
 
                         User userEmail = null;
@@ -357,7 +354,7 @@ public class EditProjectGUI extends javax.swing.JDialog {
             if (projectgui != null) {
                 projectgui.refreshProjectsList();
             }
-        } else if (!weAreCreating) {//functionality is when editormgui appears
+        } else if (!weAreCreating) {//functionality is when editprojGUI appears
             List<String> emails;
 
             title = jTextField1.getText().toString();
@@ -381,18 +378,23 @@ public class EditProjectGUI extends javax.swing.JDialog {
 
                         User userEmail = null;
                         List<String> newemails = new ArrayList<>();
+                        LinkedList<User> newMembers = new LinkedList<>();
 
                         //adding new members to list   
-                        if (jButtonAddMember.isSelected()) {
+                        
+                        
+                        if (clicked) {
                             for (User memEmails : projMems) {
                                 if (!memEmails.getEmail().equalsIgnoreCase(sv)) {
                                     if (jList2.getModel().getSize() > 0) {
                                         for (int i = 0; i < jList2.getModel().getSize(); i++) {
                                             newemails.add((String) jList2.getModel().getElementAt(i));
+                                            
                                         }
                                         for (String s : newemails) {
                                             userEmail = Data.getUser(s);
-                                            editProj.addMember(userEmail);
+                                            newMembers.add(userEmail);
+                                            editProj.setMembers(newMembers);
 
                                         }
 
@@ -425,7 +427,33 @@ public class EditProjectGUI extends javax.swing.JDialog {
 
     private void jButtonAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMemberActionPerformed
         // TODO add your handling code here:
+if(!weAreCreating ){
+    clicked = true;
+    
 
+     List<String> usersToAdd = jList1.getSelectedValuesList();
+
+            for (String user : usersToAdd) {
+               
+                DefaultListModel model1 = (DefaultListModel) jList1.getModel();
+                
+                DefaultListModel model2 = (DefaultListModel)jList2.getModel();
+                
+                    model2.addElement(user);
+                
+                
+                int selectedIndex = jList1.getSelectedIndex();
+                if(selectedIndex != -1){
+                    model1.remove(selectedIndex);
+                   
+                    
+                 
+                }
+                 
+            }
+    
+    
+} else
         if (jList1.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a member to add to a project.");
         } else {
@@ -441,11 +469,12 @@ public class EditProjectGUI extends javax.swing.JDialog {
             jList2.setModel(listmodel);
         
     
-//            DefaultListModel model = (DefaultListModel) jList1.getModel();
-//            int selectedIndex = jList1.getSelectedIndex();
-//            if (selectedIndex != -1) {
-//                model.remove(selectedIndex);
-            
+            DefaultListModel model = (DefaultListModel) jList1.getModel();
+            int selectedIndex = jList1.getSelectedIndex();
+            if (selectedIndex != -1) {
+                model.remove(selectedIndex);
+               
+            }
         }
     }//GEN-LAST:event_jButtonAddMemberActionPerformed
 
@@ -556,4 +585,9 @@ public class EditProjectGUI extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        clicked = true;
+    }
 }
