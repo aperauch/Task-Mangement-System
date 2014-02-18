@@ -5,6 +5,7 @@
 !nbproject/project.properties
 !nbproject/project.xml
 !Data/
+!prompt/
 
 #TMS - EXCLUDE!
 build.xml
@@ -18,7 +19,6 @@ core
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
