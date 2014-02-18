@@ -19,8 +19,8 @@ public class Project implements Serializable, Comparable<Project>{
     private State status;
     private LinkedList<User> members = new LinkedList();
     private LinkedList<Task> tasks = new LinkedList();
-    private ModelType type = ModelType.Project;
-    private SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
+    private final ModelType type = ModelType.Project;
+    private final SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
     
     //Constructor
     public Project(String title,String owner, Date startDate, Date endDate){

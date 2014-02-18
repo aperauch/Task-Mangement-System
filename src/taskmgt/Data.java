@@ -88,7 +88,7 @@ public class Data {
     public static LinkedList<TeamLeader> getLeaders(){
         LinkedList<TeamLeader> leaders=new LinkedList();
         for(User user:userList){
-            if(user.getType()==ModelType.TeamLeader) leaders.add((TeamLeader)user);
+            if(user instanceof TeamLeader) leaders.add((TeamLeader)user);
         }
         return leaders;
     }
@@ -106,15 +106,6 @@ public class Data {
         for(User user:userList){
             if(user.getEmail().equals(email) && user.getPassword().equals(password)){
                  return user;
-            }
-        }
-        return null;
-    }
-    
-    public static User getUser(String email){
-        for(User user:userList){
-            if(user.getEmail().toLowerCase().equals(email.toLowerCase())){
-                return user;
             }
         }
         return null;

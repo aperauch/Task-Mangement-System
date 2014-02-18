@@ -1,7 +1,5 @@
 package taskmgt;
 
-import java.util.Date;
-import java.util.LinkedList;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -23,7 +21,6 @@ public class TaskMgt {
         }
         //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");
         loadView();
-        System.out.println(Data.userList.size());
     }
     
     public static void loadView(){

@@ -66,8 +66,8 @@ public class Administrator extends User implements Serializable{
     //update Member Info
     public void updateName(String email, String name){
         User newUser=Data.getUserByEmail(email);
-        newUser.setName(name);
-        Data.userList.add(newUser);
+        int index=Data.userList.indexOf(newUser);
+        Data.userList.get(index).setName(name);
     }
     
     public void updateEmail(String oldEmail, String newEmail){

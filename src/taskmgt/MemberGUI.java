@@ -371,7 +371,7 @@ public final class MemberGUI extends javax.swing.JDialog {
         }
         else if(jCheckBox1.isSelected()){
             if(!user.createLeader(name, email)){
-                JOptionPane.showMessageDialog(null,"Leader exists!","Warning",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Member exists!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
         else{
