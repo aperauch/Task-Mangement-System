@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
@@ -106,12 +107,14 @@ public class Serializer<Type> {
             else {
                 return null;
             }
+        } catch (InvalidClassException ice) {
+            JOptionPane.showMessageDialog(null, "The file " + file.toString() + " has objects that are not recognized.  Consider deleting.", "Error", JOptionPane.ERROR_MESSAGE);
         }  catch (IOException ex) {
             Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "The file " + file.toString() + " has objects that are not recognized.  Consider deleting.", "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, e);
         }
         
         return null;

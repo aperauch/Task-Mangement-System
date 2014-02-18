@@ -106,14 +106,14 @@ public class Porter {
             
             if (type == ModelType.Project)
             {
-            for (Project project:Data.projectList)
-                dataList.add(project.toStringArray());
-            }
-//            else if (type == ModelType.Task)
-//            {
-//                for (Task task:Data.taskList)
-//                    dataList.add(task.toStringArray());
-//            }
+                for (Project project:Data.projectList)
+                    dataList.add(project.toStringArray());
+                }
+//          else if (type == ModelType.Task)
+//          {
+//              for (Task task:Data.taskList)
+//                  dataList.add(task.toStringArray());
+//          }
             else
             {
                 for (User user:Data.userList)

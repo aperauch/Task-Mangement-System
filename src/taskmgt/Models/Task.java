@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,6 +50,15 @@ public class Task implements Serializable, Comparable<Task> {
         this.endDate=endDate;
         this.status=State.New;
         this.id = id;
+    }
+    
+    public Task(String title, String ownerEmail, int projectID, Date start, Date end, State status) {
+        this.title=title;
+        this.owner=ownerEmail;
+        this.projectID=projectID;
+        this.startDate=start;
+        this.endDate=end;
+        this.status=status;
     }
 
     public Task(String[] strArr) {
@@ -93,7 +103,7 @@ public class Task implements Serializable, Comparable<Task> {
     }
     
     public String[] toStringArray() {
-        ArrayList<String> attrs = new ArrayList<>();
+        LinkedList<String> attrs = new LinkedList<>();
 
         attrs.add(Integer.toString(id));
         attrs.add(owner);
@@ -106,8 +116,23 @@ public class Task implements Serializable, Comparable<Task> {
        return attrs.toArray(new String[attrs.size()]);
     }
     
+    public String toCSVStringArray() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(",");
+        sb.append(Integer.toString(id)).append(",");
+        sb.append(owner).append(",");
+        sb.append(title).append(",");
+        sb.append(Integer.toString(projectID)).append(",");
+        sb.append(simpleDate.format(startDate)).append(",");
+        sb.append(simpleDate.format(endDate)).append(",");
+        sb.append(status.name());
+        
+        return sb.toString();
+    }
+    
     public String[] toTableRow() {
-        ArrayList<String> attrs = new ArrayList<>();
+        LinkedList<String> attrs = new LinkedList<>();
         
         attrs.add(Integer.toString(id));
         attrs.add(title);        
@@ -118,5 +143,7 @@ public class Task implements Serializable, Comparable<Task> {
 
        return attrs.toArray(new String[attrs.size()]);
     }
+
+    
     
 }

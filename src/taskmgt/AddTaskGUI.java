@@ -64,10 +64,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
       
         //Populate Members list
-        for(TeamMember member:Data.getMembers()){
-            if(member.checkActive()){
-                ownerComboBox.addItem(member.getEmail());
+        if (Data.getCurrentUser() instanceof TeamLeader)
+        {
+            for(User user:Data.userList){
+                if(!(user instanceof Administrator) && user.checkActive()){
+                    ownerComboBox.addItem(user.getEmail());
+                }
             }
+        } else {
+            ownerComboBox.addItem(Data.getCurrentUser().getEmail());
         }
     }
     
@@ -82,10 +87,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
         
         //Populate Members list
-        for(TeamMember member:Data.getMembers()){
-            if(member.checkActive()){
-                ownerComboBox.addItem(member.getEmail());
+        if (Data.getCurrentUser() instanceof TeamLeader)
+        {
+            for(User user:Data.userList){
+                if(!(user instanceof Administrator) && user.checkActive()){
+                    ownerComboBox.addItem(user.getEmail());
+                }
             }
+        } else {
+            ownerComboBox.addItem(Data.getCurrentUser().getEmail());
         }
         
         if(flag.equals("add"))
@@ -127,7 +137,6 @@ public class AddTaskGUI extends javax.swing.JDialog {
     private void initComponents() {
 
         taskTitleField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         addTaskBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -145,8 +154,6 @@ public class AddTaskGUI extends javax.swing.JDialog {
                 taskTitleFieldActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Request");
 
         addTaskBtn.setText("Add");
         addTaskBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -187,9 +194,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
                                 .addGap(1, 1, 1)
                                 .addComponent(taskTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton2)
-                                .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,9 +221,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
                     .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addTaskBtn)
-                    .addComponent(jButton2))
+                .addComponent(addTaskBtn)
                 .addGap(40, 40, 40))
         );
 
@@ -255,7 +258,11 @@ public class AddTaskGUI extends javax.swing.JDialog {
         if (addTaskBtn.getText().equalsIgnoreCase("add"))
         {
             //Create Task object with attributes
-            Task task = new Task(title, ownerEmail, projectID, start, end);
+            Task task;
+            if (Data.getCurrentUser() instanceof TeamLeader)
+                task = new Task(title, ownerEmail, projectID, start, end, State.ToDo);
+            else
+                task = new Task(title, ownerEmail, projectID, start, end);
 
             //Push task onto task list for the project
             project.addTask(task);
@@ -328,7 +335,6 @@ public class AddTaskGUI extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTaskBtn;
     private javax.swing.JTextField endDateField;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
