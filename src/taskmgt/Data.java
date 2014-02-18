@@ -16,29 +16,24 @@ public class Data {
     //Lists
     public static LinkedList<User> userList = new LinkedList();
     public static LinkedList<Project> projectList = new LinkedList();
-    //No longer using :( public static LinkedList<Task> taskList = new LinkedList();
 
     //Serializer
     private final static Serializer<User> userSerializer=new Serializer(".//Data","User.ser");
     private final static Serializer<Project> projectSerializer=new Serializer(".//Data","Project.ser");
-    private final static Serializer<Task> taskSerializer=new Serializer(".//Data","Task.ser");
     
     //Data Manipulation
     //Pull List from File
     public static void pullUser(){ userList=userSerializer.readObject();}
     public static void pullProject(){ projectList=projectSerializer.readObject();}
-    //public static void pullTask(){ taskList=taskSerializer.readObject();}
     
     //Push List to File
     public static void pushUser(){ userSerializer.writeObject(userList);}
     public static void pushProject(){ projectSerializer.writeObject(projectList);}
-    //public static void pushTask(){ taskSerializer.writeObject(taskList);}
     
     //Initializ and Finalize
     public static void Initialize(){
         pullUser();
-        pullProject();
-        //pullTask();              
+        pullProject();             
     }
     
     public static void checkforEmptyLists(){
@@ -49,16 +44,11 @@ public class Data {
         if(projectList == null) {
             projectList = new LinkedList<>();
         }
-        
-//        if(taskList==null) {
-//            taskList = new LinkedList<>();
-//        }
     }
     
     public static void Finalize(){
         pushUser();
         pushProject();
-        //pushTask();
     }
     
     public static void InitializeAdmin(String name,String email,String password){
@@ -77,11 +67,6 @@ public class Data {
         Finalize();
     }
     
-//    public static void InitializeTask(String title,String owner,int projectID, Date start, Date end) {
-//        Task task = new Task(title, owner, projectID,start, end);
-//        taskList.add(task);
-//        Finalize();
-//    }
     
      public static void InitializeMember(String name,String email,boolean leader) {
         User member;
@@ -127,18 +112,14 @@ public class Data {
     }
     
     public static User getUser(String email){
-            for(User user:userList){
+        for(User user:userList){
             if(user.getEmail().toLowerCase().equals(email.toLowerCase())){
-                 return user;
+                return user;
             }
-              
         }
-      return null;
+        return null;
     }
 
-      
-
-    
     public static User getUserByEmail(String email){
         for(User user:userList){
             if(user.getEmail().toLowerCase().equals(email.toLowerCase())){
@@ -184,11 +165,6 @@ public class Data {
         }
         return null;
     }        
-    
-    public static void transferMember(String fromEmail, String toEmail) {
-       
-        
-    }
 
     public static Project getProjectByTitle(String projectTitle) {
         for(Project project:projectList){
@@ -202,7 +178,6 @@ public class Data {
     public static void clearAllLists()
     {
         projectList = new LinkedList<>();
-        //taskList = new LinkedList<>();
         userList = new LinkedList<>();
     }
  

@@ -6,21 +6,10 @@
 package taskmgt;
 
 import java.text.*;
-import java.util.Calendar;
 import java.util.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.EventQueue;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import taskmgt.Models.*;
-import java.awt.event.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import taskmgt.ProjectTaskGUI;
-import org.jdesktop.xswingx.*;
 
 /**
  *
@@ -121,7 +110,8 @@ public class EditProjectGUI extends javax.swing.JDialog {
         for (User TeamMember : Data.getMembers()) {
             jListModel.removeAllElements();
             for (User member : Data.getMembers()) {
-                jListModel.addElement(member.getEmail());
+                if(member.checkActive())
+                    jListModel.addElement(member.getEmail());
             }
         }
         jList1.setModel(jListModel);

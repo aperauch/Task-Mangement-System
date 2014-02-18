@@ -1,14 +1,9 @@
 package taskmgt;
 
 import Utils.Porter;
-import au.com.bytecode.opencsv.CSVWriter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;

@@ -23,12 +23,13 @@ public class TaskMgt {
         }
         //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");
         loadView();
+        System.out.println(Data.userList.size());
     }
     
     public static void loadView(){
         Data.Initialize();
         Data.checkforEmptyLists();
-        Data.InitializeAdmin("admin", "admin@mgt.com", "123456");//DEBUG
+        //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");//DEBUG
         LoginGUI loginForm=new LoginGUI();
         loginForm.show();
         loginForm.setLocationRelativeTo(null);

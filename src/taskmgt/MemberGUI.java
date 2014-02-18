@@ -35,8 +35,7 @@ public final class MemberGUI extends javax.swing.JDialog {
     }
     //Fill Whole Table
     public void fillTable(){
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
         //tableModel.getDataVector().removeAllElements();
         tableModel.setRowCount(0);
         for(User member:Data.userList){
@@ -372,12 +371,12 @@ public final class MemberGUI extends javax.swing.JDialog {
         }
         else if(jCheckBox1.isSelected()){
             if(!user.createLeader(name, email)){
-                JOptionPane.showMessageDialog(null,"Reactivating member " + name + "!","Warning",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Leader exists!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
         else{
             if(!user.createMember(name, email)){
-                JOptionPane.showMessageDialog(null,"Reactivating member " + name + "!","Warning",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Member exists!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
         fillTable();
@@ -393,17 +392,12 @@ public final class MemberGUI extends javax.swing.JDialog {
                 if(flag){
                     TeamLeader member = (TeamLeader)Data.getUserByEmail(email);
                     member.setActive(false);
-                    //Data.userList.remove(member);
-                    //Data.userList.add(member);
                 }
                 else{
                     TeamMember member=(TeamMember)Data.getUserByEmail(email);
-                    member.setActive(false);
-                    //Data.userList.remove(member);
-                    //Data.userList.add(member);                    
+                    member.setActive(false);                   
                 }
-            }
-            
+            } 
         }
 
         fillTable();

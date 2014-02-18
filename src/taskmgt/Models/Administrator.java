@@ -8,6 +8,7 @@ package taskmgt.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import taskmgt.Data;
 
 public class Administrator extends User implements Serializable{
@@ -32,44 +33,34 @@ public class Administrator extends User implements Serializable{
     //Methods
     public boolean createLeader(String name, String email){
         TeamLeader leader=new TeamLeader(name, email);
-        if(Data.userList.contains(leader)){
-           for (User u : Data.userList)
-            {
-                if(u instanceof TeamLeader)
-                {
-                    TeamLeader tl = (TeamLeader) u;
-                    if (tl.equals(leader))
-                        return true;//User exists Don't add or show a prompt
-                }
+        for (User u : Data.userList){
+            if(u.equals(leader)&&u.checkActive()){
+                return false;
             }
-            leader.active = true;
-            return false;
+            else if(u.equals(leader)&&!u.checkActive()){
+                u.setActive(true);
+                JOptionPane.showMessageDialog(null,"Reactivating Leader: " + name + "!","Warning",JOptionPane.WARNING_MESSAGE);
+                return true;   
+            }
         }
-        else{
-            Data.userList.add(leader);
-            return true;
-        }
+        Data.userList.add(leader);
+        return true;
     }
     
-    public boolean createMember(String name, String email){  
+    public boolean createMember(String name, String email){
         TeamMember member=new TeamMember(name, email);
-        if(Data.userList.contains(member)){
-            for (User tl : Data.userList)
-            {
-                if(tl instanceof TeamMember)
-                {
-                    TeamMember tm = (TeamMember) tl;
-                    if (tm.equals(member))
-                        return true;//User exists Don't add or show a prompt
-                }
+        for (User u : Data.userList){
+            if(u.equals(member)&&u.checkActive()){
+                return false;
             }
-            member.active = true;
-            return false;
+            else if(u.equals(member)&&!u.checkActive()){
+                u.setActive(true);
+                JOptionPane.showMessageDialog(null,"Reactivating Member: " + name + "!","Warning",JOptionPane.WARNING_MESSAGE);
+                return true;   
+            }
         }
-        else{
-            Data.userList.add(member);
-            return true;
-        }
+        Data.userList.add(member);
+        return true;
     }
     
     //update Member Info
