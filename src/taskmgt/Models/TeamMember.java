@@ -46,7 +46,11 @@ public class TeamMember extends User implements Serializable {
         for(Project project:Data.projectList){
             if(project.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                 projectList.add(project);
-        }
+            LinkedList<User> membersList = project.getMembers();
+        for(User member:membersList){    
+            if(member.getEmail().toLowerCase().equals(this.email.toLowerCase()))
+                projectList.add(project);
+        }}
         return projectList;
     }
     

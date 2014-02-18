@@ -100,10 +100,10 @@ public final class AdminGUI extends javax.swing.JFrame{
             Data.clearAllLists();
         
         boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project, merge);
-        boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
+        //boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
         boolean usersOK = Porter.importCSV(".//Imports//Users.csv", ModelType.AllUsers, merge);
         
-        if (projectsOK && tasksOK && usersOK) {
+        if (projectsOK && usersOK) {
             JOptionPane.showMessageDialog(null,"All data has been imported from Imports directory!","Import Complete", JOptionPane.PLAIN_MESSAGE);
             Data.Finalize();
             jPanelImport.setVisible(false);

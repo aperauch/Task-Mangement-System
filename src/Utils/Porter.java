@@ -159,10 +159,23 @@ public class Porter {
             {
                 for (String[] strArr:dataList)
                 {
-                    Project p = new Project(strArr);
-                    Data.projectList.add(p);
+                    Project p = null;
+                    Task t = null;
+                    String[] impProject = new String[6];
+                    String[] impTask = new String[7];
+                    for (int i = 0; i < strArr.length; i++) {
+                        if (i < 5)
+                            impProject[i] = strArr[i];
+                        else if (i == 5) {
+                            impProject[i] = strArr[i];
+                            p = new Project(impProject);
+                            Data.projectList.add(p);
+                        }
+                    }
                 }
+
             }
+            
 //            else if (type == ModelType.Task)
 //            {
 //                for (String[] strArr:dataList)

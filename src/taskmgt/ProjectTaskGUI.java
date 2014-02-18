@@ -437,6 +437,7 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
+
         if (Data.getCurrentUser() instanceof TeamLeader) {
             try {
                 if (jListProjects.isSelectionEmpty()) {
@@ -453,6 +454,23 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
 
         }
 
+
+   
+        if(!(Data.getCurrentUser() instanceof TeamLeader)) {
+            try {
+                if(jListProjects.isSelectionEmpty()){
+                    JOptionPane.showMessageDialog(null, "Please select a project to edit.");
+                }
+                EditProjectGUI editProjectForm=new EditProjectGUI(this,true,"edit");
+                editProjectForm.setVisible(true);
+            }  
+            catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
+            } 
+        } else {
+                JOptionPane.showMessageDialog(null, "Only leaders can create a project. :/");
+            }
+        
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
