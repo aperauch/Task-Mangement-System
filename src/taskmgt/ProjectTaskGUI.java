@@ -38,11 +38,6 @@ public class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelecti
         initComponents();
 
         refreshProjectsList();
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 38e9692429d89b39b16bed61d423a269bf40ae16
         if (Data.getCurrentUser() instanceof TeamLeader) {
             TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(5);
             JComboBox comboBox = new JComboBox();
