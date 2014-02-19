@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.DefaultListModel;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.table.*;
 import taskmgt.Models.Project;
@@ -148,7 +149,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
 
     public void addTaskTableRow(Task t) {
         DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
-        TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(4);
+        TableColumn Column = jTableTasks.getColumnModel().getColumn(4);
         JComboBox comboBox = new JComboBox();
         for(User member:currentProject.getMembers()){
             comboBox.addItem(member.getEmail());
@@ -156,7 +157,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         if(Data.getCurrentUser() instanceof TeamLeader){
             comboBox.addItem(Data.getCurrentUser().getEmail());
         }
-        statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
+        Column.setCellEditor(new DefaultCellEditor(comboBox));
         model.addRow(t.toTableRow());
         jTableTasks.setModel(model);
     }
@@ -283,7 +284,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 601, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -308,7 +309,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

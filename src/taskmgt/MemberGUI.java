@@ -436,9 +436,6 @@ public final class MemberGUI extends javax.swing.JDialog {
                     TeamMember member =(TeamMember)Data.getUserByEmail(email);
 
                     System.out.println(member.toString());
-                           
-                   //LinkedList<Project> pl = new LinkedList<Project>();
-                   //LinkedList<Task> tl = new LinkedList<Task>();
 
                     System.out.println("This is a report for " + member.getName());
 

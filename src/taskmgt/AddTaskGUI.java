@@ -103,6 +103,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
             setFormAdd();
         else
             setFormEdit();
+        
+        if(Data.getCurrentUser() instanceof TeamLeader){
+            this.setTitle("Add Task");
+            addTaskBtn.setText("Add");
+        }
+        else{
+            this.setTitle("Request Task");
+            addTaskBtn.setText("Request");            
+        }
     }
     
     //Not Called!?!?!?
@@ -126,6 +135,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
             setFormAdd();
         else
             setFormEdit(task);
+        
+        if(Data.getCurrentUser() instanceof TeamLeader){
+            this.setTitle("Add Task");
+            addTaskBtn.setText("Add");
+        }
+        else{
+            this.setTitle("Request Task");
+            addTaskBtn.setText("Request");            
+        }
     }
 
     /**
@@ -178,29 +196,27 @@ public class AddTaskGUI extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(taskTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(taskTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +250,11 @@ public class AddTaskGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_taskTitleFieldActionPerformed
 
     private void addTaskBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTaskBtnActionPerformed
-        
+
+        if(taskTitleField.getText().toString().isEmpty()||startDateField.getText().isEmpty()||endDateField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please enter all information!", "Missing Title", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         //Get attributes that are not given from textfields
         Project project = parentFrame.getSelectProject();
         int projectID = project.getID();
@@ -244,7 +264,6 @@ public class AddTaskGUI extends javax.swing.JDialog {
         String title = taskTitleField.getText();
         String startDate = startDateField.getText();
         String endDate = endDateField.getText();
-        
         //Convert date Strings to Date objects
         Date start = new Date();
         Date end = new Date();
@@ -252,7 +271,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             start = dateFormat.parse(startDate);
             end = dateFormat.parse(endDate);
         } catch (ParseException ex) {
-            Logger.getLogger(AddTaskGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Please enter a valid date in the format of MM/DD/YYYY.", "Invalid Date", JOptionPane.WARNING_MESSAGE);
         }
         
         //If adding a task
