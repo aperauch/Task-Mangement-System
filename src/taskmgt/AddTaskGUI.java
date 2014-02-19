@@ -103,6 +103,14 @@ public class AddTaskGUI extends javax.swing.JDialog {
             setFormAdd();
         else
             setFormEdit();
+        if(Data.getCurrentUser() instanceof TeamLeader){
+            this.setTitle("Add Task");
+            addTaskBtn.setText("Add");
+        }
+        else{
+            this.setTitle("Request Task");
+            addTaskBtn.setText("Request");
+        }
     }
     
     //Not Called!?!?!?
@@ -126,6 +134,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
             setFormAdd();
         else
             setFormEdit(task);
+        
+        if(Data.getCurrentUser() instanceof TeamLeader){
+            this.setTitle("Add Task");
+            addTaskBtn.setText("Add");
+        }
+        else{
+            this.setTitle("Request Task");
+            addTaskBtn.setText("Request");
+        }
     }
 
     /**
@@ -176,9 +193,9 @@ public class AddTaskGUI extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel3)
@@ -197,9 +214,8 @@ public class AddTaskGUI extends javax.swing.JDialog {
                             .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(125, 125, 125)
+                        .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -221,9 +237,9 @@ public class AddTaskGUI extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(addTaskBtn)
-                .addGap(25, 25, 25))
+                .addGap(23, 23, 23))
         );
 
         pack();
