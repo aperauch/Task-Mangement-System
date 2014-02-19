@@ -429,9 +429,10 @@ public final class MemberGUI extends javax.swing.JDialog {
             int rows[]=jTable1.getSelectedRows();
             if(rows.length>0){
                 
+                 User[] u = new User[rows.length];
+                
                 for(int i=0;i<rows.length;i++){
                     String email=jTable1.getValueAt(rows[i], 0).toString();
-                    boolean flag=jTable1.getValueAt(rows[i], 2).toString().equals("Leader");
                     
                     TeamMember member =(TeamMember)Data.getUserByEmail(email);
 
@@ -466,6 +467,14 @@ public final class MemberGUI extends javax.swing.JDialog {
                        }            
                    }
                 } 
+
+                
+                
+                /*String[] emailList = new String[rows.length];
+                for(int i=0;i<rows.length;i++){
+                    emailList[i] = jTable1.getValueAt(rows[i], 0).toString();                 
+                }
+                Data.printMemberRpt(emailList);*/
                 
             }
         }

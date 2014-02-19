@@ -83,6 +83,8 @@ public class Data {
     //Methods
     public static void setCurrentUser(User user) { CurrentUser = user; }
     public static User getCurrentUser() { return CurrentUser; }
+    public static LinkedList<Project> getProjectList() { return projectList;}
+    public static LinkedList<User> getUserList() { return userList;}
     
     //Get List
     public static LinkedList<TeamLeader> getLeaders(){
@@ -171,5 +173,19 @@ public class Data {
         projectList = new LinkedList<>();
         userList = new LinkedList<>();
     }
+  
+    public static void printMemberRpt(String[] e)
+    {
+        
+        //Create Member Array from Email Array
+        TeamMember[] memArr = new TeamMember[e.length];
+        for(int i=0;i<e.length;i++)
+        { memArr[i] = (TeamMember) getUserByEmail(e[i]);}
+        
+        memArr[0].getProjects();
+        
+        
+    } 
+    
  
 }
