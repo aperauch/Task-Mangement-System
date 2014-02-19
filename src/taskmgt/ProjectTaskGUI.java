@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.DefaultListModel;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.table.*;
 import taskmgt.Models.Project;
@@ -151,7 +150,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
 
     public void addTaskTableRow(Task t) {
         DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
-        TableColumn Column = jTableTasks.getColumnModel().getColumn(4);
+        TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(4);
         JComboBox comboBox = new JComboBox();
         for(User member:currentProject.getMembers()){
             comboBox.addItem(member.getEmail());
@@ -159,7 +158,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         if(Data.getCurrentUser() instanceof TeamLeader){
             comboBox.addItem(Data.getCurrentUser().getEmail());
         }
-        Column.setCellEditor(new DefaultCellEditor(comboBox));
+        statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
         model.addRow(t.toTableRow());
         jTableTasks.setModel(model);
     }
@@ -290,10 +289,14 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
 <<<<<<< HEAD
+<<<<<<< HEAD
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
 =======
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
 >>>>>>> 866c930d469d0d47da6cfdd0a6b39a4d80b195ca
+=======
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 601, Short.MAX_VALUE)
+>>>>>>> parent of 866c930... Fixed bugs
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -320,10 +323,14 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 =======
                 .addGap(0, 20, Short.MAX_VALUE))
 >>>>>>> 866c930d469d0d47da6cfdd0a6b39a4d80b195ca
+=======
+                .addGap(0, 22, Short.MAX_VALUE))
+>>>>>>> parent of 866c930... Fixed bugs
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

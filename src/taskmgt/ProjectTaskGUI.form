@@ -132,10 +132,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <EmptySpace max="32767" attributes="0"/>
 =======
                   <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
 >>>>>>> 866c930d469d0d47da6cfdd0a6b39a4d80b195ca
+=======
+                  <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
+>>>>>>> parent of 866c930... Fixed bugs
               </Group>
           </Group>
         </DimensionLayout>
@@ -166,10 +170,14 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
                               <EmptySpace pref="264" max="32767" attributes="0"/>
 =======
                               <EmptySpace pref="603" max="32767" attributes="0"/>
 >>>>>>> 866c930d469d0d47da6cfdd0a6b39a4d80b195ca
+=======
+                              <EmptySpace pref="601" max="32767" attributes="0"/>
+>>>>>>> parent of 866c930... Fixed bugs
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
