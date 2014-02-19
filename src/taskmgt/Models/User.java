@@ -77,5 +77,11 @@ public abstract class User implements Serializable, Comparable<User> {
 
         return attrs.toArray(new String[attrs.size()]);
     }
+    
+    @Override
+    public String toString() {
+        
+        return(name + " (" + email + ")" );
+ }
 }
  

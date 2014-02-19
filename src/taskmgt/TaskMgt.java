@@ -19,7 +19,7 @@ public class TaskMgt {
         } 
         catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
         }
-        //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");
+        Data.InitializeAdmin("admin", "admin@mgt.com", "123456");  //DEBUG
         loadView();
     }
     

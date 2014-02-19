@@ -87,4 +87,10 @@ public class TeamLeader extends TeamMember implements Serializable {
         return attrs.toArray(new String[attrs.size()]);
     }
     
+     @Override
+    public String toString() {
+        
+        return(super.toString() + " & Leader");
+ }
+    
 }

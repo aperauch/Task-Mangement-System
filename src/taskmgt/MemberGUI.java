@@ -431,7 +431,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                     boolean flag=jTable1.getValueAt(rows[i], 2).toString().equals("Leader");
                     
                     TeamMember member =(TeamMember)Data.getUserByEmail(email);
-                    System.out.println("This is a report for " + member.getName());
+                    System.out.println(member.toString());
                            
                    //LinkedList<Project> pl = new LinkedList<Project>();
                    //LinkedList<Task> tl = new LinkedList<Task>();
