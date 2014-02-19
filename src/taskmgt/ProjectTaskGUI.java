@@ -148,7 +148,13 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
 
     public void addTaskTableRow(Task t) {
         DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
-
+        TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(4);
+        JComboBox comboBox = new JComboBox();
+        for(User member:currentProject.getMembers()){
+            comboBox.addItem(member.getEmail());
+        }
+        comboBox.addItem(Data.getCurrentUser().getEmail());
+        statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
         model.addRow(t.toTableRow());
         jTableTasks.setModel(model);
     }
