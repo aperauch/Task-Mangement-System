@@ -386,7 +386,6 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
                         //adding new members to list   
    
-                        if (clicked) {
                             if (jList2.getModel().getSize() > 0) {
                                 for (int i = 0; i < jList2.getModel().getSize(); i++) {
                                     newemails.add((String) jList2.getModel().getElementAt(i));
@@ -398,7 +397,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                                     editProj.setMembers(newMembers);
                                 }
                             }
-                        }
+                            
                         Data.projectList.add(editProj);
                         this.dispose();
                     }

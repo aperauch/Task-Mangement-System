@@ -9,8 +9,6 @@ package taskmgt;
 import java.text.*;
 import java.util.*;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import taskmgt.Models.*;
 
@@ -112,39 +110,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             addTaskBtn.setText("Request");
         }
     }
-    
-    //Not Called!?!?!?
-    public AddTaskGUI(java.awt.Frame parent, boolean modal, String flag, Task task) {
-        super(parent, modal);
-        initComponents();
-        taskToEdit = task;
-        
-        //The parent frame is the window the user was interacting with prior to this window.
-        //This variable allows for updates to be called back to parent.
-        parentFrame = (ProjectTaskGUI) parent;
-        
-        //Populate Members list
-        for(TeamMember member:Data.getMembers()){
-            if(member.checkActive()){
-                ownerComboBox.addItem(member.getEmail());
-            }
-        }
-        
-        if(flag.equals("add"))
-            setFormAdd();
-        else
-            setFormEdit(task);
-        
-        if(Data.getCurrentUser() instanceof TeamLeader){
-            this.setTitle("Add Task");
-            addTaskBtn.setText("Add");
-        }
-        else{
-            this.setTitle("Request Task");
-            addTaskBtn.setText("Request");
-        }
-    }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
