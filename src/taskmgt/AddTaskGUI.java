@@ -234,7 +234,11 @@ public class AddTaskGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_taskTitleFieldActionPerformed
 
     private void addTaskBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTaskBtnActionPerformed
-        
+
+        if(taskTitleField.getText().isEmpty()||startDateField.getText().isEmpty()||endDateField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please enter all information!", "Missing Fields", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         //Get attributes that are not given from textfields
         Project project = parentFrame.getSelectProject();
         int projectID = project.getID();
@@ -252,7 +256,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             start = dateFormat.parse(startDate);
             end = dateFormat.parse(endDate);
         } catch (ParseException ex) {
-            Logger.getLogger(AddTaskGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Please enter date in mm/dd/yyyy format.", "Incorrect Date Value", JOptionPane.WARNING_MESSAGE);
         }
         
         //If adding a task
