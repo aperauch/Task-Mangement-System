@@ -95,6 +95,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                             break;
                     }
                 }
+                Data.Finalize();
                 fillTable();
             }
         };
@@ -378,6 +379,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null,"Member exists!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
+        Data.Finalize();
         fillTable();
     }//GEN-LAST:event_jButtonAddMemberActionPerformed
 
@@ -398,7 +400,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                 }
             } 
         }
-
+        Data.Finalize();
         fillTable();
     }//GEN-LAST:event_jButtonDeleteMemberActionPerformed
 
@@ -432,9 +434,6 @@ public final class MemberGUI extends javax.swing.JDialog {
                     
                     TeamMember member =(TeamMember)Data.getUserByEmail(email);
                     System.out.println("This is a report for " + member.getName());
-                           
-                   //LinkedList<Project> pl = new LinkedList<Project>();
-                   //LinkedList<Task> tl = new LinkedList<Task>();
                    
                    LinkedList<Project> pl = member.getProjects();
                    LinkedList<Task> tl = member.getTasks();
