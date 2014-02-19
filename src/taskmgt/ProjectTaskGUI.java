@@ -444,8 +444,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             JOptionPane.showMessageDialog(null, "Please select a project to add a task to.");
         } else {
             AddTaskGUI addTaskForm = new AddTaskGUI(this, true, "add");
-            addTaskForm.setVisible(true);
             addTaskForm.setLocationRelativeTo(null);
+            addTaskForm.setVisible(true);
         }
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
