@@ -257,24 +257,18 @@ public class AddTaskGUI extends javax.swing.JDialog {
             //Update parent frame with new tasks
             parentFrame.addTaskTableRow(task);
         }
-        //Else, editing a task
+        //Else, requesting a task
         else
         {
-            if (taskToEdit != null)
-            {
-                //Edit task details
-                taskToEdit.setTitle(title);
-                taskToEdit.setStartDate(start);
-                taskToEdit.setEndDate(end);
-                
-                 //Show message
-                JOptionPane.showMessageDialog(null, "Modified task " + title + " for project " + project.getTitle() + ".");
+            //Create Task object with attributes
+            Task task;task = new Task(title, ownerEmail, projectID, start, end, State.New);
 
-                //Update parent frame with new tasks
-                parentFrame.addTaskTableRow(taskToEdit);
-            }
+            //Push task onto task list for the project
+            project.addTask(task);
+
+            //Update parent frame with new tasks
+            parentFrame.addTaskTableRow(task);
         }
-        
     }//GEN-LAST:event_addTaskBtnActionPerformed
 
     /**

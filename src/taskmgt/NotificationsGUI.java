@@ -6,18 +6,99 @@
 
 package taskmgt;
 
+import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+import taskmgt.Models.Project;
+import taskmgt.Models.State;
+import taskmgt.Models.Task;
+import taskmgt.Models.TeamLeader;
+import taskmgt.Models.User;
+
+
 /**
  *
  * @author Ray
  */
-public class NotificationsGUI extends javax.swing.JDialog {
+public final class NotificationsGUI extends javax.swing.JDialog {
 
+    private final User noitifyUser;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    //Jtable Function
+    //Fill Whole Table
+    private void fillTable(){
+        DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
+        tableModel.setRowCount(0);
+        if(noitifyUser instanceof TeamLeader){
+            for(Project project:Data.projectList){
+                if(project.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
+                    for(Task task:project.getTasks()){
+                        if(task.getStatus()==State.New){
+                            LinkedList<String> row=new LinkedList();
+                            row.add(project.getTitle());
+                            row.add(Integer.toString(task.getID()));
+                            row.add(task.getTitle());    
+                            row.add(task.getOwner());
+                            row.add(dateFormat.format(task.getStartDate()));
+                            row.add(dateFormat.format(task.getEndDate()));   
+                            tableModel.addRow(row.toArray());
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for(Project project:Data.projectList){
+                for(Task task:project.getTasks()){
+                    if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
+                        LinkedList<String> row=new LinkedList();
+                        row.add(project.getTitle());
+                        row.add(Integer.toString(task.getID()));
+                        row.add(task.getTitle());    
+                        row.add(task.getOwner());
+                        row.add(dateFormat.format(task.getStartDate()));
+                        row.add(dateFormat.format(task.getEndDate()));   
+                        tableModel.addRow(row.toArray());
+                    }
+                }
+            }
+            
+        }
+        jTable1.setModel(tableModel);
+    }
+    //Initial Table
+    private void initialTable(){
+        //Inital table
+        jTable1.setShowGrid(false);
+        jTable1.setShowHorizontalLines(false);
+        jTable1.setShowVerticalLines(false);
+        jTable1.setGridColor(Color.BLUE);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+    }
+    
+    
     /**
      * Creates new form Notes
+     * @param parent
+     * @param modal
      */
     public NotificationsGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        noitifyUser=Data.getCurrentUser();
+        if(noitifyUser instanceof TeamLeader){
+            jButton3.setVisible(false);
+            jButton1.setVisible(true);
+            jButton2.setVisible(true);
+        }
+        else{
+            jButton3.setVisible(true);
+            jButton1.setVisible(false);
+            jButton2.setVisible(false);
+        }
+        initialTable();
+        fillTable();
     }
 
     /**
@@ -30,12 +111,14 @@ public class NotificationsGUI extends javax.swing.JDialog {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Notifications");
+        setResizable(false);
 
         jButton1.setText("Approve");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -44,35 +127,61 @@ public class NotificationsGUI extends javax.swing.JDialog {
             }
         });
 
-        jScrollPane1.setViewportView(jList1);
-
         jButton2.setText("Reject");
+
+        jButton3.setText("OK");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Project Title", "Task ID", "Task Title", "Owner", "Start Date", "End Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
+                        .addGap(50, 50, 50)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
+                    .addComponent(jButton3)
                     .addComponent(jButton2))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,6 +190,10 @@ public class NotificationsGUI extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,7 +240,8 @@ public class NotificationsGUI extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

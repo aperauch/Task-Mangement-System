@@ -41,7 +41,6 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
      *
      * @param parent
      * @param modal
-     * @param flag
      */
     public EditProjectGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
