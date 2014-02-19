@@ -71,6 +71,47 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         }
         );
+        //Notification
+        if(Data.getCurrentUser() instanceof TeamLeader){
+            boolean flag=false;
+            for(Project project:Data.projectList){
+                if(project.getOwner().equalsIgnoreCase(Data.getCurrentUser().getEmail())){
+                    for(Task task:project.getTasks()){
+                        if(task.getStatus()==State.New){
+                            jLabel3.setText("You got new tasks to approve!");
+                            jButton1.setVisible(true);
+                            flag=true;
+                            break;
+                        }
+                    }
+                }
+                if(flag)
+                    break;
+            }
+            if(!flag){
+                jLabel3.setText("You don't have new notifications!");
+                jButton1.setVisible(false);                
+            }
+        }
+        else{
+            boolean flag=false;
+            for(Project project:Data.projectList){
+                for(Task task:project.getTasks()){
+                    if(task.getStatus()==State.New&&task.getOwner().equalsIgnoreCase(Data.getCurrentUser().getEmail())){
+                        jLabel3.setText("You got new tasks to do!");
+                        jButton1.setVisible(true);
+                        flag=true;
+                        break;
+                    }
+                }
+                if(flag)
+                    break;
+            }
+            if(!flag){
+                jLabel3.setText("You don't have new notifications!");
+                jButton1.setVisible(false);                
+            }
+        }
     }
 
     //Methods
