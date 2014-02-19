@@ -1,7 +1,6 @@
 package taskmgt.Models;
 
 import java.io.Serializable;
-import java.lang.reflect.Member;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -101,15 +100,6 @@ public class Project implements Serializable, Comparable<Project>{
         return null;
     }
     
-//    public LinkedList<Task> getTaskByMember(TeamMember member){
-//        LinkedList<Task> taskList=new LinkedList();
-//        for(Task task:tasks){
-//            if(task.getOwner()).equals(member)
-//                taskList.add(task);
-//        }
-//        return taskList;
-//    }
-    
     public LinkedList<Task> getTaskByMemberEmail(TeamMember member){
         LinkedList<Task> taskList=new LinkedList();
         for(Task task:tasks){
@@ -118,7 +108,7 @@ public class Project implements Serializable, Comparable<Project>{
         }
         return taskList;
     }
-    
+     
     @Override
     public int compareTo(Project p)
     {
@@ -162,6 +152,15 @@ public class Project implements Serializable, Comparable<Project>{
         }
 
         return attrs.toArray(new String[attrs.size()]);
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Project){
+            Project project=(Project) obj;
+            return project.title.compareToIgnoreCase(this.title)==0;
+        }
+        return false;
     }
            
 }

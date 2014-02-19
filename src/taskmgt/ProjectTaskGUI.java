@@ -148,7 +148,15 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
 
     public void addTaskTableRow(Task t) {
         DefaultTableModel model = (DefaultTableModel) jTableTasks.getModel();
-
+        TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(4);
+        JComboBox comboBox = new JComboBox();
+        for(User member:currentProject.getMembers()){
+            comboBox.addItem(member.getEmail());
+        }
+        if(Data.getCurrentUser() instanceof TeamLeader){
+            comboBox.addItem(Data.getCurrentUser().getEmail());
+        }
+        statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
         model.addRow(t.toTableRow());
         jTableTasks.setModel(model);
     }
@@ -168,6 +176,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                         currentUser = (TeamLeader) Data.getCurrentUser();
                     } else {
                         JOptionPane.showMessageDialog(null, "Only team leaders can edit tasks!", "Warning", JOptionPane.WARNING_MESSAGE);
+                        refreshTasksList();
+                        return;
                     }
 
                     int col = tcl.getColumn();
@@ -434,6 +444,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             JOptionPane.showMessageDialog(null, "Please select a project to add a task to.");
         } else {
             AddTaskGUI addTaskForm = new AddTaskGUI(this, true, "add");
+            addTaskForm.setLocationRelativeTo(null);
             addTaskForm.setVisible(true);
         }
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
