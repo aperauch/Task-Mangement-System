@@ -51,6 +51,8 @@ public class AddTaskGUI extends javax.swing.JDialog {
     
     /**
      * Creates new form Task
+     * @param parent
+     * @param modal
      */
     //Default Constructor
     public AddTaskGUI(java.awt.Frame parent, boolean modal) {
@@ -94,6 +96,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
                     ownerComboBox.addItem(user.getEmail());
                 }
             }
+            ownerComboBox.addItem(Data.getCurrentUser().getEmail());
         } 
         else {
             ownerComboBox.addItem(Data.getCurrentUser().getEmail());

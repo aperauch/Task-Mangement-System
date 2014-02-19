@@ -296,12 +296,14 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateProjectActionPerformed
-       
+        if(jList2.getModel().getSize()<=0){
+            JOptionPane.showMessageDialog(null, "Please choose members to fullfil this project!", "Empty Member List", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (weAreCreating) {
             title = jTextField1.getText().toString();
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
-            
             for (Project p : Data.projectList) {
                 if (p.getTitle().equalsIgnoreCase(title)) {
                     JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
@@ -354,6 +356,14 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             title = jTextField1.getText().toString();
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
+            if(title.compareToIgnoreCase(projectgui.getSelectProject().getTitle())!=0){
+                for (Project p : Data.projectList) {
+                    if (p.getTitle().equalsIgnoreCase(title)) {
+                        JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+            }
             if (!title.isEmpty()) {
                 try {
                     sDate = sdf.parse(startDate);
@@ -401,9 +411,13 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
                 }
             }
+            else{
+                JOptionPane.showMessageDialog(null, "Please enter a valid Title", "Title missing", JOptionPane.WARNING_MESSAGE);
+                return;            
+            }
         }
 
-
+        
     }//GEN-LAST:event_jButtonCreateProjectActionPerformed
 
 
