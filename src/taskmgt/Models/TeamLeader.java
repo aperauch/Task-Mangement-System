@@ -90,7 +90,7 @@ public class TeamLeader extends TeamMember implements Serializable {
      @Override
     public String toString() {
         
-        return(super.toString() + " & Leader");
+        return(super.toString() + "/Leader");
  }
     
 }
