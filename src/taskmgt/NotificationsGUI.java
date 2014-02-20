@@ -7,6 +7,8 @@
 package taskmgt;
 
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +27,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
 
     private final User noitifyUser;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    private final ProjectTaskGUI ptGUI;
     //Jtable Function
     //Fill Whole Table
     private void fillTable(){
@@ -77,7 +80,6 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         jTable1.getTableHeader().setReorderingAllowed(false);
     }
     
-    
     /**
      * Creates new form Notes
      * @param parent
@@ -99,8 +101,16 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         }
         initialTable();
         fillTable();
+        ptGUI=(ProjectTaskGUI) parent;
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                   ptGUI.refreshTasksList();
+            }
+        }
+        );
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,6 +138,11 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         });
 
         jButton2.setText("Reject");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("OK");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -162,11 +177,11 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                 .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(67, 67, 67)
                         .addComponent(jButton1)
-                        .addGap(53, 53, 53)
+                        .addGap(46, 46, 46)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
+                        .addGap(53, 53, 53)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46))
@@ -188,12 +203,56 @@ public final class NotificationsGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        if(jTable1.getRowCount()!=0){
+            int row = jTable1.getSelectedRow();
+            if (row >= 0){                 
+                String pTitle=jTable1.getValueAt(row, 0).toString();
+                int taskID=Integer.parseInt(jTable1.getValueAt(row, 1).toString());
+                for(Project project:Data.projectList){
+                if(project.getTitle().equalsIgnoreCase(pTitle)){
+                    for(Task task:project.getTasks()){
+                        if(task.getID()==taskID){
+                            task.setStatus(State.ToDo);
+                            break;
+                        }
+                    }
+                    break;
+                }
+                }
+            } 
+        }
+        Data.Finalize();
+        fillTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        if(jTable1.getRowCount()!=0){
+        int row = jTable1.getSelectedRow();
+        if (row >= 0){                 
+            String pTitle=jTable1.getValueAt(row, 0).toString();
+            int taskID=Integer.parseInt(jTable1.getValueAt(row, 1).toString());
+            for(Project project:Data.projectList){
+                if(project.getTitle().equalsIgnoreCase(pTitle)){
+                    for(Task task:project.getTasks()){
+                        if(task.getID()==taskID&&task.getStatus()==State.New){
+                            project.removeTask(task);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        }
+        Data.Finalize();
+        fillTable();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

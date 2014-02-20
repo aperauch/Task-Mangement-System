@@ -97,7 +97,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             boolean flag=false;
             for(Project project:Data.projectList){
                 for(Task task:project.getTasks()){
-                    if(task.getStatus()==State.New&&task.getOwner().equalsIgnoreCase(Data.getCurrentUser().getEmail())){
+                    if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(Data.getCurrentUser().getEmail())){
                         jLabel3.setText("You got new tasks to do!");
                         jButton1.setVisible(true);
                         flag=true;
@@ -170,7 +170,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             jListProjects.setEnabled(false);
         }
     }
-    private void refreshTasksList(){
+    public void refreshTasksList(){
         clearTaskTable();
         //Get selected project title
         String projectTitle = (String) jListProjects.getSelectedValue();
