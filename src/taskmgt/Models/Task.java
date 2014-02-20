@@ -74,6 +74,16 @@ public class Task implements Serializable, Comparable<Task> {
         this.status = State.valueOf(strArr[6]);
     }
     
+    //Used for testing purposes only - DEBUG
+     public Task(){
+        this.title="";
+        this.owner="";
+        this.projectID=0;
+        this.startDate=null;
+        this.endDate=null;
+        this.status=State.New;
+    }
+    
     //Get
     public int getID() { return this.id; }
     public String getTitle() { return this.title; }

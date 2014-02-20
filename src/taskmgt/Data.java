@@ -30,7 +30,7 @@ public class Data {
     public static void pushUser(){ userSerializer.writeObject(userList);}
     public static void pushProject(){ projectSerializer.writeObject(projectList);}
     
-    //Initializ and Finalize
+    //Initialize and Finalize
     public static void Initialize(){
         pullUser();
         pullProject();             
@@ -83,10 +83,11 @@ public class Data {
     //Methods
     public static void setCurrentUser(User user) { CurrentUser = user; }
     public static User getCurrentUser() { return CurrentUser; }
+    
+    //Get List
     public static LinkedList<Project> getProjectList() { return projectList;}
     public static LinkedList<User> getUserList() { return userList;}
     
-    //Get List
     public static LinkedList<TeamLeader> getLeaders(){
         LinkedList<TeamLeader> leaders=new LinkedList();
         for(User user:userList){
@@ -182,7 +183,20 @@ public class Data {
         for(int i=0;i<e.length;i++)
         { memArr[i] = (TeamMember) getUserByEmail(e[i]);}
         
-        memArr[0].getProjects();
+        // Create Lists - Project Master 
+        LinkedList<Project> projectMaster = getProjectList();
+        
+        //Wow!  A linked list of linked lists of Task Type!
+        LinkedList<LinkedList<Task>> mainList = new LinkedList<LinkedList<Task>>();
+        
+        // Loop - 
+        Task t1 = new Task();
+        mainList.add(new LinkedList<Task>());
+        mainList.get(0).add(t1);
+        mainList.size();
+        
+        // Loop - For each
+        
         
         
     } 
