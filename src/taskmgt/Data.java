@@ -224,19 +224,19 @@ public class Data {
                  
                   }
                 float percent = 0;  
-                if(taskCount!=0){percent = taskCompletedCount/taskCount*100;}  
+                if(taskCount!=0){percent = (float)taskCompletedCount/(float)taskCount*100;}  
                   
-                output.println("\nCompleted "+ taskCompletedCount + " out of " + taskCount + " tasks (" + percent +"%)\n");
+                output.printf("\nCompleted %d out of %d tasks (%.1f%%)\n\n", taskCompletedCount,taskCount,percent);
                 
                 totalTaskCount += taskCount;
                 totalTaskCompletedCount += taskCompletedCount;
            }
            
            float percentTotal = 0;
-                if(totalTaskCount!=0){percentTotal = totalTaskCompletedCount / totalTaskCount*100;}
+                if(totalTaskCount!=0){percentTotal = (float) totalTaskCompletedCount / (float) totalTaskCount*100;}
            
            output.println(line);
-           output.println("\nTOTAL \t PROJECTS: "+ projectList.size() + " \t TASKS: " + totalTaskCount + " \t COMPLETED: " + totalTaskCompletedCount + " (" + percentTotal+ "%)");
+           output.printf("\nMEMBER TOTALS:\nProjects: %d \tTasks: %d \t Completed: %d (%.1f%%)", projectList.size(), totalTaskCount,totalTaskCompletedCount,percentTotal);
            
            output.flush();
 
