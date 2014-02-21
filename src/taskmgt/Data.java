@@ -194,19 +194,22 @@ public class Data {
            LinkedList<Project> projectList = member.getProjects();
           
            int totalTaskCount = 0;
+           int totalTaskCompletedCount = 0;
            
            output.println("\nMEMBER REPORT\n-------------");
+           String taskHeader = String.format("\n%-30s%-15s%-15s%-10s%-15s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
+           String line = String.format("----------------------------------------------------------------------------------------");
+           
            output.println(member.toString());
            output.println();
            
            if (projectList.size() == 0) {output.println("This member is not assigned to any projects");}
            for( Project p : projectList){
+               int taskCount = 0;
+               int taskCompletedCount = 0;
                
                output.println(p.toString());
-               
-               String taskHeader = String.format("\n%-30s%-15s%-15s%-10s%-15s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
-               String line = String.format("----------------------------------------------------------------------------------------");
-               
+
                output.println(taskHeader);
                output.println(line);
                LinkedList<Task> taskList = p.getTasks();
@@ -214,14 +217,26 @@ public class Data {
                   {     if(Data.getUserByEmail(t.getOwner()) == member)
                             {
                                 output.println(t.toString());
+                                if(t.getStatus() == State.Completed){ taskCompletedCount++;}
+                                taskCount++;
+                                
                             }
                  
                   }
-           
-           
-           
+                float percent = 0;  
+                if(taskCount!=0){percent = taskCompletedCount/taskCount*100;}  
+                  
+                output.println("\nCompleted "+ taskCompletedCount + " out of " + taskCount + " tasks (" + percent +"%)\n");
+                
+                totalTaskCount += taskCount;
+                totalTaskCompletedCount += taskCompletedCount;
            }
            
+           float percentTotal = 0;
+                if(totalTaskCount!=0){percentTotal = totalTaskCompletedCount / totalTaskCount*100;}
+           
+           output.println(line);
+           output.println("\nTOTAL \t PROJECTS: "+ projectList.size() + " \t TASKS: " + totalTaskCount + " \t COMPLETED: " + totalTaskCompletedCount + " (" + percentTotal+ "%)");
            
            output.flush();
 
