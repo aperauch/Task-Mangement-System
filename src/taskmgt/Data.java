@@ -6,8 +6,10 @@ package taskmgt;
 import java.util.Date;
 import taskmgt.Models.*;
 import java.util.LinkedList;
-
-//Good Job Alex!
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Desktop;
 
 public class Data {
     //Properties
@@ -175,27 +177,88 @@ public class Data {
         userList = new LinkedList<>();
     }
   
-    public static void printMemberRpt(String[] e)
+    public static void printMemberRpt(String e) throws IOException
     {
+            PrintWriter output ;
+
+            try {
+
+            File file = new File ("reports/memberReport.txt");
+            file.getParentFile().mkdirs();
+
+            output = new PrintWriter("reports/memberReport.txt"); 
         
-        //Create Member Array from Email Array
-        TeamMember[] memArr = new TeamMember[e.length];
-        for(int i=0;i<e.length;i++)
-        { memArr[i] = (TeamMember) getUserByEmail(e[i]);}
-        
-        // Create Lists - Project Master 
-        LinkedList<Project> projectMaster = getProjectList();
-        
-        //Wow!  A linked list of linked lists of Task Type!
-        LinkedList<LinkedList<Task>> mainList = new LinkedList<LinkedList<Task>>();
-        
-        // Loop - 
-        Task t1 = new Task();
-        mainList.add(new LinkedList<Task>());
-        mainList.get(0).add(t1);
-        mainList.size();
-        
-        // Loop - For each
+           TeamMember member = (TeamMember) getUserByEmail(e);
+           
+           
+           LinkedList<Project> projectList = member.getProjects();
+          
+           int totalTaskCount = 0;
+           
+           output.println("\nMEMBER REPORT\n-------------");
+           output.println(member.toString());
+           output.println();
+           
+           if (projectList.size() == 0) {output.println("This member is not assigned to any projects");}
+           for( Project p : projectList){
+               
+               output.println(p.toString());
+               
+               String taskHeader = String.format("\n%-30s%-15s%-15s%-10s%-15s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
+               String line = String.format("----------------------------------------------------------------------------------------");
+               
+               output.println(taskHeader);
+               output.println(line);
+               LinkedList<Task> taskList = p.getTasks();
+                  for( Task t : taskList)
+                  {     if(Data.getUserByEmail(t.getOwner()) == member)
+                            {
+                                output.println(t.toString());
+                            }
+                 
+                  }
+           
+           
+           
+           }
+           
+           
+           output.flush();
+
+ }
+
+ catch(IOException ioe) {
+
+ System.out.println(ioe.toString());
+    }
+    
+ Desktop desktop = Desktop.getDesktop();
+        File dirToOpen = null;
+        try {
+            dirToOpen = new File("reports/memberReport.txt");
+            desktop.open(dirToOpen);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("File Not Found");
+        }
+           
+//        //Create Member Array from Email Array
+//        TeamMember[] memArr = new TeamMember[e.length];
+//        for(int i=0;i<e.length;i++)
+//        { memArr[i] = (TeamMember) getUserByEmail(e[i]);}
+//        
+//        // Create Lists - Project Master 
+//        LinkedList<Project> projectMaster = getProjectList();
+//        
+//        //Wow!  A linked list of linked lists of Task Type!
+//        LinkedList<LinkedList<Task>> mainList = new LinkedList<LinkedList<Task>>();
+//        
+//        // Loop - 
+//        Task t1 = new Task();
+//        mainList.add(new LinkedList<Task>());
+//        mainList.get(0).add(t1);
+//        mainList.size();
+//        
+//        // Loop - For each
         
         
         

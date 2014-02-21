@@ -151,6 +151,14 @@ public class Task implements Serializable, Comparable<Task> {
        return attrs.toArray(new String[attrs.size()]);
     }
 
-    
+     @Override
+    public String toString() {
+        String s = "N"; 
+        if(status.name() == "completed")
+        {s = "Y";}
+         
+         String t = String.format("%-30s%-15s%-15s%-11s%-10s", title, owner, simpleDate.format(startDate),simpleDate.format(endDate),s);
+         return(t);
+ }
     
 }

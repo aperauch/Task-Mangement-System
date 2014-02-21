@@ -162,5 +162,11 @@ public class Project implements Serializable, Comparable<Project>{
         }
         return false;
     }
+    
+     @Override
+    public String toString() {
+        String p = String.format("%-30s%-30s%-30s", "PROJECT:" + title,"START DATE:" + simpleDate.format(startDate),"END DATE:" + simpleDate.format(endDate));
+        return(p);
+ }
            
 }

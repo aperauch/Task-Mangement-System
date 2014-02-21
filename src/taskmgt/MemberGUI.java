@@ -2,6 +2,7 @@ package taskmgt;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultCellEditor;
@@ -11,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import taskmgt.Models.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -429,44 +432,48 @@ public final class MemberGUI extends javax.swing.JDialog {
             int rows[]=jTable1.getSelectedRows();
             if(rows.length>0){
                 
-                 User[] u = new User[rows.length];
+                    String email=jTable1.getValueAt(rows[0], 0).toString();
+                try {                
+                    Data.printMemberRpt(email);
                 
-                for(int i=0;i<rows.length;i++){
-                    String email=jTable1.getValueAt(rows[i], 0).toString();
-                    
-                    TeamMember member =(TeamMember)Data.getUserByEmail(email);
-
-                    System.out.println(member.toString());
+//                 User[] u = new User[rows.length];
+//                
+//                for(int i=0;i<rows.length;i++){
+//                    
+//                    
+//                    TeamMember member =(TeamMember)Data.getUserByEmail(email);
+//
+//                    System.out.println(member.toString());
                            
                    //LinkedList<Project> pl = new LinkedList<Project>();
                    //LinkedList<Task> tl = new LinkedList<Task>();
 
-                    System.out.println("This is a report for " + member.getName());
-
-                   
-                   LinkedList<Project> pl = member.getProjects();
-                   LinkedList<Task> tl = member.getTasks();
-                 
-                   if( pl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any projects","Warning",JOptionPane.WARNING_MESSAGE);}
-                   else if(tl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any tasks","Warning",JOptionPane.WARNING_MESSAGE);}
-                   else{
-                   for(Project p:pl)
-                   
-                       {
-                           System.out.println(p.getTitle());
-                     
-                   
-                   for(Task t:tl)
-                       {
-                           if (t.getProjectID()== p.getID()){
-                           
-                               System.out.println(t.getTitle());
-                           }
-                       }
-                   
-                       }            
-                   }
-                } 
+//                    System.out.println("This is a report for " + member.getName());
+//
+//                   
+//                   LinkedList<Project> pl = member.getProjects();
+//                   LinkedList<Task> tl = member.getTasks();
+//                 
+//                   if( pl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any projects","Warning",JOptionPane.WARNING_MESSAGE);}
+//                   else if(tl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any tasks","Warning",JOptionPane.WARNING_MESSAGE);}
+//                   else{
+//                   for(Project p:pl)
+//                   
+//                       {
+//                           System.out.println(p.getTitle());
+//                     
+//                   
+//                   for(Task t:tl)
+//                       {
+//                           if (t.getProjectID()== p.getID()){
+//                           
+//                               System.out.println(t.getTitle());
+//                           }
+//                       }
+//                   
+//                       }            
+//                   }
+//                } 
 
                 
                 
@@ -475,6 +482,9 @@ public final class MemberGUI extends javax.swing.JDialog {
                     emailList[i] = jTable1.getValueAt(rows[i], 0).toString();                 
                 }
                 Data.printMemberRpt(emailList);*/
+                } catch (IOException ex) {
+                    Logger.getLogger(MemberGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
             }
         }

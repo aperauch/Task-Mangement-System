@@ -1,0 +1,11 @@
+MEMBER REPORT
+-------------
+Aron Aperauch (b@mgt.com) - Team Member/Leader
+
+PROJECT:Project One           START DATE:02/20/2014         END DATE:02/20/2014           
+
+TASK                          OWNER          START DATE     END DATE  DONE           
+----------------------------------------------------------------------------------------
+Task One                       b@mgt.com       02/20/2014      02/20/2014  N         
+Task Two                       b@mgt.com       02/20/2014      02/20/2014  N         
+Task Three                     b@mgt.com       02/20/2014      02/20/2014  N         
