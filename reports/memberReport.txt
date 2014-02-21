@@ -1,28 +1,23 @@
 
 MEMBER REPORT
 -------------
-Aron Aperauch (b@mgt.com) - Team Member/Leader
-
-PROJECT:Project One           START DATE:02/20/2014         END DATE:02/20/2014           
-
-TASK                          OWNER          START DATE     END DATE  DONE           
-----------------------------------------------------------------------------------------
-Task One                      b@mgt.com      02/20/2014     02/20/2014 Y         
-Task Two                      b@mgt.com      02/20/2014     02/20/2014 Y         
-Task Three                    b@mgt.com      02/20/2014     02/20/2014 N         
-
-Completed 2 out of 3 tasks (66.7%)
+Alexander DiNardo (a@mgt.com) - Team Member/Leader
 
 PROJECT:Project Two           START DATE:02/21/2014         END DATE:02/21/2014           
 
-TASK                          OWNER          START DATE     END DATE  DONE           
+TASK                          OWNER          START DATE     END DATE       DONE
 ----------------------------------------------------------------------------------------
-T1                            b@mgt.com      02/21/2014     02/21/2014 Y         
-T3                            b@mgt.com      02/21/2014     02/21/2014 Y         
 
-Completed 2 out of 2 tasks (100.0%)
+Completed 0 out of 0 tasks (0.0%)
+
+PROJECT:Project One           START DATE:02/10/2014         END DATE:02/20/2014           
+
+TASK                          OWNER          START DATE     END DATE       DONE
+----------------------------------------------------------------------------------------
+
+Completed 0 out of 0 tasks (0.0%)
 
 ----------------------------------------------------------------------------------------
 
 MEMBER TOTALS:
-Projects: 2 	Tasks: 5 	 Completed: 4 (80.0%)
+Projects: 2 	Tasks: 0 	 Completed: 0 (0.0%)

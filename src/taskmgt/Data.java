@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Desktop;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Data {
     //Properties
@@ -197,7 +199,7 @@ public class Data {
            int totalTaskCompletedCount = 0;
            
            output.println("\nMEMBER REPORT\n-------------");
-           String taskHeader = String.format("\n%-30s%-15s%-15s%-10s%-15s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
+           String taskHeader = String.format("\n%-30s%-15s%-15s%-15s%-4s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
            String line = String.format("----------------------------------------------------------------------------------------");
            
            output.println(member.toString());
@@ -213,19 +215,31 @@ public class Data {
                output.println(taskHeader);
                output.println(line);
                LinkedList<Task> taskList = p.getTasks();
+               LinkedList<Task> projectTaskList = new LinkedList<Task>();
+               
                   for( Task t : taskList)
-                  {     if(Data.getUserByEmail(t.getOwner()) == member)
-                            {
-                                output.println(t.toString());
+                  {     
+                   
+                      if(Data.getUserByEmail(t.getOwner()) == member)
+                            {  
+                                projectTaskList.add(t);
+  
+                                // output.println(t.toString());
                                 if(t.getStatus() == State.Completed){ taskCompletedCount++;}
                                 taskCount++;
-                                
                             }
                  
                   }
                 float percent = 0;  
                 if(taskCount!=0){percent = (float)taskCompletedCount/(float)taskCount*100;}  
-                  
+                Collections.sort(projectTaskList);
+                // Collections.sort(projectTaskList, Comparator<Task> c);
+                
+                for (Task t : projectTaskList)
+                {
+                    output.println(t.toString());
+                }
+                
                 output.printf("\nCompleted %d out of %d tasks (%.1f%%)\n\n", taskCompletedCount,taskCount,percent);
                 
                 totalTaskCount += taskCount;

@@ -106,7 +106,9 @@ public class Task implements Serializable, Comparable<Task> {
     @Override
     public int compareTo(Task t)
     {
-        return this.id - t.getID();
+        int retVal = this.startDate.compareTo(t.startDate);
+        if(retVal != 0) return retVal;
+        else{return this.id - t.getID();}
     }
     
     public String[] toStringArray() {
@@ -157,7 +159,7 @@ public class Task implements Serializable, Comparable<Task> {
          String s = "N"; 
         if(status == State.Completed){s = "Y";}
          
-         String t = String.format("%-30s%-15s%-15s%-11s%-10s", title, owner, simpleDate.format(startDate),simpleDate.format(endDate),s);
+         String t = String.format("%-30s%-15s%-15s%-16s%-4s", title, owner, simpleDate.format(startDate),simpleDate.format(endDate),s);
          return(t);
  }
     
