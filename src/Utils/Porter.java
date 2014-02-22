@@ -116,7 +116,7 @@ public class Porter {
 //          }
             else
             {
-                for (User user:TaskSystem.userList)
+                for (User user:TaskSystem.getUserList())
                     dataList.add(user.toStringArray());
             }
             
@@ -191,17 +191,17 @@ public class Porter {
                     if (strArr[strArr.length - 1].equalsIgnoreCase(ModelType.TeamLeader.name()))
                     {
                         TeamLeader leader = new TeamLeader(strArr);
-                        TaskSystem.userList.add(leader);
+                        TaskSystem.setUserList(leader);
                     }
                     else if (strArr[strArr.length - 1].equalsIgnoreCase(ModelType.TeamMember.name()))
                     {
                         TeamMember member = new TeamMember(strArr);
-                        TaskSystem.userList.add(member);
+                        TaskSystem.setUserList(member);
                     }
                     else if (strArr[strArr.length - 1].equalsIgnoreCase(ModelType.Admin.name()))
                     {
                         Administrator admin = new Administrator(strArr);
-                        TaskSystem.userList.add(admin);
+                        TaskSystem.setUserList(admin);
                     }
                 }
             }

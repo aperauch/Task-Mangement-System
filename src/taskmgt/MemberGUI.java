@@ -40,7 +40,7 @@ public final class MemberGUI extends javax.swing.JDialog {
     public void fillTable(){
         DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
-        for(User member:TaskSystem.userList){
+        for(User member:TaskSystem.getUserList()){
             if(!(member instanceof Administrator) && member.checkActive()){
                 fillTableRow(member);
             }

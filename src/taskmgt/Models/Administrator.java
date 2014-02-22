@@ -33,7 +33,7 @@ public class Administrator extends User implements Serializable{
     //Methods
     public boolean createLeader(String name, String email){
         TeamLeader leader=new TeamLeader(name, email);
-        for (User u : TaskSystem.userList){
+        for (User u : TaskSystem.getUserList()){
             if(u.equals(leader)&&u.checkActive()){
                 return false;
             }
@@ -43,13 +43,13 @@ public class Administrator extends User implements Serializable{
                 return true;   
             }
         }
-        TaskSystem.userList.add(leader);
+        TaskSystem.setUserList(leader);
         return true;
     }
     
     public boolean createMember(String name, String email){
         TeamMember member=new TeamMember(name, email);
-        for (User u : TaskSystem.userList){
+        for (User u : TaskSystem.getUserList()){
             if(u.equals(member)&&u.checkActive()){
                 return false;
             }

@@ -115,6 +115,10 @@ public class TaskSystem {
     public static LinkedList<Project> getProjectList() { return projectList;}
     public static LinkedList<User> getUserList() { return userList;}
     
+    //Set List
+    public static void setProjectList(Project project) { projectList.add(project);}
+    public static void setUserList(User user) { userList.add(user);}
+    
     public static LinkedList<TeamLeader> getLeaders(){
         LinkedList<TeamLeader> leaders=new LinkedList();
         for(User user:userList){
