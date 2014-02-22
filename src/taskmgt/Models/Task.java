@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import taskmgt.TaskSystem;
@@ -112,6 +113,24 @@ public class Task implements Serializable, Comparable<Task> {
         else{return this.id - t.getID();}
     }
     
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Task){
+            Task task=(Task)obj;
+            return task.title.equalsIgnoreCase(this.title)&&task.startDate.equals(this.startDate)&&task.endDate.equals(this.endDate);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.title);
+        hash = 29 * hash + Objects.hashCode(this.startDate);
+        hash = 29 * hash + Objects.hashCode(this.endDate);
+        return hash;
+    }
+    
     public String[] toStringArray() {
         LinkedList<String> attrs = new LinkedList<>();
 
@@ -162,6 +181,6 @@ public class Task implements Serializable, Comparable<Task> {
          
          String t = String.format("%-30s%-15s%-15s%-16s%-4s", title, owner, simpleDate.format(startDate),simpleDate.format(endDate),s);
          return(t);
- }
+    }
     
 }

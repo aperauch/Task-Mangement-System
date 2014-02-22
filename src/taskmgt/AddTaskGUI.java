@@ -92,6 +92,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
                     ownerComboBox.addItem(user.getEmail());
                 }
             }
+            ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
         } 
         else {
             ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
