@@ -138,11 +138,11 @@ public class LoginGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Invalid User/Password. Please verify!","Warning",JOptionPane.WARNING_MESSAGE);
             }
             else if(user.getPassword().isEmpty()){
-                int indexOfUser=TaskSystem.userList.indexOf(user);
+                int indexOfUser=TaskSystem.getUserList().indexOf(user);
                 java.security.SecureRandom random = new java.security.SecureRandom();
                 String randomPassword[] = { new java.math.BigInteger(130, random).toString(32) };
                 String newPassword=JOptionPane.showInputDialog(null, "Enter a password or use the random one", randomPassword[0]);//"Warning", JOptionPane.WARNING_MESSAGE );
-                TaskSystem.userList.get(indexOfUser).setPassword(newPassword);
+                TaskSystem.getUserList().get(indexOfUser).setPassword(newPassword);
             }
             else{
                 //Set the current user that is logging into the system.

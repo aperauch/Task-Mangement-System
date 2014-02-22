@@ -74,8 +74,13 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         //Notification
         if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             boolean flag=false;
+<<<<<<< HEAD
             for(Project project:TaskSystem.projectList){
                 if(TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())){
+=======
+            for(Project project:TaskSystem.getProjectList()){
+                if(project.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
+>>>>>>> 1f31f0451bb33ae343de3ef701346e2e88d0a959
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
                             jLabel3.setText("You got new tasks to approve!");
@@ -95,7 +100,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         }
         else{
             boolean flag=false;
-            for(Project project:TaskSystem.projectList){
+            for(Project project:TaskSystem.getProjectList()){
                 for(Task task:project.getTasks()){
                     if(task.getStatus()==State.ToDo&&TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(task.getOwner())){
                         jLabel3.setText("You got new tasks to do!");
@@ -147,8 +152,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
     public void refreshProjectsList() {
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
-        if (!TaskSystem.projectList.isEmpty()) {
-            for (Project project : TaskSystem.projectList) {
+        if (!TaskSystem.getProjectList().isEmpty()) {
+            for (Project project : TaskSystem.getProjectList()) {
                 if (project.getStatus() != State.Archive) {
                     if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
                         jListModel.addElement(project.getTitle());

@@ -106,7 +106,7 @@ public class Porter {
             
             if (type == ModelType.Project)
             {
-                for (Project project:TaskSystem.projectList)
+                for (Project project:TaskSystem.getProjectList())
                     dataList.add(project.toStringArray());
                 }
 //          else if (type == ModelType.Task)
@@ -169,7 +169,7 @@ public class Porter {
                         else if (i == 5) {
                             impProject[i] = strArr[i];
                             p = new Project(impProject);
-                            TaskSystem.projectList.add(p);
+                            TaskSystem.setProjectList(p);
                         }
                     }
                 }

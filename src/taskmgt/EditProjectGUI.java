@@ -303,7 +303,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             title = jTextField1.getText().toString();
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
-            for (Project p : TaskSystem.projectList) {
+            for (Project p : TaskSystem.getProjectList()) {
                 if (p.getTitle().equalsIgnoreCase(title)) {
                     JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -320,7 +320,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                     } else {
 
                         proj = new Project(title, owner, sDate, eDate);
-                        TaskSystem.projectList.add(proj);
+                        TaskSystem.setProjectList(proj);
 
                         User userEmail = null;
                         List<String> emails = new ArrayList<>();
@@ -356,7 +356,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
             if(title.compareToIgnoreCase(projectgui.getSelectProject().getTitle())!=0){
-                for (Project p : TaskSystem.projectList) {
+                for (Project p : TaskSystem.getProjectList()) {
                     if (p.getTitle().equalsIgnoreCase(title)) {
                         JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
                         return;
@@ -373,7 +373,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
                         //editing project details
                         Project editProj = projectgui.getSelectProject();
-                        TaskSystem.projectList.remove(editProj);
+                        TaskSystem.getProjectList().remove(editProj);
                         editProj.setTitle(title);
                         editProj.setEndDate(eDate);
                         editProj.setStartDate(sDate);
@@ -397,7 +397,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                                 }
                             }
                             
-                        TaskSystem.projectList.add(editProj);
+                        TaskSystem.setProjectList(editProj);
                         this.dispose();
                     }
                 } catch (ParseException ex) {

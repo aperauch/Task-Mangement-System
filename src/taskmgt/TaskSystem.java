@@ -36,8 +36,8 @@ public class TaskSystem {
     private static User CurrentUser;
     
     //Lists
-    public static LinkedList<User> userList = new LinkedList();
-    public static LinkedList<Project> projectList = new LinkedList();
+    private static LinkedList<User> userList = new LinkedList();
+    private static LinkedList<Project> projectList = new LinkedList();
 
     //Serializer
     private final static Serializer<User> userSerializer=new Serializer(".//Data","User.ser");
@@ -112,11 +112,11 @@ public class TaskSystem {
     public static User getCurrentUser() { return CurrentUser; }
     
     //Get List
-//    public static LinkedList<Project> getProjectList() { return projectList;}
+    public static LinkedList<Project> getProjectList() { return projectList;}
     public static LinkedList<User> getUserList() { return userList;}
     
     //Set List
-//    public static void setProjectList(Project project) { projectList.add(project);}
+    public static void setProjectList(Project project) { projectList.add(project);}
     public static void setUserList(User user) { userList.add(user);}
     
     public static LinkedList<TeamLeader> getLeaders(){
@@ -316,7 +316,8 @@ public class TaskSystem {
             
             //PRINT MEMBER TOTALS
             for(int i=0;i<memberList.length;i++){
-                float percent = (float)totalTaskCompletedCount[i]/(float)totalTaskCount[i]*100;
+                float percent = 0;
+                if(totalTaskCount[i]!=0){percent = (float)totalTaskCompletedCount[i]/(float)totalTaskCount[i]*100;}
                 String mem = String.format("%-30s%-15d%-15d%-15d%-10.1f", memberList[i].getName(), totalProjectCount[i], totalTaskCount[i], totalTaskCompletedCount[i], percent);
                 output.println(mem);
             }

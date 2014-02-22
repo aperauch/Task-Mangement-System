@@ -139,7 +139,7 @@ public class Project implements Serializable, Comparable<Project>{
     
     private void setID(){
         int max=0;
-        for(Project project:TaskSystem.projectList){
+        for(Project project:TaskSystem.getProjectList()){
             if(project!=null)
             max=project.getID()>=max?project.getID():max;
         }

@@ -1,10 +1,10 @@
 
 MEMBER REPORT
 -------------
-a (a@mgt.com) - Team Member/Leader
+member (member@mgt.com) - Team Member
 
 
 TOTALS
 ----------------------------------------------------------------------------------------
 MEMBER                        PROJECTS       TASKS          COMPLETED      (%)       ----------------------------------------------------------------------------------------
-a                             0              0              0              NaN       
+member                        0              0              0              0.0       
