@@ -205,9 +205,9 @@ public class AddTaskGUI extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ownerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(addTaskBtn)
-                .addGap(23, 23, 23))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -244,7 +244,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
         }
         
         //If adding a task
-        if (addTaskBtn.getText().equalsIgnoreCase("add")){
+        if (addTaskBtn.getText().equalsIgnoreCase("add")&&TaskSystem.getCurrentUser() instanceof TeamLeader){
             //Create Task object with attributes
             Task task;
             if (TaskSystem.getCurrentUser() instanceof TeamLeader)
@@ -253,24 +253,29 @@ public class AddTaskGUI extends javax.swing.JDialog {
                 task = new Task(title, ownerEmail, projectID, start, end);
             
             //Push task onto task list for the project
-            if(!project.getTasks().contains(task))
+            if(!project.getTasks().contains(task)){
                 project.addTask(task);
-            else
+                parentFrame.addTaskTableRow(task);
+            }
+            else{
                 JOptionPane.showMessageDialog(null, "This task is already exists.", "Task exists!", JOptionPane.WARNING_MESSAGE);
+            }            
             //Update parent frame with new tasks
-            parentFrame.addTaskTableRow(task);
         }
         //Else, requesting a task
         else
         {
             //Create Task object with attributes
             Task task;task = new Task(title, ownerEmail, projectID, start, end, State.New);
-
-            //Push task onto task list for the project
-            project.addTask(task);
+            if(!project.getTasks().contains(task)){
+                project.addTask(task);
+                parentFrame.addTaskTableRow(task);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "This task is already exists.", "Task exists!", JOptionPane.WARNING_MESSAGE);
+            }  
 
             //Update parent frame with new tasks
-            parentFrame.addTaskTableRow(task);
         }
     }//GEN-LAST:event_addTaskBtnActionPerformed
 
