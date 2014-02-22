@@ -102,6 +102,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             setFormAdd();
         else
             setFormEdit();
+        
         if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             this.setTitle("Add Task");
             addTaskBtn.setText("Add");
