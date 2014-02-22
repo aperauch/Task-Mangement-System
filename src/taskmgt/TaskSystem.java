@@ -25,9 +25,8 @@ public class TaskSystem {
         } 
         catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
         }
-        //InitializeAdmin();
         TaskSystem.Initialize();
-        //TaskSystem.checkforEmptyLists();
+        InitializeAdmin();
         LoginGUI loginForm=new LoginGUI();
         loginForm.show();
         loginForm.setLocationRelativeTo(null);
@@ -74,18 +73,17 @@ public class TaskSystem {
     }
     
     public static void InitializeAdmin(){
-        Administrator admin=new Administrator("admin","admin@mgt.com","123456");
-        TeamLeader leader=new TeamLeader("leader","leader@mgt.com","123456");
-        TeamMember member=new TeamMember("member","member@mgt.com","123456");
-        if (userList == null){
-            userList = new LinkedList<>();
-        }
-        if(userList.isEmpty()){
+        if(userList==null){
+            userList= new LinkedList();
+            projectList= new LinkedList();
+            Administrator admin=new Administrator("admin","admin@mgt.com","123456");
+            TeamLeader leader=new TeamLeader("leader","leader@mgt.com","123456");
+            TeamMember member=new TeamMember("member","member@mgt.com","123456");
             userList.add(admin);
             userList.add(leader);
             userList.add(member);
+            Finalize();
         }
-        Finalize();
     }
     
 //    public static void InitializeProject(String title, String owner, Date start, Date end) {
