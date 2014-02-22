@@ -551,7 +551,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         
         //Get project object from title
         currentProject = TaskSystem.getProjectByTitle(projectTitle);
-        
+        if(currentProject!=null){
         if(TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(currentProject.getOwner())){
             ButtonAddTask.setText("Add Task");
         }
@@ -563,6 +563,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             for (Task task : currentProject.getTasks()) {
                 addTaskTableRow(task);
             }
+        }
         }
 
     }//GEN-LAST:event_jListProjectsValueChanged
