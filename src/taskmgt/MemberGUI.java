@@ -432,9 +432,20 @@ public final class MemberGUI extends javax.swing.JDialog {
             int rows[]=jTable1.getSelectedRows();
             if(rows.length>0){
                 
-                    String email=jTable1.getValueAt(rows[0], 0).toString();
-                try {                
-                    Data.printMemberRpt(email);
+                    
+                try {      
+                    
+                    TeamMember[] selectedMembers = new TeamMember[rows.length];
+                    for(int i=0;i<rows.length;i++){
+                        
+                        //Populates list of the seleced members
+                        String s = jTable1.getValueAt(rows[i], 0).toString();
+                        selectedMembers[i]= (TeamMember) Data.getUserByEmail(s);
+                    
+                    }
+                    
+                    
+                    Data.printMemberRpt(selectedMembers);
                 
 //                 User[] u = new User[rows.length];
 //                

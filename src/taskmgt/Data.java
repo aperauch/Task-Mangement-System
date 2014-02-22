@@ -179,7 +179,7 @@ public class Data {
         userList = new LinkedList<>();
     }
   
-    public static void printMemberRpt(String e) throws IOException
+    public static void printMemberRpt(TeamMember[] memberList) throws IOException
     {
             PrintWriter output ;
 
@@ -189,69 +189,129 @@ public class Data {
             file.getParentFile().mkdirs();
 
             output = new PrintWriter("reports/memberReport.txt"); 
-        
-           TeamMember member = (TeamMember) getUserByEmail(e);
            
+          output.println("\nMEMBER REPORT\n-------------"); 
+          String taskHeader = String.format("%-30s%-15s%-15s%-15s%-4s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
+          String line = String.format("----------------------------------------------------------------------------------------");
+            
+           int[] totalProjectCount = new int[memberList.length];
+           int[] totalTaskCount = new int[memberList.length];
+           int[] totalTaskCompletedCount = new int[memberList.length]; 
            
-           LinkedList<Project> projectList = member.getProjects();
-          
-           int totalTaskCount = 0;
-           int totalTaskCompletedCount = 0;
+           LinkedList<Project> uniqueProjectList = new LinkedList<Project>();
            
-           output.println("\nMEMBER REPORT\n-------------");
-           String taskHeader = String.format("\n%-30s%-15s%-15s%-15s%-4s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
-           String line = String.format("----------------------------------------------------------------------------------------");
-           
-           output.println(member.toString());
+           //PRINTS .TOSTRING OF EVERY MEMBER SELECTED
+           for (TeamMember member: memberList){output.println(member.toString());}
            output.println();
            
-           if (projectList.size() == 0) {output.println("This member is not assigned to any projects");}
-           for( Project p : projectList){
-               int taskCount = 0;
-               int taskCompletedCount = 0;
-               
-               output.println(p.toString());
+           //CONSOLIDATES UNIQUE PROJECTS OF EACH MEMBER INTO CONSOLIDATED LIST
+            LinkedList<Project> projectList = null;
+            for (TeamMember member: memberList){
 
-               output.println(taskHeader);
-               output.println(line);
-               LinkedList<Task> taskList = p.getTasks();
-               LinkedList<Task> projectTaskList = new LinkedList<Task>();
+                projectList = member.getProjects();
+                
+                int i = 0;
+                for (Project p : projectList){
+                    totalProjectCount[i]++;
+                    if(!uniqueProjectList.contains(p)){uniqueProjectList.add(p);}
+                }
+                i++;
+            }
+      
+            //SORT PROJECT LIST (BY START DATE)
+            Collections.sort(uniqueProjectList);
+            
+            //FOR EACH PROJECT...
+            for( Project p : uniqueProjectList){
+              
+                int[] taskCount = new int[memberList.length];
+                int[] taskCompletedCount = new int[memberList.length]; 
+                
+                // PRINT THE PROJECT .TOSTRING
+                output.println(p.toString());
                
-                  for( Task t : taskList)
-                  {     
-                   
-                      if(Data.getUserByEmail(t.getOwner()) == member)
-                            {  
-                                projectTaskList.add(t);
-  
-                                // output.println(t.toString());
-                                if(t.getStatus() == State.Completed){ taskCompletedCount++;}
-                                taskCount++;
+                // PRINT THE HEADER
+                output.println(line);
+                output.println(taskHeader);
+                output.println(line);
+                
+                // GET THE PROJECT'S TASKS (ALL)
+                LinkedList<Task> taskList = p.getTasks();
+                LinkedList<Task> projectTaskList = new LinkedList<Task>();
+
+                            for( Task t : taskList)
+                            {     
+                                for(int j=0; j < memberList.length; j++){
+                                    if(Data.getUserByEmail(t.getOwner()) == memberList[j])
+                                      {  
+                                          projectTaskList.add(t);
+                                          
+                                          if(t.getStatus() == State.Completed){ taskCompletedCount[j]++;}
+                                          
+                                          taskCount[j]++;
+                                      }
+                                }
+
                             }
                  
-                  }
-                float percent = 0;  
-                if(taskCount!=0){percent = (float)taskCompletedCount/(float)taskCount*100;}  
-                Collections.sort(projectTaskList);
-                // Collections.sort(projectTaskList, Comparator<Task> c);
+                 Collections.sort(projectTaskList);
+                 // Collections.sort(projectTaskList, Comparator<Task> c);
+
+                 for (Task pt : projectTaskList)
+                 {
+                     output.println(pt.toString());
+                 }
+                 
+                 output.println();
+                 
+                 int k=0;
+                 for (User m : memberList){
+                 float percent = 0;  
+                 if(taskCount[k]!=0){
+                     percent = (float)taskCompletedCount[k]/(float)taskCount[k]*100;
+                     String mem = String.format("%s completed %d out of %d tasks (%.1f%%)", m.getName(), taskCompletedCount[k],taskCount[k],percent);
+                     output.println(mem);
+                     
+                     totalTaskCount[k] += taskCount[k];
+                     totalTaskCompletedCount[k] += taskCompletedCount[k];
+                                    }
+                 k++;
+                 }
+                 output.println();
+            }
                 
-                for (Task t : projectTaskList)
-                {
-                    output.println(t.toString());
+                
+                
+            output.println("\nTOTALS"); 
+            output.println(line);
+            output.printf("%-30s%-15s%-15s%-15s%-10s", "MEMBER", "PROJECTS", "TASKS","COMPLETED", "(%)");
+            output.println(line);
+            
+            //PRINT MEMBER TOTALS
+            for(int i=0;i<memberList.length;i++){
+                float percent = (float)totalTaskCompletedCount[i]/(float)totalTaskCount[i]*100;
+                String mem = String.format("%-30s%-15d%-15d%-15d%-10.1f", memberList[i].getName(), totalProjectCount[i], totalTaskCount[i], totalTaskCompletedCount[i], percent);
+                output.println(mem);
+            }
+            
+            //PRINT GRAND TOTAL (IF MULTIPLE)
+            if(memberList.length > 1){
+                    int grandTotalProjects = 0;
+                    int grandTotalTasks = 0;
+                    int grandTotalCompleted = 0;
+                
+                for(int i=0;i<memberList.length;i++){
+                    grandTotalProjects += totalProjectCount[i];
+                    grandTotalTasks += totalTaskCount[i];
+                    grandTotalCompleted += totalTaskCompletedCount[i]; 
                 }
                 
-                output.printf("\nCompleted %d out of %d tasks (%.1f%%)\n\n", taskCompletedCount,taskCount,percent);
-                
-                totalTaskCount += taskCount;
-                totalTaskCompletedCount += taskCompletedCount;
-           }
-           
-           float percentTotal = 0;
-                if(totalTaskCount!=0){percentTotal = (float) totalTaskCompletedCount / (float) totalTaskCount*100;}
-           
-           output.println(line);
-           output.printf("\nMEMBER TOTALS:\nProjects: %d \tTasks: %d \t Completed: %d (%.1f%%)", projectList.size(), totalTaskCount,totalTaskCompletedCount,percentTotal);
-           
+                float percent = (float)grandTotalCompleted/(float)grandTotalTasks*100;
+                    output.println(line);
+                    String grand = String.format("%-30s%-15d%-15d%-15d%-10.1f", "GRAND TOTAL",grandTotalProjects, grandTotalTasks, grandTotalCompleted, percent);
+                    output.println(grand);
+            }
+            
            output.flush();
 
  }
@@ -270,25 +330,6 @@ public class Data {
             System.out.println("File Not Found");
         }
            
-//        //Create Member Array from Email Array
-//        TeamMember[] memArr = new TeamMember[e.length];
-//        for(int i=0;i<e.length;i++)
-//        { memArr[i] = (TeamMember) getUserByEmail(e[i]);}
-//        
-//        // Create Lists - Project Master 
-//        LinkedList<Project> projectMaster = getProjectList();
-//        
-//        //Wow!  A linked list of linked lists of Task Type!
-//        LinkedList<LinkedList<Task>> mainList = new LinkedList<LinkedList<Task>>();
-//        
-//        // Loop - 
-//        Task t1 = new Task();
-//        mainList.add(new LinkedList<Task>());
-//        mainList.get(0).add(t1);
-//        mainList.size();
-//        
-//        // Loop - For each
-        
         
         
     } 

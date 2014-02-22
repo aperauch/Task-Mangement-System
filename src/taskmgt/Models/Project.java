@@ -109,16 +109,23 @@ public class Project implements Serializable, Comparable<Project>{
         return taskList;
     }
      
-    @Override
-    public int compareTo(Project p)
-    {
-        return this.title.compareToIgnoreCase(p.title);
-    }
+    
+//    public int compareTo(Project p)
+//    {
+//        return this.title.compareToIgnoreCase(p.title);
+//    }
     
     
     public int compareTo(String p)
     {
         return this.title.compareToIgnoreCase(p);
+    }
+    @Override
+        public int compareTo(Project p)
+    {
+        int retVal = this.startDate.compareTo(p.startDate);
+        if(retVal != 0) return retVal;
+        else{return this.id - p.getID();}
     }
     
     private void setID(){
