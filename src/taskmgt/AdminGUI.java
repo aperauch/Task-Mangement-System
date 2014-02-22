@@ -94,8 +94,8 @@ public final class AdminGUI extends javax.swing.JFrame{
         if (!merge)
             TaskSystem.clearAllLists();
         
-        boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project, merge);
-        //boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
+     boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project, merge);
+       // boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
         boolean usersOK = Porter.importCSV(".//Imports//Users.csv", ModelType.AllUsers, merge);
         
         if (projectsOK && usersOK) {

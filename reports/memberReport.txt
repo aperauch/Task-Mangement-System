@@ -1,74 +1,52 @@
 
 MEMBER REPORT
 -------------
-Alexander DiNardo (a@mgt.com) - Team Member/Leader
-Aron Aperauch (b@mgt.com) - Team Member/Leader
-c (c@mgt.com) - Team Member/Leader
-John Doe (e@mgt.com) - Team Member
-f (f@mgt.com) - Team Member
-g (g@mgt.com) - Team Member
-a (a@a.com) - Team Member/Leader
-b (b@b.com) - Team Member/Leader
-c (c@c.com) - Team Member
-d (d@d.com) - Team Member
-e (e@e.com) - Team Member
-f (f@f.com) - Team Member
-g (g@g.com) - Team Member
-Henry (henry@h.com) - Team Member/Leader
 d (d@mgt.com) - Team Member
 
-PROJECT:Project One           START DATE:02/10/2014         END DATE:02/20/2014           
+PROJECT:P14                   START DATE:10/24/0014         END DATE:10/28/0014           
 ----------------------------------------------------------------------------------------
 TASK                          OWNER          START DATE     END DATE       DONE
 ----------------------------------------------------------------------------------------
-Task One                      b@mgt.com      02/21/2014     02/20/2014      Y   
-Task Three                    b@mgt.com      02/21/2014     02/20/2014      N   
-Task Two                      b@mgt.com      02/23/2014     02/20/2014      Y   
 
-Aron Aperauch completed 2 out of 3 tasks (66.7%)
 
-PROJECT:Project Two           START DATE:02/21/2014         END DATE:02/21/2014           
+PROJECT:P15                   START DATE:10/25/0014         END DATE:10/29/0014           
 ----------------------------------------------------------------------------------------
 TASK                          OWNER          START DATE     END DATE       DONE
 ----------------------------------------------------------------------------------------
-T3                            b@mgt.com      02/24/2014     02/21/2014      Y   
-T2                            e@mgt.com      02/25/2014     02/21/2014      N   
-T1                            b@mgt.com      02/27/2014     02/21/2014      Y   
 
-Aron Aperauch completed 2 out of 2 tasks (100.0%)
-John Doe completed 0 out of 1 tasks (0.0%)
 
-PROJECT:Project Three         START DATE:02/21/2014         END DATE:02/21/2014           
+PROJECT:P16                   START DATE:10/26/0014         END DATE:10/30/0014           
 ----------------------------------------------------------------------------------------
 TASK                          OWNER          START DATE     END DATE       DONE
 ----------------------------------------------------------------------------------------
-Tt1                           e@mgt.com      02/20/2014     02/21/2014      Y   
-Tt1                           e@mgt.com      02/21/2014     02/21/2014      N   
-Tt1                           e@mgt.com      02/21/2014     02/21/2014      N   
-Tt1                           e@mgt.com      02/21/2014     02/21/2014      Y   
-Tt1                           e@mgt.com      02/22/2014     02/21/2014      N   
-Tt1                           e@mgt.com      02/26/2014     02/21/2014      Y   
 
-John Doe completed 3 out of 6 tasks (50.0%)
+
+PROJECT:P17                   START DATE:10/27/0014         END DATE:10/30/0014           
+----------------------------------------------------------------------------------------
+TASK                          OWNER          START DATE     END DATE       DONE
+----------------------------------------------------------------------------------------
+
+
+PROJECT:P18                   START DATE:10/28/0014         END DATE:11/30/0014           
+----------------------------------------------------------------------------------------
+TASK                          OWNER          START DATE     END DATE       DONE
+----------------------------------------------------------------------------------------
+
+
+PROJECT:P19                   START DATE:10/29/0014         END DATE:11/30/0014           
+----------------------------------------------------------------------------------------
+TASK                          OWNER          START DATE     END DATE       DONE
+----------------------------------------------------------------------------------------
+
+
+PROJECT:P20                   START DATE:10/30/0014         END DATE:11/30/0014           
+----------------------------------------------------------------------------------------
+TASK                          OWNER          START DATE     END DATE       DONE
+----------------------------------------------------------------------------------------
+
 
 
 TOTALS
 ----------------------------------------------------------------------------------------
 MEMBER                        PROJECTS       TASKS          COMPLETED      (%)       ----------------------------------------------------------------------------------------
-Alexander DiNardo             7              0              0              NaN       
-Aron Aperauch                 0              5              4              80.0      
-c                             0              0              0              NaN       
-John Doe                      0              7              3              42.9      
-f                             0              0              0              NaN       
-g                             0              0              0              NaN       
-a                             0              0              0              NaN       
-b                             0              0              0              NaN       
-c                             0              0              0              NaN       
-d                             0              0              0              NaN       
-e                             0              0              0              NaN       
-f                             0              0              0              NaN       
-g                             0              0              0              NaN       
-Henry                         0              0              0              NaN       
-d                             0              0              0              NaN       
-----------------------------------------------------------------------------------------
-GRAND TOTAL                   7              12             7              58.3      
+d                             7              0              0              NaN       
