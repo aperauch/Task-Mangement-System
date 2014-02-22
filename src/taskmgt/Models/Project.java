@@ -62,9 +62,9 @@ public class Project implements Serializable, Comparable<Project>{
     public void setOwner(String owner){this.owner=owner;}
     public void setStartDate(Date startDate){this.startDate=startDate;}
     public void setEndDate(Date endDate){this.endDate=endDate;}
-    public void setStatus(State status){this.status=status;}
+//    public void setStatus(State status){this.status=status;}
     public void setMembers(LinkedList<User> members) { this.members = members; }
-    public void setTasks(LinkedList<Task> tasks) { this.tasks = tasks; }
+//    public void setTasks(LinkedList<Task> tasks) { this.tasks = tasks; }
     
     //Other methods
     //Add to Collection
@@ -79,7 +79,7 @@ public class Project implements Serializable, Comparable<Project>{
     
     //Remove from Collection
     public void removeTask(Task task) { tasks.remove(task); }
-    public void removeMember(User user) { members.remove(user); }
+//    public void removeMember(User user) { members.remove(user); }
     
     public int getNextTaskID()
     {
@@ -100,15 +100,15 @@ public class Project implements Serializable, Comparable<Project>{
         return null;
     }
     
-    public LinkedList<Task> getTaskByMemberEmail(TeamMember member){
-        LinkedList<Task> taskList=new LinkedList();
-        for(Task task:tasks){
-            if(task.getOwner().equalsIgnoreCase(member.getEmail()))
-                taskList.add(task);
-        }
-        return taskList;
-    }
-     
+//    public LinkedList<Task> getTaskByMemberEmail(TeamMember member){
+//        LinkedList<Task> taskList=new LinkedList();
+//        for(Task task:tasks){
+//            if(task.getOwner().equalsIgnoreCase(member.getEmail()))
+//                taskList.add(task);
+//        }
+//        return taskList;
+//    }
+//     
     
 //    public int compareTo(Project p)
 //    {
@@ -116,10 +116,10 @@ public class Project implements Serializable, Comparable<Project>{
 //    }
     
     
-    public int compareTo(String p)
-    {
-        return this.title.compareToIgnoreCase(p);
-    }
+//    public int compareTo(String p)
+//    {
+//        return this.title.compareToIgnoreCase(p);
+//    }
     @Override
         public int compareTo(Project p)
     {
