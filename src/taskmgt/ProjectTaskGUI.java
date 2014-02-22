@@ -148,27 +148,11 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
     public void refreshProjectsList() {
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
-<<<<<<< HEAD
             if(!TaskSystem.refreshProjectList().isEmpty()){
                 for(Project project:TaskSystem.refreshProjectList()){
                     jListModel.addElement(project.getTitle());
                     jListProjects.setModel(jListModel);
                     jListProjects.setEnabled(true);
-=======
-        if (!TaskSystem.getProjectList().isEmpty()) {
-            for (Project project : projectList) {
-                if (project.getStatus() != State.Archive) {
-                    if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
-                        jListModel.addElement(project.getTitle());
-                    } else {
-                        for (User member : project.getMembers()) {
-                            if (TaskSystem.getCurrentUser().equals(member)) {
-                                jListModel.addElement(project.getTitle());
-                                break;
-                            }
-                        }
-                    }
->>>>>>> 1368ec536d51d212234f34ce0e7574bddfb6da47
                 }
             }
             else {
