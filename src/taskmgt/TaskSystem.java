@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Desktop;
 import java.util.Collections;
-import java.util.Comparator;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -27,16 +26,13 @@ public class TaskSystem {
         } 
         catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
         }
-        //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");  //DEBUG
+        InitializeAdmin();
         TaskSystem.Initialize();
         TaskSystem.checkforEmptyLists();
-        //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");//DEBUG
         LoginGUI loginForm=new LoginGUI();
         loginForm.show();
         loginForm.setLocationRelativeTo(null);
     }
-    
-    
     //Properties
     private static User CurrentUser;
     
@@ -78,13 +74,17 @@ public class TaskSystem {
         pushProject();
     }
     
-    public static void InitializeAdmin(String name,String email,String password){
-        Administrator admin=new Administrator(name,email,password);
-        
+    public static void InitializeAdmin(){
+        Administrator admin=new Administrator("admin","admin@mgt.com","123456");
+        TeamLeader leader=new TeamLeader("leader","leader@mgt.com","123456");
+        TeamMember member=new TeamMember("member","member@mgt.com","123456");
         if (userList == null)
-            userList = new LinkedList<>();
-        
-        userList.add(admin);
+            userList = new LinkedList<>();        
+        if(userList.isEmpty()){
+            userList.add(admin);
+            userList.add(leader);
+            userList.add(member);
+        }
         Finalize();
     }
     

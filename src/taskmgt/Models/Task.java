@@ -16,12 +16,13 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import taskmgt.TaskSystem;
 
 public class Task implements Serializable, Comparable<Task> {
    //Attributes
     private int id;
     private String title;
-    private String owner;
+    private TeamMember owner;
     private int projectID;
     private Date startDate;
     private Date endDate;
@@ -32,7 +33,7 @@ public class Task implements Serializable, Comparable<Task> {
     //Constructors
     public Task(String title,String owner,int projectID, Date startDate, Date endDate){
         this.title=title;
-        this.owner=owner;
+        this.owner=(TeamMember)TaskSystem.getUserByEmail(owner);
         this.projectID=projectID;
         this.startDate=startDate;
         this.endDate=endDate;
@@ -41,7 +42,7 @@ public class Task implements Serializable, Comparable<Task> {
     
     public Task(int id, String title,String owner,int projectID, Date startDate, Date endDate){
         this.title=title;
-        this.owner=owner;
+        this.owner=(TeamMember)TaskSystem.getUserByEmail(owner);
         this.projectID=projectID;
         this.startDate=startDate;
         this.endDate=endDate;
@@ -51,7 +52,7 @@ public class Task implements Serializable, Comparable<Task> {
     
     public Task(String title, String ownerEmail, int projectID, Date start, Date end, State status) {
         this.title=title;
-        this.owner=ownerEmail;
+        this.owner=(TeamMember)TaskSystem.getUserByEmail(ownerEmail);
         this.projectID=projectID;
         this.startDate=start;
         this.endDate=end;
@@ -61,7 +62,7 @@ public class Task implements Serializable, Comparable<Task> {
     public Task(String[] strArr) {
         this.id = Integer.valueOf(strArr[0]);
         this.title=strArr[1];
-        this.owner=strArr[2];
+        this.owner=(TeamMember)TaskSystem.getUserByEmail(strArr[2]);
         this.projectID=Integer.valueOf(strArr[3]);
         
         try {
@@ -77,7 +78,7 @@ public class Task implements Serializable, Comparable<Task> {
     //Used for testing purposes only - DEBUG
      public Task(){
         this.title="";
-        this.owner="";
+        this.owner=null;
         this.projectID=0;
         this.startDate=null;
         this.endDate=null;
@@ -87,7 +88,7 @@ public class Task implements Serializable, Comparable<Task> {
     //Get
     public int getID() { return this.id; }
     public String getTitle() { return this.title; }
-    public String getOwner() { return this.owner; }
+    public String getOwner() { return this.owner.getEmail(); }
     public int getProjectID(){return this.projectID;}
     public Date getStartDate() { return this.startDate; }
     public Date getEndDate() { return this.endDate; }
@@ -97,7 +98,7 @@ public class Task implements Serializable, Comparable<Task> {
     //Set
     public void setID(int nextTaskID) { this.id = nextTaskID; }
     public void setTitle(String title){ this.title=title;}
-    public void setOwner(String owner){this.owner=owner;}
+    public void setOwner(String owner){this.owner=(TeamMember)TaskSystem.getUserByEmail(owner);}
     public void setProjectID(int projectID){this.projectID=projectID;}
     public void setStartDate(Date startDate){this.startDate=startDate;}
     public void setEndDate(Date endDate){this.endDate=endDate;}
@@ -115,7 +116,7 @@ public class Task implements Serializable, Comparable<Task> {
         LinkedList<String> attrs = new LinkedList<>();
 
         attrs.add(Integer.toString(id));
-        attrs.add(owner);
+        attrs.add(owner.getEmail());
         attrs.add(title);
         attrs.add(Integer.toString(projectID));
         attrs.add(simpleDate.format(startDate));
@@ -147,7 +148,7 @@ public class Task implements Serializable, Comparable<Task> {
         attrs.add(title);        
         attrs.add(simpleDate.format(startDate));
         attrs.add(simpleDate.format(endDate));    
-        attrs.add(owner);
+        attrs.add(owner.getEmail());
         attrs.add(status.name());
 
        return attrs.toArray(new String[attrs.size()]);

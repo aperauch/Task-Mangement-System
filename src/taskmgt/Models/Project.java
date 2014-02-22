@@ -12,7 +12,7 @@ public class Project implements Serializable, Comparable<Project>{
     //Attributes
     private int id;
     private String title;
-    private String owner;
+    private TeamLeader owner;
     private Date startDate;
     private Date endDate;
     private State status;
@@ -24,7 +24,7 @@ public class Project implements Serializable, Comparable<Project>{
     //Constructor
     public Project(String title,String owner, Date startDate, Date endDate){
         this.title=title;
-        this.owner=owner;
+        this.owner=(TeamLeader)TaskSystem.getUserByEmail(owner);
         this.startDate=startDate;
         this.endDate=endDate;
         this.status=State.New;
@@ -34,7 +34,7 @@ public class Project implements Serializable, Comparable<Project>{
     public Project(String[] strArr) {
         this.id = Integer.parseInt(strArr[0]);
         this.title = strArr[1];
-        this.owner = strArr[2];
+        this.owner = (TeamLeader)TaskSystem.getUserByEmail(strArr[2]);
         
         try {
             this.startDate = simpleDate.parse(strArr[3]);
@@ -49,7 +49,7 @@ public class Project implements Serializable, Comparable<Project>{
     //Get
     public int getID() { return this.id; }
     public String getTitle() { return this.title; }
-    public String getOwner() { return this.owner; }
+    public String getOwner() { return this.owner.getEmail(); }
     public Date getStartDate() { return this.startDate; }
     public Date getEndDate() { return this.endDate; }
     public State getStatus() { return this.status; }
@@ -59,7 +59,7 @@ public class Project implements Serializable, Comparable<Project>{
     
     //Set
     public void setTitle(String title){ this.title=title;}
-    public void setOwner(String owner){this.owner=owner;}
+    public void setOwner(String owner){this.owner=(TeamLeader)TaskSystem.getUserByEmail(owner);}
     public void setStartDate(Date startDate){this.startDate=startDate;}
     public void setEndDate(Date endDate){this.endDate=endDate;}
     public void setStatus(State status){this.status=status;}
@@ -116,8 +116,7 @@ public class Project implements Serializable, Comparable<Project>{
 //    }
     
     
-    public int compareTo(String p)
-    {
+    public int compareTo(String p){
         return this.title.compareToIgnoreCase(p);
     }
     @Override
@@ -142,7 +141,7 @@ public class Project implements Serializable, Comparable<Project>{
         LinkedList<String> attrs = new LinkedList<>();
 
         attrs.add(Integer.toString(id));
-        attrs.add(owner);
+        attrs.add(owner.getEmail());
         attrs.add(title);
         attrs.add(simpleDate.format(startDate));
         attrs.add(simpleDate.format(endDate));
@@ -168,6 +167,13 @@ public class Project implements Serializable, Comparable<Project>{
             return project.title.compareToIgnoreCase(this.title)==0;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.title);
+        return hash;
     }
     
      @Override
