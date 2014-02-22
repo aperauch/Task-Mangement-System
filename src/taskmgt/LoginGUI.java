@@ -128,6 +128,7 @@ public class LoginGUI extends javax.swing.JFrame {
         
         String email=EmailField.getText().toString();
         String password=new String(PasswordField.getPassword());
+        
         if(email.isEmpty()||Utilities.checkEmail(email)==false){
              JOptionPane.showMessageDialog(null,"Please enter the right E-mail address!","Warning",JOptionPane.WARNING_MESSAGE);
         }

@@ -34,3 +34,5 @@ nb-configuration.xml
 src/taskmgt/MemberGUI.java
 
 src/taskmgt/MemberGUI.java
+
+reports/memberReport.txt
