@@ -94,13 +94,13 @@ public class Task implements Serializable, Comparable<Task> {
     public Date getStartDate() { return this.startDate; }
     public Date getEndDate() { return this.endDate; }
     public State getStatus() { return this.status; }
-    public ModelType getType() { return this.type; }
+//    public ModelType getType() { return this.type; }
     
     //Set
     public void setID(int nextTaskID) { this.id = nextTaskID; }
     public void setTitle(String title){ this.title=title;}
     public void setOwner(String owner){this.owner=(TeamMember)TaskSystem.getUserByEmail(owner);}
-    public void setProjectID(int projectID){this.projectID=projectID;}
+//    public void setProjectID(int projectID){this.projectID=projectID;}
     public void setStartDate(Date startDate){this.startDate=startDate;}
     public void setEndDate(Date endDate){this.endDate=endDate;}
     public void setStatus(State status){this.status=status;}        
@@ -122,43 +122,43 @@ public class Task implements Serializable, Comparable<Task> {
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.title);
-        hash = 29 * hash + Objects.hashCode(this.startDate);
-        hash = 29 * hash + Objects.hashCode(this.endDate);
-        return hash;
-    }
-    
-    public String[] toStringArray() {
-        LinkedList<String> attrs = new LinkedList<>();
-
-        attrs.add(Integer.toString(id));
-        attrs.add(owner.getEmail());
-        attrs.add(title);
-        attrs.add(Integer.toString(projectID));
-        attrs.add(simpleDate.format(startDate));
-        attrs.add(simpleDate.format(endDate));
-        attrs.add(status.name());
-
-       return attrs.toArray(new String[attrs.size()]);
-    }
-    
-    public String toCSVStringArray() {
-        StringBuilder sb = new StringBuilder();
-        
-        sb.append(",");
-        sb.append(Integer.toString(id)).append(",");
-        sb.append(owner).append(",");
-        sb.append(title).append(",");
-        sb.append(Integer.toString(projectID)).append(",");
-        sb.append(simpleDate.format(startDate)).append(",");
-        sb.append(simpleDate.format(endDate)).append(",");
-        sb.append(status.name());
-        
-        return sb.toString();
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 29 * hash + Objects.hashCode(this.title);
+//        hash = 29 * hash + Objects.hashCode(this.startDate);
+//        hash = 29 * hash + Objects.hashCode(this.endDate);
+//        return hash;
+//    }
+//    
+//    public String[] toStringArray() {
+//        LinkedList<String> attrs = new LinkedList<>();
+//
+//        attrs.add(Integer.toString(id));
+//        attrs.add(owner.getEmail());
+//        attrs.add(title);
+//        attrs.add(Integer.toString(projectID));
+//        attrs.add(simpleDate.format(startDate));
+//        attrs.add(simpleDate.format(endDate));
+//        attrs.add(status.name());
+//
+//       return attrs.toArray(new String[attrs.size()]);
+//    }
+//    
+//    public String toCSVStringArray() {
+//        StringBuilder sb = new StringBuilder();
+//        
+//        sb.append(",");
+//        sb.append(Integer.toString(id)).append(",");
+//        sb.append(owner).append(",");
+//        sb.append(title).append(",");
+//        sb.append(Integer.toString(projectID)).append(",");
+//        sb.append(simpleDate.format(startDate)).append(",");
+//        sb.append(simpleDate.format(endDate)).append(",");
+//        sb.append(status.name());
+//        
+//        return sb.toString();
+//    }
     
     public String[] toTableRow() {
         LinkedList<String> attrs = new LinkedList<>();
