@@ -525,8 +525,9 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
     }//GEN-LAST:event_ButtonAddTaskActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+         currentProject = getSelectProject();
          
-        if (TaskSystem.getCurrentUser() instanceof TeamLeader) {
+        if (currentProject.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())) {
             try {
                 if (jListProjects.isSelectionEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please select a project to edit.");
