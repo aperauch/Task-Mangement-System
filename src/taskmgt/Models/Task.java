@@ -14,7 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import taskmgt.TaskSystem;
@@ -89,7 +88,12 @@ public class Task implements Serializable, Comparable<Task> {
     //Get
     public int getID() { return this.id; }
     public String getTitle() { return this.title; }
-    public String getOwner() { return this.owner.getEmail(); }
+    public String getOwner() {
+        if(this.owner!=null)
+            return this.owner.getEmail();
+        else
+            return null;
+    }
     public int getProjectID(){return this.projectID;}
     public Date getStartDate() { return this.startDate; }
     public Date getEndDate() { return this.endDate; }

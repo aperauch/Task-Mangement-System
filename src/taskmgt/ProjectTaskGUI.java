@@ -75,7 +75,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             boolean flag=false;
             for(Project project:TaskSystem.projectList){
-                if(project.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
+                if(TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())){
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
                             jLabel3.setText("You got new tasks to approve!");
@@ -97,7 +97,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             boolean flag=false;
             for(Project project:TaskSystem.projectList){
                 for(Task task:project.getTasks()){
-                    if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
+                    if(task.getStatus()==State.ToDo&&TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(task.getOwner())){
                         jLabel3.setText("You got new tasks to do!");
                         jButton1.setVisible(true);
                         flag=true;

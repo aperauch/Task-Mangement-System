@@ -3,7 +3,6 @@ package taskmgt;
  *
  * @author Ray
  */
-import java.util.Date;
 import taskmgt.Models.*;
 import java.util.LinkedList;
 import java.io.PrintWriter;
@@ -26,9 +25,9 @@ public class TaskSystem {
         } 
         catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
         }
-        InitializeAdmin();
+        //InitializeAdmin();
         TaskSystem.Initialize();
-        TaskSystem.checkforEmptyLists();
+        //TaskSystem.checkforEmptyLists();
         LoginGUI loginForm=new LoginGUI();
         loginForm.show();
         loginForm.setLocationRelativeTo(null);
@@ -78,8 +77,9 @@ public class TaskSystem {
         Administrator admin=new Administrator("admin","admin@mgt.com","123456");
         TeamLeader leader=new TeamLeader("leader","leader@mgt.com","123456");
         TeamMember member=new TeamMember("member","member@mgt.com","123456");
-        if (userList == null)
-            userList = new LinkedList<>();        
+        if (userList == null){
+            userList = new LinkedList<>();
+        }
         if(userList.isEmpty()){
             userList.add(admin);
             userList.add(leader);
