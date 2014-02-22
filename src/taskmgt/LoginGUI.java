@@ -13,6 +13,8 @@ import taskmgt.Models.User;
  * @author Ray
  */
 public class LoginGUI extends javax.swing.JFrame {
+    
+  
     //User Define Methods
     public void clearTextField(){
         EmailField.setText(null);
