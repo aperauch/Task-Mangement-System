@@ -413,7 +413,7 @@ public final class AdminGUI extends javax.swing.JFrame{
             String email1=user1[1];
             String email2=user2[1];
             if(this.transFlag){
-                for(Project project:TaskSystem.projectList){
+                for(Project project:TaskSystem.getProjectList()){
                     if(project.getOwner().equals(email1)){
                         if(project.getStatus()!=State.Archive)
                             project.setOwner(email2);
@@ -421,7 +421,7 @@ public final class AdminGUI extends javax.swing.JFrame{
                 }
             }
             else{
-                for (Project project : TaskSystem.projectList) {
+                for (Project project : TaskSystem.getProjectList()) {
                     for(Task task : project.getTasks()){
                         if(task.getOwner().equals(email1)){
                             if(task.getStatus()!=State.Archive)

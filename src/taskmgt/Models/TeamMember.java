@@ -43,7 +43,7 @@ public class TeamMember extends User implements Serializable {
     
     public LinkedList<Project> getProjects(){
         LinkedList<Project> projectList=new LinkedList();
-        for(Project project:TaskSystem.projectList){
+        for(Project project:TaskSystem.getProjectList()){
             if(project.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                 projectList.add(project);
             LinkedList<User> membersList = project.getMembers();
@@ -56,7 +56,7 @@ public class TeamMember extends User implements Serializable {
     
     public LinkedList<Task> getTasks(){
         LinkedList<Task> taskList=new LinkedList();
-        for(Project project : TaskSystem.projectList){
+        for(Project project : TaskSystem.getProjectList()){
             for (Task task : project.getTasks())
                 if(task.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                     taskList.add(task);

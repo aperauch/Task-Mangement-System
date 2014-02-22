@@ -51,9 +51,9 @@ public class TeamLeader extends TeamMember implements Serializable {
             }
         }
         
-        TaskSystem.userList.remove(newUser);
+        TaskSystem.getUserList().remove(newUser);
         newUser.setEmail(newEmail);
-        TaskSystem.userList.add(newUser);
+        TaskSystem.setUserList(newUser);
     }
     
 //    public void updateTaskOwnerAndUpdateUserList(String oldEmail, String newEmail, int taskID){

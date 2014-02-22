@@ -59,21 +59,21 @@ public class Administrator extends User implements Serializable{
                 return true;   
             }
         }
-        TaskSystem.userList.add(member);
+        TaskSystem.setUserList(member);
         return true;
     }
     
     //update Member Info
     public void updateName(String email, String name){
         User newUser=TaskSystem.getUserByEmail(email);
-        int index=TaskSystem.userList.indexOf(newUser);
-        TaskSystem.userList.get(index).setName(name);
+        int index=TaskSystem.getUserList().indexOf(newUser);
+        TaskSystem.getUserList().get(index).setName(name);
     }
     
     public void updateEmail(String oldEmail, String newEmail){
         User newUser = TaskSystem.getUserByEmail(oldEmail);
         
-        for(Project project:TaskSystem.projectList){
+        for(Project project:TaskSystem.getProjectList()){
             if(project.getOwner().equalsIgnoreCase(oldEmail)){
                 project.setOwner(newEmail);
                 
@@ -83,24 +83,24 @@ public class Administrator extends User implements Serializable{
             }
         }
         
-        TaskSystem.userList.remove(newUser);
+        TaskSystem.getUserList().remove(newUser);
         newUser.setEmail(newEmail);
-        TaskSystem.userList.add(newUser);
+        TaskSystem.setUserList(newUser);
     }
     
     public boolean changeMemberType(String email,boolean leaderFlag){
         if(leaderFlag){
             TeamMember member=(TeamMember) TaskSystem.getUserByEmail(email);
-            TaskSystem.userList.remove(member);
+            TaskSystem.getUserList().remove(member);
             TeamLeader leader=new TeamLeader(member);
-            TaskSystem.userList.add(leader);
+            TaskSystem.setUserList(leader);
         }
         else{
             TeamLeader leader = (TeamLeader) TaskSystem.getUserByEmail(email);
             if(leader.getProjects().isEmpty()){
-                TaskSystem.userList.remove(leader);
+                TaskSystem.getUserList().remove(leader);
                 TeamMember member=new TeamMember(leader);
-                TaskSystem.userList.add(member);
+                TaskSystem.setUserList(member);
             }
             else{
                 return false;

@@ -74,7 +74,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         //Notification
         if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             boolean flag=false;
-            for(Project project:TaskSystem.projectList){
+            for(Project project:TaskSystem.getProjectList()){
                 if(project.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
@@ -95,7 +95,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         }
         else{
             boolean flag=false;
-            for(Project project:TaskSystem.projectList){
+            for(Project project:TaskSystem.getProjectList()){
                 for(Task task:project.getTasks()){
                     if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
                         jLabel3.setText("You got new tasks to do!");
@@ -147,8 +147,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
     public void refreshProjectsList() {
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
-        if (!TaskSystem.projectList.isEmpty()) {
-            for (Project project : TaskSystem.projectList) {
+        if (!TaskSystem.getProjectList().isEmpty()) {
+            for (Project project : TaskSystem.getProjectList()) {
                 if (project.getStatus() != State.Archive) {
                     if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
                         jListModel.addElement(project.getTitle());

@@ -34,7 +34,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
         if(noitifyUser instanceof TeamLeader){
-            for(Project project:TaskSystem.projectList){
+            for(Project project:TaskSystem.getProjectList()){
                 if(project.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
@@ -52,7 +52,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
             }
         }
         else{
-            for(Project project:TaskSystem.projectList){
+            for(Project project:TaskSystem.getProjectList()){
                 for(Task task:project.getTasks()){
                     if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
                         LinkedList<String> row=new LinkedList();
@@ -209,7 +209,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
             if (row >= 0){                 
                 String pTitle=jTable1.getValueAt(row, 0).toString();
                 int taskID=Integer.parseInt(jTable1.getValueAt(row, 1).toString());
-                for(Project project:TaskSystem.projectList){
+                for(Project project:TaskSystem.getProjectList()){
                 if(project.getTitle().equalsIgnoreCase(pTitle)){
                     for(Task task:project.getTasks()){
                         if(task.getID()==taskID){
@@ -237,7 +237,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         if (row >= 0){                 
             String pTitle=jTable1.getValueAt(row, 0).toString();
             int taskID=Integer.parseInt(jTable1.getValueAt(row, 1).toString());
-            for(Project project:TaskSystem.projectList){
+            for(Project project:TaskSystem.getProjectList()){
                 if(project.getTitle().equalsIgnoreCase(pTitle)){
                     for(Task task:project.getTasks()){
                         if(task.getID()==taskID&&task.getStatus()==State.New){
