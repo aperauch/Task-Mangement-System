@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultCellEditor;
@@ -21,7 +22,7 @@ import taskmgt.Models.User;
  * @author Ray
  */
 public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListSelectionListener {
-
+    LinkedList <Project> projectList = TaskSystem.getProjectList();
     private Project currentProject;
     private static boolean jListListenerFlag = false;
     private final SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd/yyyy");
@@ -148,7 +149,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
         if (!TaskSystem.getProjectList().isEmpty()) {
-            for (Project project : TaskSystem.getProjectList()) {
+            for (Project project : projectList) {
                 if (project.getStatus() != State.Archive) {
                     if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
                         jListModel.addElement(project.getTitle());

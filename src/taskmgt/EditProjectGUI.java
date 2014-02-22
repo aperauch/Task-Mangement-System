@@ -81,6 +81,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         setTextFields();
         weAreCreating = false;
     }
+    
 
     private void setTextFields() {
         String title = projectgui.getSelectProject().getTitle();
