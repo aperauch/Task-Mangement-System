@@ -88,35 +88,35 @@ public class TaskSystem {
         Finalize();
     }
     
-    public static void InitializeProject(String title, String owner, Date start, Date end) {
-        Project project = new Project(title, owner, start, end);
-        projectList.add(project);
-        Finalize();
-    }
+//    public static void InitializeProject(String title, String owner, Date start, Date end) {
+//        Project project = new Project(title, owner, start, end);
+//        projectList.add(project);
+//        Finalize();
+//    }
     
     
-     public static void InitializeMember(String name,String email,boolean leader) {
-        User member;
-         if(leader){
-         member = new TeamLeader(name,email);
-         }
-         else{
-         member = new TeamMember(name,email);
-         }
-        userList.add(member);
-        Finalize();
-    }
+//     public static void InitializeMember(String name,String email,boolean leader) {
+//        User member;
+//         if(leader){
+//         member = new TeamLeader(name,email);
+//         }
+//         else{
+//         member = new TeamMember(name,email);
+//         }
+//        userList.add(member);
+//        Finalize();
+//    }
     
     //Methods
     public static void setCurrentUser(User user) { CurrentUser = user; }
     public static User getCurrentUser() { return CurrentUser; }
     
     //Get List
-    public static LinkedList<Project> getProjectList() { return projectList;}
+//    public static LinkedList<Project> getProjectList() { return projectList;}
     public static LinkedList<User> getUserList() { return userList;}
     
     //Set List
-    public static void setProjectList(Project project) { projectList.add(project);}
+//    public static void setProjectList(Project project) { projectList.add(project);}
     public static void setUserList(User user) { userList.add(user);}
     
     public static LinkedList<TeamLeader> getLeaders(){
@@ -154,23 +154,23 @@ public class TaskSystem {
         return null;
     }
          
-    public static TeamMember getMember(String email){
-        for(User user:userList){
-            if(user.getEmail().equals(email)&& user.getType() == ModelType.TeamMember){
-                return (TeamMember) user;
-            }
-        }
-        return null;
-    }
+//    public static TeamMember getMember(String email){
+//        for(User user:userList){
+//            if(user.getEmail().equals(email)&& user.getType() == ModelType.TeamMember){
+//                return (TeamMember) user;
+//            }
+//        }
+//        return null;
+//    }
     
-    public static TeamLeader getLeader(String email){
-        for(User user:userList){
-            if(user.getEmail().equals(email)&& user.getType() == ModelType.TeamLeader){
-                return (TeamLeader) user;
-            }
-        }
-        return null;
-    }
+//    public static TeamLeader getLeader(String email){
+//        for(User user:userList){
+//            if(user.getEmail().equals(email)&& user.getType() == ModelType.TeamLeader){
+//                return (TeamLeader) user;
+//            }
+//        }
+//        return null;
+//    }
     
 //    public static LinkedList<Task> getProjectTasks(int projectID){
 //        LinkedList<Task> projectTasks=new LinkedList();
@@ -182,14 +182,14 @@ public class TaskSystem {
 //        return projectTasks;
 //    }
     
-    public static Project getProject(int projectID){
-        for(Project project:projectList){
-            if(project.getID()==projectID){
-                return project;
-            }
-        }
-        return null;
-    }        
+//    public static Project getProject(int projectID){
+//        for(Project project:projectList){
+//            if(project.getID()==projectID){
+//                return project;
+//            }
+//        }
+//        return null;
+//    }        
 
     public static Project getProjectByTitle(String projectTitle) {
         for(Project project:projectList){
