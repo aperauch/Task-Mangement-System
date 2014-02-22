@@ -538,7 +538,12 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                 JOptionPane.showMessageDialog(null, "Please select a project to edit.\n(If there are no projects, create a project to add.)");
             }
 
-        } else {
+        }
+        else if (!currentProject.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
+            JOptionPane.showMessageDialog(null, "You are not the leader of this project!");
+        }
+        
+        else {
             JOptionPane.showMessageDialog(null, "Only leaders can edit a project. :/");
 
         }
@@ -551,9 +556,16 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
 
         //Get selected project title
         String projectTitle = (String) jListProjects.getSelectedValue();
-
+        
         //Get project object from title
         currentProject = TaskSystem.getProjectByTitle(projectTitle);
+        
+        if(currentProject.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
+            ButtonAddTask.setText("Add Task");
+        }
+        else{
+            ButtonAddTask.setText("Request Task");
+        }
 
         if (currentProject != null) {
             for (Task task : currentProject.getTasks()) {
