@@ -115,23 +115,15 @@ public class Project implements Serializable, Comparable<Project>{
 //        return this.title.compareToIgnoreCase(p.title);
 //    }
     
-    
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     public int compareTo(String p){
         return this.title.compareToIgnoreCase(p);
     }
-=======
-=======
->>>>>>> 8e1a3e3a00a97d962a26061ec855830e06eb7842
 //    public int compareTo(String p)
 //    {
 //        return this.title.compareToIgnoreCase(p);
 //    }
-<<<<<<< HEAD
->>>>>>> f43cccbc8b9cfdf60cb242613cfc0b0e36530721
-=======
->>>>>>> 8e1a3e3a00a97d962a26061ec855830e06eb7842
+
     @Override
         public int compareTo(Project p)
     {
