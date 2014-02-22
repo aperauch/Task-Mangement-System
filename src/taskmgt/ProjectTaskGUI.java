@@ -147,29 +147,20 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
     public void refreshProjectsList() {
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
-        if (!TaskSystem.getProjectList().isEmpty()) {
-            for (Project project : TaskSystem.getProjectList()) {
-                if (project.getStatus() != State.Archive) {
-                    if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
-                        jListModel.addElement(project.getTitle());
-                    } else {
-                        for (User member : project.getMembers()) {
-                            if (TaskSystem.getCurrentUser().equals(member)) {
-                                jListModel.addElement(project.getTitle());
-                                break;
-                            }
-                        }
-                    }
+            if(!TaskSystem.refreshProjectList().isEmpty()){
+                for(Project project:TaskSystem.refreshProjectList()){
+                    jListModel.addElement(project.getTitle());
+                    jListProjects.setModel(jListModel);
+                    jListProjects.setEnabled(true);
                 }
             }
-            jListProjects.setModel(jListModel);
-            jListProjects.setEnabled(true);
-        } else {
+            else {
             jListModel.addElement("<No Projects Yet>");
             jListProjects.setModel(jListModel);
             jListProjects.setEnabled(false);
-        }
+            }
     }
+    
     public void refreshTasksList(){
         clearTaskTable();
         //Get selected project title
@@ -560,7 +551,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         //Get project object from title
         currentProject = TaskSystem.getProjectByTitle(projectTitle);
         
-        if(currentProject.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
+        if(TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(currentProject.getOwner())){
             ButtonAddTask.setText("Add Task");
         }
         else{

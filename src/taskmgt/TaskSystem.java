@@ -182,14 +182,28 @@ public class TaskSystem {
 //        return projectTasks;
 //    }
     
-//    public static Project getProject(int projectID){
-//        for(Project project:projectList){
-//            if(project.getID()==projectID){
-//                return project;
-//            }
-//        }
-//        return null;
-//    }        
+    public static LinkedList<Project> refreshProjectList(){
+        
+        LinkedList<Project> projList=new LinkedList();
+        if (!TaskSystem.getProjectList().isEmpty()) {
+            for (Project project : TaskSystem.getProjectList()) {
+                if (project.getStatus() != State.Archive) {
+                    if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
+                        projList.add(project);
+                    } 
+                    else{
+                        for (User member : project.getMembers()) {
+                            if (TaskSystem.getCurrentUser().equals(member)) {
+                                projList.add(project);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return projList;
+    }
 
     public static Project getProjectByTitle(String projectTitle) {
         for(Project project:projectList){

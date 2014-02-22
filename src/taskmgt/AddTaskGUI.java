@@ -243,18 +243,19 @@ public class AddTaskGUI extends javax.swing.JDialog {
         }
         
         //If adding a task
-        if (addTaskBtn.getText().equalsIgnoreCase("add"))
-        {
+        if (addTaskBtn.getText().equalsIgnoreCase("add")){
             //Create Task object with attributes
             Task task;
             if (TaskSystem.getCurrentUser() instanceof TeamLeader)
                 task = new Task(title, ownerEmail, projectID, start, end, State.ToDo);
             else
                 task = new Task(title, ownerEmail, projectID, start, end);
-
+            
             //Push task onto task list for the project
-            project.addTask(task);
-
+            if(!project.getTasks().contains(task))
+                project.addTask(task);
+            else
+                JOptionPane.showMessageDialog(null, "This task is already exists.", "Task exists!", JOptionPane.WARNING_MESSAGE);
             //Update parent frame with new tasks
             parentFrame.addTaskTableRow(task);
         }
