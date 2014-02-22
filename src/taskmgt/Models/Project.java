@@ -53,7 +53,7 @@ public class Project implements Serializable, Comparable<Project>{
     public Date getStartDate() { return this.startDate; }
     public Date getEndDate() { return this.endDate; }
     public State getStatus() { return this.status; }
-    public ModelType getType() { return this.type; }
+//    public ModelType getType() { return this.type; }
     public LinkedList<User> getMembers() { return this.members; }
     public LinkedList<Task> getTasks() { return this.tasks; }
     
@@ -116,9 +116,9 @@ public class Project implements Serializable, Comparable<Project>{
 //    }
     
 
-    public int compareTo(String p){
-        return this.title.compareToIgnoreCase(p);
-    }
+//    public int compareTo(String p){
+    //    return this.title.compareToIgnoreCase(p);
+   // }
 //    public int compareTo(String p)
 //    {
 //        return this.title.compareToIgnoreCase(p);
@@ -174,13 +174,13 @@ public class Project implements Serializable, Comparable<Project>{
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.title);
-        return hash;
-    }
-    
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 73 * hash + Objects.hashCode(this.title);
+//        return hash;
+//    }
+//    
      @Override
     public String toString() {
         String p = String.format("%-30s%-30s%-30s", "PROJECT:" + title,"START DATE:" + simpleDate.format(startDate),"END DATE:" + simpleDate.format(endDate));
