@@ -183,7 +183,7 @@ public class Task implements Serializable, Comparable<Task> {
          String s = "N"; 
         if(status == State.Completed){s = "Y";}
          
-         String t = String.format("%-30s%-15s%-15s%-16s%-4s", title, owner, simpleDate.format(startDate),simpleDate.format(endDate),s);
+         String t = String.format("%-30s%-15s%-15s%-16s%-4s", title, owner.getName(), simpleDate.format(startDate),simpleDate.format(endDate),s);
          return(t);
     }
     

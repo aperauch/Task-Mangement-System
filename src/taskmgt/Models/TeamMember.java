@@ -44,11 +44,9 @@ public class TeamMember extends User implements Serializable {
     public LinkedList<Project> getProjects(){
         LinkedList<Project> projectList=new LinkedList();
         for(Project project:TaskSystem.getProjectList()){
-            if(project.getOwner().toLowerCase().equals(this.email.toLowerCase()))
-                projectList.add(project);
-            LinkedList<User> membersList = project.getMembers();
-        for(User member:membersList){    
-            if(member.getEmail().toLowerCase().equals(this.email.toLowerCase()))
+            LinkedList<Task> taskList = project.getTasks();
+        for(Task t:taskList){    
+            if(t.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                 projectList.add(project);
         }}
         return projectList;

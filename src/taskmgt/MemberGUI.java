@@ -443,56 +443,9 @@ public final class MemberGUI extends javax.swing.JDialog {
                         selectedMembers[i]= (TeamMember) TaskSystem.getUserByEmail(s);
                     
                     }
-                    
-                    
+                     
                     TaskSystem.printMemberRpt(selectedMembers);
                 
-//                 User[] u = new User[rows.length];
-//                
-//                for(int i=0;i<rows.length;i++){
-//                    
-//                    
-//                    TeamMember member =(TeamMember)TaskSystem.getUserByEmail(email);
-//
-//                    System.out.println(member.toString());
-                           
-                   //LinkedList<Project> pl = new LinkedList<Project>();
-                   //LinkedList<Task> tl = new LinkedList<Task>();
-
-//                    System.out.println("This is a report for " + member.getName());
-//
-//                   
-//                   LinkedList<Project> pl = member.getProjects();
-//                   LinkedList<Task> tl = member.getTasks();
-//                 
-//                   if( pl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any projects","Warning",JOptionPane.WARNING_MESSAGE);}
-//                   else if(tl.size() == 0){JOptionPane.showMessageDialog(null,"This user is not assigned to any tasks","Warning",JOptionPane.WARNING_MESSAGE);}
-//                   else{
-//                   for(Project p:pl)
-//                   
-//                       {
-//                           System.out.println(p.getTitle());
-//                     
-//                   
-//                   for(Task t:tl)
-//                       {
-//                           if (t.getProjectID()== p.getID()){
-//                           
-//                               System.out.println(t.getTitle());
-//                           }
-//                       }
-//                   
-//                       }            
-//                   }
-//                } 
-
-                
-                
-                /*String[] emailList = new String[rows.length];
-                for(int i=0;i<rows.length;i++){
-                    emailList[i] = jTable1.getValueAt(rows[i], 0).toString();                 
-                }
-                TaskSystem.printMemberRpt(emailList);*/
                 } catch (IOException ex) {
                     Logger.getLogger(MemberGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }

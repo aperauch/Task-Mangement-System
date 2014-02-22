@@ -233,22 +233,22 @@ public class TaskSystem {
            
           output.println("\nMEMBER REPORT\n-------------"); 
           String taskHeader = String.format("%-30s%-15s%-15s%-15s%-4s", "TASK", "OWNER", "START DATE","END DATE", "DONE");
-          String line = String.format("----------------------------------------------------------------------------------------");
-            
+          String line = String.format("------------------------------------------------------------------------------------------------------------");
+           
+          //TOTAL COUNT ARRAYS (INDEX = SELECTEDMEMBER)
            int[] totalProjectCount = new int[memberList.length];
            int[] totalTaskCount = new int[memberList.length];
            int[] totalTaskCompletedCount = new int[memberList.length]; 
-           
-           LinkedList<Project> uniqueProjectList = new LinkedList<Project>();
-           
+
            //PRINTS .TOSTRING OF EVERY MEMBER SELECTED
            for (TeamMember member: memberList){output.println(member.toString());}
            output.println();
            
-           //CONSOLIDATES UNIQUE PROJECTS OF EACH MEMBER INTO CONSOLIDATED LIST
-            LinkedList<Project> projectList = null;
+           //CONSOLIDATES UNIQUE PROJECTS OF EACH MEMBER INTO CONSOLIDATED UNIQUE PROJECT LIST
+           LinkedList<Project> uniqueProjectList = new LinkedList<Project>();    
+           LinkedList<Project> projectList = null;
             for (TeamMember member: memberList){
-
+                   
                 projectList = member.getProjects();
                 
                 int i = 0;
