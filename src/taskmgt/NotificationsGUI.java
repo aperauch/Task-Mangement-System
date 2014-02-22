@@ -34,7 +34,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
         if(noitifyUser instanceof TeamLeader){
-            for(Project project:Data.projectList){
+            for(Project project:TaskSystem.projectList){
                 if(project.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
@@ -52,7 +52,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
             }
         }
         else{
-            for(Project project:Data.projectList){
+            for(Project project:TaskSystem.projectList){
                 for(Task task:project.getTasks()){
                     if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
                         LinkedList<String> row=new LinkedList();
@@ -88,7 +88,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
     public NotificationsGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        noitifyUser=Data.getCurrentUser();
+        noitifyUser=TaskSystem.getCurrentUser();
         if(noitifyUser instanceof TeamLeader){
             jButton3.setVisible(false);
             jButton1.setVisible(true);
@@ -209,7 +209,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
             if (row >= 0){                 
                 String pTitle=jTable1.getValueAt(row, 0).toString();
                 int taskID=Integer.parseInt(jTable1.getValueAt(row, 1).toString());
-                for(Project project:Data.projectList){
+                for(Project project:TaskSystem.projectList){
                 if(project.getTitle().equalsIgnoreCase(pTitle)){
                     for(Task task:project.getTasks()){
                         if(task.getID()==taskID){
@@ -222,7 +222,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                 }
             } 
         }
-        Data.Finalize();
+        TaskSystem.Finalize();
         fillTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -237,7 +237,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         if (row >= 0){                 
             String pTitle=jTable1.getValueAt(row, 0).toString();
             int taskID=Integer.parseInt(jTable1.getValueAt(row, 1).toString());
-            for(Project project:Data.projectList){
+            for(Project project:TaskSystem.projectList){
                 if(project.getTitle().equalsIgnoreCase(pTitle)){
                     for(Task task:project.getTasks()){
                         if(task.getID()==taskID&&task.getStatus()==State.New){
@@ -250,7 +250,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
             }
         }
         }
-        Data.Finalize();
+        TaskSystem.Finalize();
         fillTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 

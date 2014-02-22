@@ -39,9 +39,9 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         initComponents();
         initialTable();
         refreshProjectsList();
-        jLabelHello.setText("Hello, " + Data.getCurrentUser().getName());
+        jLabelHello.setText("Hello, " + TaskSystem.getCurrentUser().getName());
         
-        if (Data.getCurrentUser() instanceof TeamLeader) {
+        if (TaskSystem.getCurrentUser() instanceof TeamLeader) {
             ButtonAddTask.setText("Add Task");
             TableColumn statusColumn = jTableTasks.getColumnModel().getColumn(5);
             JComboBox comboBox = new JComboBox();
@@ -50,7 +50,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             comboBox.addItem("Archive");
             comboBox.addItem("Completed");
             statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
-        } else if (Data.getCurrentUser() instanceof TeamMember) {
+        } else if (TaskSystem.getCurrentUser() instanceof TeamMember) {
             ButtonCreateProject.setVisible(false);
             jButton5.setVisible(false);
             ButtonAddTask.setText("Request Task");
@@ -72,10 +72,10 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         }
         );
         //Notification
-        if(Data.getCurrentUser() instanceof TeamLeader){
+        if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             boolean flag=false;
-            for(Project project:Data.projectList){
-                if(project.getOwner().equalsIgnoreCase(Data.getCurrentUser().getEmail())){
+            for(Project project:TaskSystem.projectList){
+                if(project.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
                             jLabel3.setText("You got new tasks to approve!");
@@ -95,9 +95,9 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         }
         else{
             boolean flag=false;
-            for(Project project:Data.projectList){
+            for(Project project:TaskSystem.projectList){
                 for(Task task:project.getTasks()){
-                    if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(Data.getCurrentUser().getEmail())){
+                    if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
                         jLabel3.setText("You got new tasks to do!");
                         jButton1.setVisible(true);
                         flag=true;
@@ -130,7 +130,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         String projectTitle = (String) jListProjects.getSelectedValue();
 
         if (projectTitle != null && !projectTitle.isEmpty()) {
-            currentProject = Data.getProjectByTitle(projectTitle);
+            currentProject = TaskSystem.getProjectByTitle(projectTitle);
         }
     }
 
@@ -147,14 +147,14 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
     public void refreshProjectsList() {
         DefaultListModel jListModel = new DefaultListModel();
         //If projects exists, then update Projects List
-        if (!Data.projectList.isEmpty()) {
-            for (Project project : Data.projectList) {
+        if (!TaskSystem.projectList.isEmpty()) {
+            for (Project project : TaskSystem.projectList) {
                 if (project.getStatus() != State.Archive) {
-                    if (Data.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
+                    if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
                         jListModel.addElement(project.getTitle());
                     } else {
                         for (User member : project.getMembers()) {
-                            if (Data.getCurrentUser().equals(member)) {
+                            if (TaskSystem.getCurrentUser().equals(member)) {
                                 jListModel.addElement(project.getTitle());
                                 break;
                             }
@@ -175,7 +175,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         //Get selected project title
         String projectTitle = (String) jListProjects.getSelectedValue();
         //Get project object from title
-        currentProject = Data.getProjectByTitle(projectTitle);
+        currentProject = TaskSystem.getProjectByTitle(projectTitle);
         if (currentProject != null) {
             for (Task task : currentProject.getTasks()) {
                 addTaskTableRow(task);
@@ -197,8 +197,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         for(User member:currentProject.getMembers()){
             comboBox.addItem(member.getEmail());
         }
-        if(Data.getCurrentUser() instanceof TeamLeader){
-            comboBox.addItem(Data.getCurrentUser().getEmail());
+        if(TaskSystem.getCurrentUser() instanceof TeamLeader){
+            comboBox.addItem(TaskSystem.getCurrentUser().getEmail());
         }
         Column.setCellEditor(new DefaultCellEditor(comboBox));
         model.addRow(t.toTableRow());
@@ -216,8 +216,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                 } else {
 
                     TeamLeader currentUser;
-                    if ((Data.getCurrentUser()) instanceof TeamLeader) {
-                        currentUser = (TeamLeader) Data.getCurrentUser();
+                    if ((TaskSystem.getCurrentUser()) instanceof TeamLeader) {
+                        currentUser = (TeamLeader) TaskSystem.getCurrentUser();
                     } else {
                         JOptionPane.showMessageDialog(null, "Only team leaders can edit tasks!", "Warning", JOptionPane.WARNING_MESSAGE);
                         refreshTasksList();
@@ -504,7 +504,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateProjectActionPerformed
-        if (Data.getCurrentUser() instanceof TeamLeader) {
+        if (TaskSystem.getCurrentUser() instanceof TeamLeader) {
             EditProjectGUI createProjectForm = new EditProjectGUI(this, true, "create");
             createProjectForm.setVisible(true);
         } else {
@@ -526,7 +526,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        if (Data.getCurrentUser() instanceof TeamLeader) {
+        if (TaskSystem.getCurrentUser() instanceof TeamLeader) {
             try {
                 if (jListProjects.isSelectionEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please select a project to edit.");
@@ -552,7 +552,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         String projectTitle = (String) jListProjects.getSelectedValue();
 
         //Get project object from title
-        currentProject = Data.getProjectByTitle(projectTitle);
+        currentProject = TaskSystem.getProjectByTitle(projectTitle);
 
         if (currentProject != null) {
             for (Task task : currentProject.getTasks()) {

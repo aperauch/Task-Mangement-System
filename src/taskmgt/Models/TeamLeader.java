@@ -2,7 +2,7 @@ package taskmgt.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import taskmgt.Data;
+import taskmgt.TaskSystem;
 
 /**
  *
@@ -41,7 +41,7 @@ public class TeamLeader extends TeamMember implements Serializable {
     }
     
     public void updateTaskOwnerAndUpdateUserList(String oldEmail, String newEmail, int taskID, Project project){
-        User newUser = Data.getUserByEmail(oldEmail);
+        User newUser = TaskSystem.getUserByEmail(oldEmail);
         
         Task changedTask = project.getTaskByID(taskID);
         for(Task task:project.getTasks()){
@@ -51,26 +51,26 @@ public class TeamLeader extends TeamMember implements Serializable {
             }
         }
         
-        Data.userList.remove(newUser);
+        TaskSystem.userList.remove(newUser);
         newUser.setEmail(newEmail);
-        Data.userList.add(newUser);
+        TaskSystem.userList.add(newUser);
     }
     
 //    public void updateTaskOwnerAndUpdateUserList(String oldEmail, String newEmail, int taskID){
-//        //User newUser=Data.getUserByEmail(oldEmail);
-//        Task changedTask = Data.getTaskByID(taskID);
-//        for(Task task:Data.taskList){
+//        //User newUser=TaskSystem.getUserByEmail(oldEmail);
+//        Task changedTask = TaskSystem.getTaskByID(taskID);
+//        for(Task task:TaskSystem.taskList){
 //            if(task.getOwner().equalsIgnoreCase(oldEmail) & task.getID() == taskID){
 //                task.setOwner(newEmail);
 //                break;
 //            }
 //        }
 //        
-//        Data.taskList.remove(changedTask);
+//        TaskSystem.taskList.remove(changedTask);
 //        //Data.userList.remove(newUser);
 //        changedTask.setOwner(newEmail);
 //        //newUser.setEmail(newEmail);
-//        Data.taskList.add(changedTask);
+//        TaskSystem.taskList.add(changedTask);
 //        //Data.userList.add(newUser);
 //    }
     

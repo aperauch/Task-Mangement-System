@@ -41,7 +41,7 @@ public class LoginGUI extends javax.swing.JFrame {
         this.addWindowListener(new WindowAdapter(){
                 @Override
                 public void windowClosing(WindowEvent we){
-                    Data.Finalize();
+                    TaskSystem.Finalize();
                 }
             }
         );
@@ -132,20 +132,20 @@ public class LoginGUI extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null,"Please enter the right E-mail address!","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            User user=Data.getUser(email,password);
+            User user=TaskSystem.getUser(email,password);
             if(user==null){
                 JOptionPane.showMessageDialog(null,"Invalid User/Password. Please verify!","Warning",JOptionPane.WARNING_MESSAGE);
             }
             else if(user.getPassword().isEmpty()){
-                int indexOfUser=Data.userList.indexOf(user);
+                int indexOfUser=TaskSystem.userList.indexOf(user);
                 java.security.SecureRandom random = new java.security.SecureRandom();
                 String randomPassword[] = { new java.math.BigInteger(130, random).toString(32) };
                 String newPassword=JOptionPane.showInputDialog(null, "Enter a password or use the random one", randomPassword[0]);//"Warning", JOptionPane.WARNING_MESSAGE );
-                Data.userList.get(indexOfUser).setPassword(newPassword);
+                TaskSystem.userList.get(indexOfUser).setPassword(newPassword);
             }
             else{
                 //Set the current user that is logging into the system.
-                Data.setCurrentUser(user);
+                TaskSystem.setCurrentUser(user);
                 
                 if(user instanceof Administrator){
                     AdminGUI adminForm=new AdminGUI(this,user);

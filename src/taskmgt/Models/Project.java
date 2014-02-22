@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import taskmgt.Data;
+import taskmgt.TaskSystem;
 
 public class Project implements Serializable, Comparable<Project>{
     //Attributes
@@ -130,7 +130,7 @@ public class Project implements Serializable, Comparable<Project>{
     
     private void setID(){
         int max=0;
-        for(Project project:Data.projectList){
+        for(Project project:TaskSystem.projectList){
             if(project!=null)
             max=project.getID()>=max?project.getID():max;
         }

@@ -28,7 +28,7 @@ public final class AdminGUI extends javax.swing.JFrame{
     //User Define Methods
     private void loadLeader(JComboBox comboBox){
         comboBox.removeAllItems();
-        LinkedList<TeamLeader> leaders=Data.getLeaders();
+        LinkedList<TeamLeader> leaders=TaskSystem.getLeaders();
         for(TeamLeader leader:leaders){
             if(leader.checkActive()){
                 String item=leader.getName()+", "+leader.getEmail();
@@ -39,7 +39,7 @@ public final class AdminGUI extends javax.swing.JFrame{
     
     private void loadMember(JComboBox comboBox){
         comboBox.removeAllItems();
-        LinkedList<TeamMember> members=Data.getMembers();
+        LinkedList<TeamMember> members=TaskSystem.getMembers();
         for(TeamMember member:members){
             if(member.checkActive()){
                 String item=member.getName()+", "+member.getEmail();
@@ -92,7 +92,7 @@ public final class AdminGUI extends javax.swing.JFrame{
     public void importCSV(boolean merge) {
         
         if (!merge)
-            Data.clearAllLists();
+            TaskSystem.clearAllLists();
         
         boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project, merge);
         //boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
@@ -100,7 +100,7 @@ public final class AdminGUI extends javax.swing.JFrame{
         
         if (projectsOK && usersOK) {
             JOptionPane.showMessageDialog(null,"All data has been imported from Imports directory!","Import Complete", JOptionPane.PLAIN_MESSAGE);
-            Data.Finalize();
+            TaskSystem.Finalize();
             jPanelImport.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null,"Oops!  The import did not work.  Was your CSV ordered right?","Import Failed", JOptionPane.WARNING_MESSAGE);
@@ -413,7 +413,7 @@ public final class AdminGUI extends javax.swing.JFrame{
             String email1=user1[1];
             String email2=user2[1];
             if(this.transFlag){
-                for(Project project:Data.projectList){
+                for(Project project:TaskSystem.projectList){
                     if(project.getOwner().equals(email1)){
                         if(project.getStatus()!=State.Archive)
                             project.setOwner(email2);
@@ -421,7 +421,7 @@ public final class AdminGUI extends javax.swing.JFrame{
                 }
             }
             else{
-                for (Project project : Data.projectList) {
+                for (Project project : TaskSystem.projectList) {
                     for(Task task : project.getTasks()){
                         if(task.getOwner().equals(email1)){
                             if(task.getStatus()!=State.Archive)

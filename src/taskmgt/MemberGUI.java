@@ -40,7 +40,7 @@ public final class MemberGUI extends javax.swing.JDialog {
     public void fillTable(){
         DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
-        for(User member:Data.userList){
+        for(User member:TaskSystem.userList){
             if(!(member instanceof Administrator) && member.checkActive()){
                 fillTableRow(member);
             }
@@ -79,7 +79,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                     String email=jTable1.getValueAt(row, 0).toString();
                     switch(col){
                         case 0: 
-                            if(Data.getUserByEmail(email)!=null)
+                            if(TaskSystem.getUserByEmail(email)!=null)
                                 JOptionPane.showMessageDialog(null,"This member exists!","Warning",JOptionPane.WARNING_MESSAGE);
                             else
                                 user.updateEmail(tcl.getOldValue().toString(), tcl.getNewValue().toString());
@@ -98,7 +98,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                             break;
                     }
                 }
-                Data.Finalize();
+                TaskSystem.Finalize();
                 fillTable();
             }
         };
@@ -383,7 +383,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null,"Member exists!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
-        Data.Finalize();
+        TaskSystem.Finalize();
         fillTable();
     }//GEN-LAST:event_jButtonAddMemberActionPerformed
 
@@ -395,16 +395,16 @@ public final class MemberGUI extends javax.swing.JDialog {
                 String email=jTable1.getValueAt(row, 0).toString();
                 boolean flag=jTable1.getValueAt(row, 2).toString().equals("Leader");
                 if(flag){
-                    TeamLeader member = (TeamLeader)Data.getUserByEmail(email);
+                    TeamLeader member = (TeamLeader)TaskSystem.getUserByEmail(email);
                     member.setActive(false);
                 }
                 else{
-                    TeamMember member=(TeamMember)Data.getUserByEmail(email);
+                    TeamMember member=(TeamMember)TaskSystem.getUserByEmail(email);
                     member.setActive(false);                   
                 }
             } 
         }
-        Data.Finalize();
+        TaskSystem.Finalize();
         fillTable();
     }//GEN-LAST:event_jButtonDeleteMemberActionPerformed
 
@@ -440,19 +440,19 @@ public final class MemberGUI extends javax.swing.JDialog {
                         
                         //Populates list of the seleced members
                         String s = jTable1.getValueAt(rows[i], 0).toString();
-                        selectedMembers[i]= (TeamMember) Data.getUserByEmail(s);
+                        selectedMembers[i]= (TeamMember) TaskSystem.getUserByEmail(s);
                     
                     }
                     
                     
-                    Data.printMemberRpt(selectedMembers);
+                    TaskSystem.printMemberRpt(selectedMembers);
                 
 //                 User[] u = new User[rows.length];
 //                
 //                for(int i=0;i<rows.length;i++){
 //                    
 //                    
-//                    TeamMember member =(TeamMember)Data.getUserByEmail(email);
+//                    TeamMember member =(TeamMember)TaskSystem.getUserByEmail(email);
 //
 //                    System.out.println(member.toString());
                            
@@ -492,7 +492,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                 for(int i=0;i<rows.length;i++){
                     emailList[i] = jTable1.getValueAt(rows[i], 0).toString();                 
                 }
-                Data.printMemberRpt(emailList);*/
+                TaskSystem.printMemberRpt(emailList);*/
                 } catch (IOException ex) {
                     Logger.getLogger(MemberGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }

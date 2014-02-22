@@ -9,7 +9,7 @@ package taskmgt.Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import taskmgt.Data;
+import taskmgt.TaskSystem;
 
 public class Administrator extends User implements Serializable{
     //Attributes
@@ -33,7 +33,7 @@ public class Administrator extends User implements Serializable{
     //Methods
     public boolean createLeader(String name, String email){
         TeamLeader leader=new TeamLeader(name, email);
-        for (User u : Data.userList){
+        for (User u : TaskSystem.userList){
             if(u.equals(leader)&&u.checkActive()){
                 return false;
             }
@@ -43,13 +43,13 @@ public class Administrator extends User implements Serializable{
                 return true;   
             }
         }
-        Data.userList.add(leader);
+        TaskSystem.userList.add(leader);
         return true;
     }
     
     public boolean createMember(String name, String email){
         TeamMember member=new TeamMember(name, email);
-        for (User u : Data.userList){
+        for (User u : TaskSystem.userList){
             if(u.equals(member)&&u.checkActive()){
                 return false;
             }
@@ -59,21 +59,21 @@ public class Administrator extends User implements Serializable{
                 return true;   
             }
         }
-        Data.userList.add(member);
+        TaskSystem.userList.add(member);
         return true;
     }
     
     //update Member Info
     public void updateName(String email, String name){
-        User newUser=Data.getUserByEmail(email);
-        int index=Data.userList.indexOf(newUser);
-        Data.userList.get(index).setName(name);
+        User newUser=TaskSystem.getUserByEmail(email);
+        int index=TaskSystem.userList.indexOf(newUser);
+        TaskSystem.userList.get(index).setName(name);
     }
     
     public void updateEmail(String oldEmail, String newEmail){
-        User newUser = Data.getUserByEmail(oldEmail);
+        User newUser = TaskSystem.getUserByEmail(oldEmail);
         
-        for(Project project:Data.projectList){
+        for(Project project:TaskSystem.projectList){
             if(project.getOwner().equalsIgnoreCase(oldEmail)){
                 project.setOwner(newEmail);
                 
@@ -83,24 +83,24 @@ public class Administrator extends User implements Serializable{
             }
         }
         
-        Data.userList.remove(newUser);
+        TaskSystem.userList.remove(newUser);
         newUser.setEmail(newEmail);
-        Data.userList.add(newUser);
+        TaskSystem.userList.add(newUser);
     }
     
     public boolean changeMemberType(String email,boolean leaderFlag){
         if(leaderFlag){
-            TeamMember member=(TeamMember) Data.getUserByEmail(email);
-            Data.userList.remove(member);
+            TeamMember member=(TeamMember) TaskSystem.getUserByEmail(email);
+            TaskSystem.userList.remove(member);
             TeamLeader leader=new TeamLeader(member);
-            Data.userList.add(leader);
+            TaskSystem.userList.add(leader);
         }
         else{
-            TeamLeader leader = (TeamLeader) Data.getUserByEmail(email);
+            TeamLeader leader = (TeamLeader) TaskSystem.getUserByEmail(email);
             if(leader.getProjects().isEmpty()){
-                Data.userList.remove(leader);
+                TaskSystem.userList.remove(leader);
                 TeamMember member=new TeamMember(leader);
-                Data.userList.add(member);
+                TaskSystem.userList.add(member);
             }
             else{
                 return false;

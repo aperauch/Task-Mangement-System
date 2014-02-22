@@ -3,7 +3,7 @@ package taskmgt.Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import taskmgt.Data;
+import taskmgt.TaskSystem;
 
 /**
  *
@@ -43,7 +43,7 @@ public class TeamMember extends User implements Serializable {
     
     public LinkedList<Project> getProjects(){
         LinkedList<Project> projectList=new LinkedList();
-        for(Project project:Data.projectList){
+        for(Project project:TaskSystem.projectList){
             if(project.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                 projectList.add(project);
             LinkedList<User> membersList = project.getMembers();
@@ -56,7 +56,7 @@ public class TeamMember extends User implements Serializable {
     
     public LinkedList<Task> getTasks(){
         LinkedList<Task> taskList=new LinkedList();
-        for(Project project : Data.projectList){
+        for(Project project : TaskSystem.projectList){
             for (Task task : project.getTasks())
                 if(task.getOwner().toLowerCase().equals(this.email.toLowerCase()))
                     taskList.add(task);
@@ -66,7 +66,7 @@ public class TeamMember extends User implements Serializable {
     
 //    public LinkedList<Task> getAssignedTasks(int projectID){
 //        LinkedList<Task> taskList=new LinkedList();
-//        for(Task task:Data.taskList){
+//        for(Task task:TaskSystem.taskList){
 //            if(task.getOwner().toLowerCase().equals(this.email.toLowerCase())&&task.getProjectID()==projectID)
 //                taskList.add(task);
 //        }        

@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import taskmgt.AdminGUI;
-import taskmgt.Data;
+import taskmgt.TaskSystem;
 import taskmgt.Models.Administrator;
 import taskmgt.Models.ModelType;
 import taskmgt.Models.Project;
@@ -100,23 +100,23 @@ public class Porter {
             List<String[]> dataList = new ArrayList<>();
             
             //Load the data into the LinkedList lists.
-            Data.Initialize();
+            TaskSystem.Initialize();
             
             writer = new CSVWriter(new FileWriter(file));
             
             if (type == ModelType.Project)
             {
-                for (Project project:Data.projectList)
+                for (Project project:TaskSystem.projectList)
                     dataList.add(project.toStringArray());
                 }
 //          else if (type == ModelType.Task)
 //          {
-//              for (Task task:Data.taskList)
+//              for (Task task:TaskSystem.taskList)
 //                  dataList.add(task.toStringArray());
 //          }
             else
             {
-                for (User user:Data.userList)
+                for (User user:TaskSystem.userList)
                     dataList.add(user.toStringArray());
             }
             
@@ -169,7 +169,7 @@ public class Porter {
                         else if (i == 5) {
                             impProject[i] = strArr[i];
                             p = new Project(impProject);
-                            Data.projectList.add(p);
+                            TaskSystem.projectList.add(p);
                         }
                     }
                 }
@@ -181,7 +181,7 @@ public class Porter {
 //                for (String[] strArr:dataList)
 //                {
 //                    Task t = new Task(strArr);
-//                    Data.taskList.add(t);
+//                    TaskSystem.taskList.add(t);
 //                }
 //            }
             else
@@ -191,17 +191,17 @@ public class Porter {
                     if (strArr[strArr.length - 1].equalsIgnoreCase(ModelType.TeamLeader.name()))
                     {
                         TeamLeader leader = new TeamLeader(strArr);
-                        Data.userList.add(leader);
+                        TaskSystem.userList.add(leader);
                     }
                     else if (strArr[strArr.length - 1].equalsIgnoreCase(ModelType.TeamMember.name()))
                     {
                         TeamMember member = new TeamMember(strArr);
-                        Data.userList.add(member);
+                        TaskSystem.userList.add(member);
                     }
                     else if (strArr[strArr.length - 1].equalsIgnoreCase(ModelType.Admin.name()))
                     {
                         Administrator admin = new Administrator(strArr);
-                        Data.userList.add(admin);
+                        TaskSystem.userList.add(admin);
                     }
                 }
             }

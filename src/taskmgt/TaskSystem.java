@@ -12,8 +12,31 @@ import java.io.IOException;
 import java.awt.Desktop;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-public class Data {
+
+
+public class TaskSystem {
+    
+    public static void main(String[] args) {
+        try {
+            // Set System L&F
+            UIManager.setLookAndFeel(
+            UIManager.getSystemLookAndFeelClassName());
+        } 
+        catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        }
+        //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");  //DEBUG
+        TaskSystem.Initialize();
+        TaskSystem.checkforEmptyLists();
+        //Data.InitializeAdmin("admin", "admin@mgt.com", "123456");//DEBUG
+        LoginGUI loginForm=new LoginGUI();
+        loginForm.show();
+        loginForm.setLocationRelativeTo(null);
+    }
+    
+    
     //Properties
     private static User CurrentUser;
     
@@ -242,7 +265,7 @@ public class Data {
                             for( Task t : taskList)
                             {     
                                 for(int j=0; j < memberList.length; j++){
-                                    if(Data.getUserByEmail(t.getOwner()) == memberList[j])
+                                    if(TaskSystem.getUserByEmail(t.getOwner()) == memberList[j])
                                       {  
                                           projectTaskList.add(t);
                                           

@@ -61,7 +61,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
       
         //Populate Members list
-        if (Data.getCurrentUser() instanceof TeamLeader){
+        if (TaskSystem.getCurrentUser() instanceof TeamLeader){
             LinkedList<User> projMembers=parentFrame.getSelectProject().getMembers();
             for(User user:projMembers){
                 if(!(user instanceof Administrator) && user.checkActive()){
@@ -70,7 +70,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             }
         } 
         else {
-            ownerComboBox.addItem(Data.getCurrentUser().getEmail());
+            ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
         }
     }
     
@@ -85,7 +85,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
         parentFrame = (ProjectTaskGUI) parent;
         
         //Populate Members list
-        if (Data.getCurrentUser() instanceof TeamLeader){
+        if (TaskSystem.getCurrentUser() instanceof TeamLeader){
             LinkedList<User> projMembers=parentFrame.getSelectProject().getMembers();
             for(User user:projMembers){
                 if(!(user instanceof Administrator) && user.checkActive()){
@@ -94,14 +94,14 @@ public class AddTaskGUI extends javax.swing.JDialog {
             }
         } 
         else {
-            ownerComboBox.addItem(Data.getCurrentUser().getEmail());
+            ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
         }
         
         if(flag.equals("add"))
             setFormAdd();
         else
             setFormEdit();
-        if(Data.getCurrentUser() instanceof TeamLeader){
+        if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             this.setTitle("Add Task");
             addTaskBtn.setText("Add");
         }
@@ -246,7 +246,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
         {
             //Create Task object with attributes
             Task task;
-            if (Data.getCurrentUser() instanceof TeamLeader)
+            if (TaskSystem.getCurrentUser() instanceof TeamLeader)
                 task = new Task(title, ownerEmail, projectID, start, end, State.ToDo);
             else
                 task = new Task(title, ownerEmail, projectID, start, end);

@@ -29,7 +29,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     String title;
     String startDate;
     String endDate;
-    String owner = Data.getCurrentUser().getEmail();
+    String owner = TaskSystem.getCurrentUser().getEmail();
 
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     boolean weAreCreating = false;
@@ -107,8 +107,8 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     public void refreshMemberList() {
         //Update Member List
         DefaultListModel jListModel = new DefaultListModel();
-            for (User member : Data.getMembers()) {
-                if(member.checkActive()&&!member.equals(Data.getCurrentUser()))
+            for (User member : TaskSystem.getMembers()) {
+                if(member.checkActive()&&!member.equals(TaskSystem.getCurrentUser()))
                     jListModel.addElement(member.getEmail());
             }
         jList1.setModel(jListModel);
@@ -118,12 +118,12 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         boolean flag=true;
         DefaultListModel jListModel = new DefaultListModel();
         LinkedList<User> projectMembers = projectgui.getSelectProject().getMembers();
-            for (User member : Data.getMembers()) {
+            for (User member : TaskSystem.getMembers()) {
                 for(User projMember:projectMembers){
                     if(member.equals(projMember))
                         flag=false;
                 }
-                if(member.checkActive()&&!member.equals(Data.getCurrentUser())&&flag){
+                if(member.checkActive()&&!member.equals(TaskSystem.getCurrentUser())&&flag){
                         jListModel.addElement(member.getEmail());
                 }
                 flag=true;
@@ -303,7 +303,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             title = jTextField1.getText().toString();
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
-            for (Project p : Data.projectList) {
+            for (Project p : TaskSystem.projectList) {
                 if (p.getTitle().equalsIgnoreCase(title)) {
                     JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -320,7 +320,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                     } else {
 
                         proj = new Project(title, owner, sDate, eDate);
-                        Data.projectList.add(proj);
+                        TaskSystem.projectList.add(proj);
 
                         User userEmail = null;
                         List<String> emails = new ArrayList<>();
@@ -330,7 +330,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                                 emails.add((String) jList2.getModel().getElementAt(i));
                             }
                             for (String s : emails) {
-                                userEmail = Data.getUserByEmail(s);
+                                userEmail = TaskSystem.getUserByEmail(s);
                                 proj.addMember(userEmail);
 
                             }
@@ -356,7 +356,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
             if(title.compareToIgnoreCase(projectgui.getSelectProject().getTitle())!=0){
-                for (Project p : Data.projectList) {
+                for (Project p : TaskSystem.projectList) {
                     if (p.getTitle().equalsIgnoreCase(title)) {
                         JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
                         return;
@@ -373,7 +373,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
                         //editing project details
                         Project editProj = projectgui.getSelectProject();
-                        Data.projectList.remove(editProj);
+                        TaskSystem.projectList.remove(editProj);
                         editProj.setTitle(title);
                         editProj.setEndDate(eDate);
                         editProj.setStartDate(sDate);
@@ -391,13 +391,13 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                                             
                                 }
                                 for (String s : newemails) {
-                                    userEmail = Data.getUserByEmail(s);
+                                    userEmail = TaskSystem.getUserByEmail(s);
                                     newMembers.add(userEmail);
                                     editProj.setMembers(newMembers);
                                 }
                             }
                             
-                        Data.projectList.add(editProj);
+                        TaskSystem.projectList.add(editProj);
                         this.dispose();
                     }
                 } catch (ParseException ex) {
