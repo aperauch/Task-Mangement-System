@@ -149,13 +149,13 @@ public class LoginGUI extends javax.swing.JFrame {
                 
                 if(user instanceof Administrator){
                     AdminGUI adminForm=new AdminGUI(this,user);
-                    adminForm.show();
+                    adminForm.setVisible(true);
                     adminForm.setLocationRelativeTo(null);
                     this.setVisible(false);
                 }
                 else{
                     ProjectTaskGUI projectTaskForm=new ProjectTaskGUI(this);
-                    projectTaskForm.show();
+                    projectTaskForm.setVisible(true);
                     projectTaskForm.setLocationRelativeTo(null);
                     this.setVisible(false);
                 }

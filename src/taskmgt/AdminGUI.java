@@ -364,7 +364,7 @@ public final class AdminGUI extends javax.swing.JFrame{
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         this.jPanelTransfer.setVisible(false);
         MemberGUI addMemberForm=new MemberGUI(this,true, user);
-        addMemberForm.show();
+        addMemberForm.setVisible(true);
         addMemberForm.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 

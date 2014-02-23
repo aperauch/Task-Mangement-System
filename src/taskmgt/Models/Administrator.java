@@ -31,9 +31,7 @@ public class Administrator extends User implements Serializable{
     
     //Methods
     public boolean createLeader(String name, String email){
-        TeamLeader leader=new TeamLeader(name, email);
-        TaskSystem.getUserList().add(leader);
-        //TaskSystem.getLeaders().add(leader);
+        TeamLeader leader=new TeamLeader(name, email);        
         for (User u : TaskSystem.getUserList()){
             if(u.equals(leader)&&u.checkActive()){
                 return false;
@@ -44,7 +42,7 @@ public class Administrator extends User implements Serializable{
                 return true;   
             }
         }
-        
+        TaskSystem.getUserList().add(leader);
         return true;
     }
     

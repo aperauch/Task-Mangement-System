@@ -59,8 +59,8 @@ public class AddTaskGUI extends javax.swing.JDialog {
             this.setTitle("Request Task");
             addTaskBtn.setText("Request");
 
-            jLabel6.show();
-            jLabel5.show();
+            jLabel6.setVisible(true);
+            jLabel5.setVisible(true);
             jLabel5.setText("Project Leader:");
             jLabel6.setText(parentFrame.getSelectProject().getOwnerName());
 
