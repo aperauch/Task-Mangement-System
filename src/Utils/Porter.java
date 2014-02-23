@@ -100,7 +100,8 @@ public class Porter {
     
     public static boolean exportCSV(String file, ModelType type) {
         CSVWriter writer = null;
-        
+       
+      
         try {
             List<String[]> dataList = new ArrayList<>();
             
@@ -117,8 +118,11 @@ public class Porter {
             else if (type == ModelType.Task)
             {
                 for (Project project:TaskSystem.getProjectList()) {
-                    for (Task task:project.getTasks())
+                    for (Task task :project.getTasks())
                         dataList.add(task.toStringArray());
+                    
+                    
+                    
                 }
             }
             else

@@ -71,6 +71,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         this.setTitle("Create Project");
         jButtonCreateProject.setText("Create");
         refreshMemberList();
+        jButton1.hide();
         weAreCreating = true;
     }
 
@@ -79,6 +80,8 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         jButtonCreateProject.setText("Save");
         refreshEditMemberList();
         setTextFields();
+        jButton1.show();
+        jButton1.setText("Delete Project");
         weAreCreating = false;
     }
 
@@ -157,6 +160,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -220,6 +224,13 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             }
         });
 
+        jButton1.setText("Delete Project");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -229,12 +240,15 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonCreateProject)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonCreateProject)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonAddMember, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                                    .addComponent(jButtonAddMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonRemoveMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel4))
                         .addGap(26, 26, 26)
@@ -290,7 +304,9 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                         .addGap(7, 7, 7)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jButtonCreateProject)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCreateProject)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -532,6 +548,21 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Project p  = projectgui.getSelectProject();
+        
+        TaskSystem.getProjectList().remove(p);
+        
+        
+        
+        if (projectgui != null) {
+                projectgui.refreshProjectsList();}
+        
+        this.dispose();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -573,6 +604,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddMember;
     private javax.swing.JButton jButtonCreateProject;
     private javax.swing.JButton jButtonRemoveMember;
