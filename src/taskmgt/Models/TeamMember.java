@@ -17,11 +17,11 @@ public class TeamMember extends User implements Serializable {
     public TeamMember() { }
     
     public TeamMember(String name,String email){
-        super(name,email,""); 
+        super(name,email,"", true); 
     }
     
     public TeamMember(String name, String email, String password) {
-        super(name,email,password); 
+        super(name,email,password, true); 
     }
     
     public TeamMember(TeamLeader leader){
@@ -32,8 +32,7 @@ public class TeamMember extends User implements Serializable {
     }
     
     public TeamMember(String[] strArr){
-        super(strArr[0], strArr[1], strArr[2]);        
-        this.active= Boolean.valueOf(strArr[3]);
+        super(strArr[0], strArr[1], strArr[2], Boolean.valueOf(strArr[3]));        
     }
     
     //Methods 

@@ -60,8 +60,8 @@ public class Task implements Serializable, Comparable<Task> {
 
     public Task(String[] strArr) {
         this.id = Integer.valueOf(strArr[0]);
-        this.title=strArr[1];
-        this.owner=(TeamMember)TaskSystem.getUserByEmail(strArr[2]);
+        this.owner=(TeamMember)TaskSystem.getUserByEmail(strArr[1]);
+        this.title=strArr[2];
         this.projectID=Integer.valueOf(strArr[3]);
         
         try {

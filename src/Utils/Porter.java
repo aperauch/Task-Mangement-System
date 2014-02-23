@@ -174,7 +174,7 @@ public class Porter {
                     String[] impTask = new String[7];
                     
                     //Get project elements
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 6; i++) {
                         impProject[i] = strArr[i];                       
                     }
                     
@@ -183,10 +183,10 @@ public class Porter {
                     TaskSystem.getProjectList().add(p);
                     
                     //If there are project members
-                    if (strArr.length >= 5)
+                    if (strArr.length >= 6)
                     {
                         //int numMembers = (strArr.length - 5);
-                        for (int i = 5; i < strArr.length; i++)
+                        for (int i = 6; i < strArr.length; i++)
                         {
                             if (TaskSystem.getUserList() != null)
                             {

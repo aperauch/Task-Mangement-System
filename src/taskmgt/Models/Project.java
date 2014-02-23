@@ -32,8 +32,9 @@ public class Project implements Serializable, Comparable<Project>{
 
     public Project(String[] strArr) {
         this.id = Integer.parseInt(strArr[0]);
-        this.title = strArr[1];
-        this.owner = (TeamLeader)TaskSystem.getUserByEmail(strArr[2]);
+        this.owner = (TeamLeader)TaskSystem.getUserByEmail(strArr[1]);
+        this.title = strArr[2];
+        
         
         try {
             this.startDate = simpleDate.parse(strArr[3]);
