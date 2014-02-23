@@ -20,12 +20,12 @@ import taskmgt.Models.*;
 public class EditProjectGUI extends javax.swing.JDialog implements ActionListener {
 
     DefaultListModel listmodel = new DefaultListModel();
-    
+
     ProjectTaskGUI projectgui;
     Project proj;
     Date sDate = null;
     Date eDate = null;
-    
+
     String title;
     String startDate;
     String endDate;
@@ -52,12 +52,12 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         super(parent, modal);
 
         initComponents();
-        
+
         //Fill in dates
         Date today = new Date();
         jTextField2.setText(sdf.format(today));
         jTextField3.setText(sdf.format(today));
-        
+
         if (flag.equals("create")) {
             projectgui = (ProjectTaskGUI) parent;
             setFormCreate();
@@ -81,7 +81,6 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         setTextFields();
         weAreCreating = false;
     }
-    
 
     private void setTextFields() {
         String title = projectgui.getSelectProject().getTitle();
@@ -108,29 +107,32 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     public void refreshMemberList() {
         //Update Member List
         DefaultListModel jListModel = new DefaultListModel();
-            for (User member : TaskSystem.getMembers()) {
-                if(member.checkActive()&&!member.equals(TaskSystem.getCurrentUser()))
-                    jListModel.addElement(member.getEmail());
+        for (User member : TaskSystem.getMembers()) {
+            if (member.checkActive() && !member.equals(TaskSystem.getCurrentUser())) {
+                jListModel.addElement(member.getEmail());
             }
+        }
         jList1.setModel(jListModel);
     }
-    
-    public void refreshEditMemberList(){
-        boolean flag=true;
+
+    public void refreshEditMemberList() {
+        boolean flag = true;
         DefaultListModel jListModel = new DefaultListModel();
         LinkedList<User> projectMembers = projectgui.getSelectProject().getMembers();
-            for (User member : TaskSystem.getMembers()) {
-                for(User projMember:projectMembers){
-                    if(member.equals(projMember))
-                        flag=false;
+        for (User member : TaskSystem.getMembers()) {
+            for (User projMember : projectMembers) {
+                if (member.equals(projMember)) {
+                    flag = false;
                 }
-                if(member.checkActive()&&!member.equals(TaskSystem.getCurrentUser())&&flag){
-                        jListModel.addElement(member.getEmail());
-                }
-                flag=true;
             }
-        jList1.setModel(jListModel);        
+            if (member.checkActive() && !member.equals(TaskSystem.getCurrentUser()) && flag) {
+                jListModel.addElement(member.getEmail());
+            }
+            flag = true;
+        }
+        jList1.setModel(jListModel);
     }
+
     /**
      * This method is called from within the constructor to initialize the
      * weAreCreating. WARNING: Do NOT modify this code. The content of this
@@ -296,7 +298,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateProjectActionPerformed
-        if(jList2.getModel().getSize()<=0){
+        if (jList2.getModel().getSize() <= 0) {
             JOptionPane.showMessageDialog(null, "Please choose members to fullfil this project!", "Empty Member List", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -350,14 +352,13 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             if (projectgui != null) {
                 projectgui.refreshProjectsList();
             }
-        }
-        //functionality is when editprojGUI appears
+        } //functionality is when editprojGUI appears
         else if (!weAreCreating) {
 
             title = jTextField1.getText().toString();
             startDate = jTextField2.getText().toString();
             endDate = jTextField3.getText().toString();
-            if(title.compareToIgnoreCase(projectgui.getSelectProject().getTitle())!=0){
+            if (title.compareToIgnoreCase(projectgui.getSelectProject().getTitle()) != 0) {
                 for (Project p : TaskSystem.getProjectList()) {
                     if (p.getTitle().equalsIgnoreCase(title)) {
                         JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
@@ -386,19 +387,18 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                         LinkedList<User> newMembers = new LinkedList<>();
 
                         //adding new members to list   
-   
-                            if (jList2.getModel().getSize() > 0) {
-                                for (int i = 0; i < jList2.getModel().getSize(); i++) {
-                                    newemails.add((String) jList2.getModel().getElementAt(i));
-                                            
-                                }
-                                for (String s : newemails) {
-                                    userEmail = TaskSystem.getUserByEmail(s);
-                                    newMembers.add(userEmail);
-                                    editProj.setMembers(newMembers);
-                                }
+                        if (jList2.getModel().getSize() > 0) {
+                            for (int i = 0; i < jList2.getModel().getSize(); i++) {
+                                newemails.add((String) jList2.getModel().getElementAt(i));
+
                             }
-                            
+                            for (String s : newemails) {
+                                userEmail = TaskSystem.getUserByEmail(s);
+                                newMembers.add(userEmail);
+                                editProj.setMembers(newMembers);
+                            }
+                        }
+
                         TaskSystem.setProjectList(editProj);
                         this.dispose();
                     }
@@ -410,14 +410,13 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                     projectgui.refreshProjectsList();
 
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Title", "Title missing", JOptionPane.WARNING_MESSAGE);
-                return;            
+                return;
             }
         }
 
-        
+
     }//GEN-LAST:event_jButtonCreateProjectActionPerformed
 
 
@@ -427,41 +426,60 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
     private void jButtonAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMemberActionPerformed
         // TODO add your handling code here:
-        if(!weAreCreating ){
+        
+        
+        if (!weAreCreating) {
             clicked = true;
             List<String> usersToAdd = jList1.getSelectedValuesList();
 
             for (String user : usersToAdd) {
-               
-                DefaultListModel model1 = (DefaultListModel) jList1.getModel();
-                DefaultListModel model2 = (DefaultListModel)jList2.getModel();
-                
-                model2.addElement(user);
-                
-                int selectedIndex = jList1.getSelectedIndex();
-                if(selectedIndex != -1){
-                    model1.remove(selectedIndex);   
-                }                 
-            }
-        } 
-        else if (jList1.isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please select a member to add to a project.");
-        } 
-        else {
-            List<String> usersToAdd = jList1.getSelectedValuesList();
 
-            for (String user : usersToAdd) {
-                if (!listmodel.contains(user)) {
-                    listmodel.addElement(user);
+                DefaultListModel model1 = (DefaultListModel) jList1.getModel();
+                DefaultListModel model2 = (DefaultListModel) jList2.getModel();
+                
+
+                model2.addElement(user);
+
+                int selectedIndex = jList1.getSelectedIndex();
+                if (selectedIndex != -1) {
+
+                    model1.remove(selectedIndex);
+
                 }
             }
-            jList2.setModel(listmodel);
+
+        } else if (jList1.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please select a member to add to a project.");
+        } else {
+            List<String> usersToAdd = jList1.getSelectedValuesList();
             
-            DefaultListModel model = (DefaultListModel) jList1.getModel();
-            int selectedIndex = jList1.getSelectedIndex();
-            if (selectedIndex != -1) {
-                model.remove(selectedIndex);              
+                 DefaultListModel model2 = null;  
+            if(jList2.getModel().getSize() == 0) {
+                model2 = new DefaultListModel();
+                jList2.setModel(model2);
+            } else {
+                model2 = (DefaultListModel) jList2.getModel();
             }
+            
+            
+            for (String user : usersToAdd) {
+
+                DefaultListModel model1 = (DefaultListModel) jList1.getModel();
+                
+
+                model2.addElement(user);
+              
+                
+               
+
+                int selectedIndex = jList1.getSelectedIndex();
+                if (selectedIndex != -1) {
+
+                    model1.remove(selectedIndex);
+
+                }
+            }
+            
         }
     }//GEN-LAST:event_jButtonAddMemberActionPerformed
 
@@ -481,19 +499,18 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
 
         if (jList2.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a member to remove from the project.");
-        } 
-        else {
+        } else {
             List<String> usersToAdd = jList2.getSelectedValuesList();
             DefaultListModel model1 = (DefaultListModel) jList1.getModel();
-            DefaultListModel model2 = (DefaultListModel)jList2.getModel();
+            DefaultListModel model2 = (DefaultListModel) jList2.getModel();
             for (String user : usersToAdd) {
                 model2.removeElement(user);
-                model1.add(0,user);
+                model1.add(0, user);
             }
             jList1.setModel(model1);
             jList2.setModel(model2);
         }
-        
+
     }//GEN-LAST:event_jButtonRemoveMemberActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
