@@ -500,15 +500,25 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
         if (jList2.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a member to remove from the project.");
         } else {
+            
             List<String> usersToAdd = jList2.getSelectedValuesList();
             DefaultListModel model1 = (DefaultListModel) jList1.getModel();
             DefaultListModel model2 = (DefaultListModel) jList2.getModel();
+            
+            boolean hasTask = false;
             for (String user : usersToAdd) {
-                model2.removeElement(user);
-                model1.add(0, user);
-            }
+                for (Task t : projectgui.getSelectProject().getTasks()){
+                    if(t.getOwner().equalsIgnoreCase(user)){hasTask = true;}
+                }
+            if(!hasTask){
+            model2.removeElement(user);
+            model1.add(0, user);
+
             jList1.setModel(model1);
             jList2.setModel(model2);
+            }
+                else{ JOptionPane.showMessageDialog(null, "Can't remove: User(s) selected are currently assigned to a task.");} //true
+            }
         }
 
     }//GEN-LAST:event_jButtonRemoveMemberActionPerformed
