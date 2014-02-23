@@ -234,7 +234,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                 if(project.getTitle().equalsIgnoreCase(pTitle)){
                     for(Task task:project.getTasks()){
                         if(task.getID()==taskID){
-                            task.setStatus(State.ToDo);
+                            task.setStatus(State.ToDoNotify);
                             break;
                         }
                     }
