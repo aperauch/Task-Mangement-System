@@ -420,7 +420,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, true, true, true, true, true
@@ -435,6 +435,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         });
         jScrollPane3.setViewportView(jTableTasks);
+        jTableTasks.getColumnModel().getColumn(0).setPreferredWidth(3);
+        jTableTasks.getColumnModel().getColumn(1).setPreferredWidth(150);
 
         jLabelTaskCount.setText("Tasks: ?");
 
