@@ -106,7 +106,7 @@ public class Serializer<Type> {
                 return null;
             }
         } catch (InvalidClassException ice) {
-            JOptionPane.showMessageDialog(null, "The file " + file.toString() + " has objects that are not recognized.  Consider deleting.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The file " + file.toString() + " has objects that are not recognized.  Deleting file.", "Error", JOptionPane.ERROR_MESSAGE);
         }  catch (IOException ex) {
             //Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);

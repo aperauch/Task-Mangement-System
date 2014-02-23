@@ -130,31 +130,32 @@ public class LoginGUI extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null,"Please enter the right E-mail address!","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            User user=TaskSystem.getUser(email,password);
-            if(user==null){
+            if(TaskSystem.getUser(email,password) == null){
                 JOptionPane.showMessageDialog(null,"Invalid User/Password. Please verify!","Warning",JOptionPane.WARNING_MESSAGE);
-            }
-            else if(user.getPassword().isEmpty()){
+            }         
+            else if (password.isEmpty()) {
+                User user = TaskSystem.getUser(email,password);
                 int indexOfUser=TaskSystem.getUserList().indexOf(user);
                 java.security.SecureRandom random = new java.security.SecureRandom();
                 String randomPassword[] = { new java.math.BigInteger(130, random).toString(32) };
-                String newPassword=JOptionPane.showInputDialog(null, "Enter a password or use the random one", randomPassword[0]);//"Warning", JOptionPane.WARNING_MESSAGE );
+                String newPassword=JOptionPane.showInputDialog(null, "Enter a password or use the random one", randomPassword[0]);
                 TaskSystem.getUserList().get(indexOfUser).setPassword(newPassword);
                 TaskSystem.Finalize();
-            }
+            }   
             else{
                 //Set the current user that is logging into the system.
+                User user = TaskSystem.getUser(email,password);
                 TaskSystem.setCurrentUser(user);
                 
                 if(user instanceof Administrator){
                     AdminGUI adminForm=new AdminGUI(this,user);
-                    adminForm.show();
+                    adminForm.setVisible(true);
                     adminForm.setLocationRelativeTo(null);
                     this.setVisible(false);
                 }
                 else{
                     ProjectTaskGUI projectTaskForm=new ProjectTaskGUI(this);
-                    projectTaskForm.show();
+                    projectTaskForm.setVisible(true);
                     projectTaskForm.setLocationRelativeTo(null);
                     this.setVisible(false);
                 }
