@@ -347,7 +347,8 @@ public class TaskSystem {
                     grandTotalCompleted += totalTaskCompletedCount[i]; 
                 }
                 
-                float percent = (float)grandTotalCompleted/(float)grandTotalTasks*100;
+                float percent = 0;
+                if(grandTotalTasks!=0){percent = (float)grandTotalCompleted/(float)grandTotalTasks*100;}
                     output.println(line);
                     String grand = String.format("%-30s%-15d%-15d%-15d%-10.1f", "GRAND TOTAL",grandTotalProjects, grandTotalTasks, grandTotalCompleted, percent);
                     output.println(grand);
