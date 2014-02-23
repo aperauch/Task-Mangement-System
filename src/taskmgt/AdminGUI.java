@@ -62,10 +62,10 @@ public final class AdminGUI extends javax.swing.JFrame{
     
     public void exportCSV() throws IOException {
         boolean projectsOK = Porter.exportCSV(".//Exports//Projects.csv", ModelType.Project);
-        //boolean tasksOK = Porter.exportCSV(".//Exports//Tasks.csv", ModelType.Task);
+        boolean tasksOK = Porter.exportCSV(".//Exports//Tasks.csv", ModelType.Task);
         boolean usersOK = Porter.exportCSV(".//Exports//Users.csv", ModelType.AllUsers);
         
-        if (projectsOK && usersOK) {
+        if (projectsOK && usersOK && tasksOK) {
             int answer = 
             JOptionPane.showConfirmDialog(null,"All data has been exported!  View directory?","Export Complete", JOptionPane.YES_NO_OPTION);
                 if (answer == 0){
@@ -93,12 +93,13 @@ public final class AdminGUI extends javax.swing.JFrame{
         
         if (!merge)
             TaskSystem.clearAllLists();
-        
-     boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project, merge);
-       // boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
+       
         boolean usersOK = Porter.importCSV(".//Imports//Users.csv", ModelType.AllUsers, merge);
+        boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project, merge);
+        boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
+       
         
-        if (projectsOK && usersOK) {
+        if (projectsOK && usersOK && tasksOK) {
             JOptionPane.showMessageDialog(null,"All data has been imported from Imports directory!","Import Complete", JOptionPane.PLAIN_MESSAGE);
             TaskSystem.Finalize();
             jPanelImport.setVisible(false);

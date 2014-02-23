@@ -26,9 +26,9 @@ public class TaskSystem {
         catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
         }
         TaskSystem.Initialize();
-        InitializeAdmin();
+        InitializeDefaultUsers();
         LoginGUI loginForm=new LoginGUI();
-        loginForm.show();
+        loginForm.setVisible(true);
         loginForm.setLocationRelativeTo(null);
     }
     //Properties
@@ -72,16 +72,24 @@ public class TaskSystem {
         pushProject();
     }
     
-    public static void InitializeAdmin(){
+    public static void InitializeDefaultUsers(){
         if(userList==null){
             userList= new LinkedList();
             projectList= new LinkedList();
             Administrator admin=new Administrator("admin","admin@mgt.com","123456");
             TeamLeader leader=new TeamLeader("leader","leader@mgt.com","123456");
             TeamMember member=new TeamMember("member","member@mgt.com","123456");
-            userList.add(admin);
-            userList.add(leader);
-            userList.add(member);
+            
+            //If these users are not already in the list, then add.  Else do nothing
+            if (!userList.contains(admin))
+                userList.add(admin);
+            
+            if (!userList.contains(leader))
+                userList.add(leader);
+            
+            if (!userList.contains(member))
+                userList.add(member);
+            
             Finalize();
         }
     }
@@ -206,6 +214,15 @@ public class TaskSystem {
     public static Project getProjectByTitle(String projectTitle) {
         for(Project project:projectList){
             if(project.getTitle().equalsIgnoreCase(projectTitle)){
+                return project;
+            }
+        }
+        return null;
+    }
+    
+    public static Project getProjectByID(int id) {
+        for(Project project:projectList){
+            if(project.getID() == id){
                 return project;
             }
         }

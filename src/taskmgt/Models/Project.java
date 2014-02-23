@@ -156,16 +156,20 @@ public class Project implements Serializable, Comparable<Project>{
         attrs.add(simpleDate.format(startDate));
         attrs.add(simpleDate.format(endDate));
         attrs.add(status.name());
-       
-        for (Task t : tasks) {
-            attrs.add((Integer.toString(t.getID())));
-            attrs.add(t.getOwner());
-            attrs.add(t.getTitle());
-            attrs.add(Integer.toString(t.getProjectID()));
-            attrs.add(simpleDate.format(t.getStartDate()));
-            attrs.add(simpleDate.format(t.getEndDate()));
-            attrs.add(t.getStatus().name());
+        
+        for (User u : members) {
+            attrs.add(u.getEmail());
         }
+       
+//        for (Task t : tasks) {
+//            attrs.add((Integer.toString(t.getID())));
+//            attrs.add(t.getOwner());
+//            attrs.add(t.getTitle());
+//            attrs.add(Integer.toString(t.getProjectID()));
+//            attrs.add(simpleDate.format(t.getStartDate()));
+//            attrs.add(simpleDate.format(t.getEndDate()));
+//            attrs.add(t.getStatus().name());
+//        }
 
         return attrs.toArray(new String[attrs.size()]);
     }
