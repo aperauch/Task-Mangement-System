@@ -1,10 +1,27 @@
 
 MEMBER REPORT
 -------------
+<<<<<<< HEAD
 John THE LEADER (john@mgt.com) - Team Member/Leader
+=======
+leader (leader@mgt.com) - Team Member/Leader
+
+PROJECT:pr1                   START DATE:02/23/2014         END DATE:02/23/2014   LEADER:rui               
+------------------------------------------------------------------------------------------------------------
+TASK                          OWNER          START DATE     END DATE       DONE
+------------------------------------------------------------------------------------------------------------
+ddassad                       leader         02/23/2014     02/23/2014      N   
+11                            leader         02/23/2014     02/21/2014      N   
+
+leader completed 0 out of 2 tasks (0.0%)
+>>>>>>> 3a832ed0bf1b44a84ac74226c1a4c6577ee1eb18
 
 
 TOTALS
 ------------------------------------------------------------------------------------------------------------
 MEMBER                        PROJECTS       TASKS          COMPLETED      (%)       ------------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
 John THE LEADER               0              0              0              0.0       
+=======
+leader                        2              2              0              0.0       
+>>>>>>> 3a832ed0bf1b44a84ac74226c1a4c6577ee1eb18

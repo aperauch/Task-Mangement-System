@@ -60,8 +60,8 @@ public class Task implements Serializable, Comparable<Task> {
 
     public Task(String[] strArr) {
         this.id = Integer.valueOf(strArr[0]);
-        this.title=strArr[1];
-        this.owner=(TeamMember)TaskSystem.getUserByEmail(strArr[2]);
+        this.owner=(TeamMember)TaskSystem.getUserByEmail(strArr[1]);
+        this.title=strArr[2];
         this.projectID=Integer.valueOf(strArr[3]);
         
         try {
@@ -89,10 +89,10 @@ public class Task implements Serializable, Comparable<Task> {
     public int getID() { return this.id; }
     public String getTitle() { return this.title; }
     public String getOwner() {
-        if(this.owner!=null)
+        if(this.owner != null)
             return this.owner.getEmail();
         else
-            return null;
+            return "";
     }
     public User getOwnerObject(){return this.owner;}
     public int getProjectID(){return this.projectID;}
@@ -136,19 +136,19 @@ public class Task implements Serializable, Comparable<Task> {
 //        return hash;
 //    }
 //    
-//    public String[] toStringArray() {
-//        LinkedList<String> attrs = new LinkedList<>();
-//
-//        attrs.add(Integer.toString(id));
-//        attrs.add(owner.getEmail());
-//        attrs.add(title);
-//        attrs.add(Integer.toString(projectID));
-//        attrs.add(simpleDate.format(startDate));
-//        attrs.add(simpleDate.format(endDate));
-//        attrs.add(status.name());
-//
-//       return attrs.toArray(new String[attrs.size()]);
-//    }
+    public String[] toStringArray() {
+        LinkedList<String> attrs = new LinkedList<>();
+
+        attrs.add(Integer.toString(id));
+        attrs.add(owner.getEmail());
+        attrs.add(title);
+        attrs.add(Integer.toString(projectID));
+        attrs.add(simpleDate.format(startDate));
+        attrs.add(simpleDate.format(endDate));
+        attrs.add(status.name());
+
+       return attrs.toArray(new String[attrs.size()]);
+    }
 //    
 //    public String toCSVStringArray() {
 //        StringBuilder sb = new StringBuilder();

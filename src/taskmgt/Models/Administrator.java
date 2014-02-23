@@ -17,17 +17,16 @@ public class Administrator extends User implements Serializable{
     
     //Constructors
     public Administrator(String name,String email){
-        super(name,email, "");
+        super(name,email, "", true);
     }
     
     public Administrator(String name,String email, String password){
-        super(name,email,password);
+        super(name,email,password, true);
     }
     
     public Administrator(String[] strArr)
     {
-        super(strArr[0], strArr[1], strArr[2]);
-        this.active = Boolean.valueOf(strArr[3]);
+        super(strArr[0], strArr[1], strArr[2], Boolean.valueOf(strArr[3]));
     }
     
     //Methods
@@ -97,7 +96,7 @@ public class Administrator extends User implements Serializable{
         }
         else{
             TeamLeader leader = (TeamLeader) TaskSystem.getUserByEmail(email);
-            boolean flag=false;
+            boolean flag=true;
             for(Project project:TaskSystem.getProjectList()){
                 if(email.equalsIgnoreCase(project.getOwner())){
                     flag=false;
