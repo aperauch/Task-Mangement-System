@@ -90,8 +90,17 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                             flag=true;
                             break;
                         }
+                         
+                        }
                     }
-                }
+                else{
+                for(Task task:project.getTasks()){
+                if(task.getStatus() == State.ToDoNotify ){
+                            jLabel3.setText("You got new tasks to do!");
+                            jButton1.setVisible(true);
+                            flag=true;
+                            break;}
+                }}
                 if(flag)
                     break;
             }
@@ -104,7 +113,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             boolean flag=false;
             for(Project project:TaskSystem.getProjectList()){
                 for(Task task:project.getTasks()){
-                    if(task.getStatus()==State.ToDo&&TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(task.getOwner())){
+                    if(task.getStatus()==State.ToDoNotify&&TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(task.getOwner())){
                         jLabel3.setText("You got new tasks to do!");
                         jButton1.setVisible(true);
                         flag=true;
@@ -317,7 +326,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         jLabelHello = new javax.swing.JLabel();
         jLabelProjectCount = new javax.swing.JLabel();
 
-        setTitle("Project");
+        setTitle("Project & Task Management");
         setResizable(false);
 
         jListProjects.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -435,10 +444,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         });
         jScrollPane3.setViewportView(jTableTasks);
-        if (jTableTasks.getColumnModel().getColumnCount() > 0) {
-            jTableTasks.getColumnModel().getColumn(0).setPreferredWidth(3);
-            jTableTasks.getColumnModel().getColumn(1).setPreferredWidth(150);
-        }
+        jTableTasks.getColumnModel().getColumn(0).setPreferredWidth(3);
+        jTableTasks.getColumnModel().getColumn(1).setPreferredWidth(150);
 
         jLabelTaskCount.setText("Tasks: ?");
 

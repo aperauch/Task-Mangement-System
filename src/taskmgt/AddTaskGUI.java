@@ -248,7 +248,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             //Create Task object with attributes
             Task task;
             if (TaskSystem.getCurrentUser() instanceof TeamLeader)
-                task = new Task(title, ownerEmail, projectID, start, end, State.ToDo);
+                task = new Task(title, ownerEmail, projectID, start, end, State.ToDoNotify);
             else
                 task = new Task(title, ownerEmail, projectID, start, end);
             
