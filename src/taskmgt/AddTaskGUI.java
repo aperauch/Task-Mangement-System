@@ -215,15 +215,15 @@ public class AddTaskGUI extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please choose a date before the end date of Project", "Incorrect End Date", JOptionPane.WARNING_MESSAGE);
             return;
         }
-<<<<<<< HEAD
 
-=======
+
+
         else if(end.compareTo(start)<0){
             JOptionPane.showMessageDialog(null, "End date must after Start Date!", "Incorrect End Date", JOptionPane.WARNING_MESSAGE);
             return;  
         }
         
->>>>>>> cdc859f0bef541fa520bc157ce69873f510f65ba
+
         //If adding a task
         if (addTaskBtn.getText().equalsIgnoreCase("add") && TaskSystem.getCurrentUser() instanceof TeamLeader) {
             //Create Task object with attributes
