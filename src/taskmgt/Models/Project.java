@@ -199,7 +199,7 @@ public class Project implements Serializable, Comparable<Project>{
 //    
      @Override
     public String toString() {
-        String p = String.format("%-30s%-30s%-22s%-25s", "PROJECT:" + title,"START DATE:" + simpleDate.format(startDate),"END DATE:" + simpleDate.format(endDate),"LEADER:" + owner.getName());
+        String p = String.format("%-30s%-30s%-22s%-25s",title,"START DATE:" + simpleDate.format(startDate),"END DATE:" + simpleDate.format(endDate),"LEADER:" + owner.getName());
         return(p);
  }
            

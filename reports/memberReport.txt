@@ -1,10 +1,30 @@
 
 MEMBER REPORT
 -------------
-b (b@mgt.com) - Team Member
+leader (leader@mgt.com) - Team Member/Leader
+member (member@mgt.com) - Team Member
+Alex DiNardo (alex@mgt.com) - Team Member
+Aron Aperauch (aron@mgt.com) - Team Member
+Seema Bandyopadhyay (seema@mgt.com) - Team Member/Leader
+
+PROJECT:Task Management SystemSTART DATE:02/23/2014         END DATE:02/23/2014   LEADER:Seema Bandyopadhyay
+------------------------------------------------------------------------------------------------------------
+TASK                          OWNER          START DATE     END DATE       DONE
+------------------------------------------------------------------------------------------------------------
+Create GUI Screens            Alex DiNardo   02/23/2014     02/23/2014      N   
+Create Class Diagram          Aron Aperauch  02/23/2014     02/23/2014      N   
+
+Alex DiNardo completed 0 out of 1 tasks (0.0%)
+Aron Aperauch completed 0 out of 1 tasks (0.0%)
 
 
 TOTALS
 ------------------------------------------------------------------------------------------------------------
 MEMBER                        PROJECTS       TASKS          COMPLETED      (%)       ------------------------------------------------------------------------------------------------------------
-b                             0              0              0              0.0       
+leader                        2              0              0              0.0       
+member                        0              0              0              0.0       
+Alex DiNardo                  0              1              0              0.0       
+Aron Aperauch                 0              1              0              0.0       
+Seema Bandyopadhyay           0              0              0              0.0       
+------------------------------------------------------------------------------------------------------------
+GRAND TOTAL                   2              2              0              0.0       
