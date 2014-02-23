@@ -256,6 +256,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
             if(!project.getTasks().contains(task)){
                 project.addTask(task);
                 parentFrame.addTaskTableRow(task);
+                if(TaskSystem.getCurrentUser() == task.getOwnerObject()){parentFrame.addTaskCount();}
             }
             else{
                 JOptionPane.showMessageDialog(null, "This task is already exists.", "Task exists!", JOptionPane.WARNING_MESSAGE);

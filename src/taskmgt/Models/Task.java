@@ -94,6 +94,7 @@ public class Task implements Serializable, Comparable<Task> {
         else
             return null;
     }
+    public User getOwnerObject(){return this.owner;}
     public int getProjectID(){return this.projectID;}
     public Date getStartDate() { return this.startDate; }
     public Date getEndDate() { return this.endDate; }
