@@ -78,6 +78,11 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         }
         );
+        refreshNotificationBox();
+    }
+
+    //Methods
+    public void refreshNotificationBox() {
         //Notification
         if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             boolean flag=false;
@@ -90,8 +95,17 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                             flag=true;
                             break;
                         }
+                         
+                        }
                     }
-                }
+                else{
+                for(Task task:project.getTasks()){
+                if(task.getStatus() == State.ToDoNotify ){
+                            jLabel3.setText("You got new tasks to do!");
+                            jButton1.setVisible(true);
+                            flag=true;
+                            break;}
+                }}
                 if(flag)
                     break;
             }
@@ -104,7 +118,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             boolean flag=false;
             for(Project project:TaskSystem.getProjectList()){
                 for(Task task:project.getTasks()){
-                    if(task.getStatus()==State.ToDo&&TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(task.getOwner())){
+                    if(task.getStatus()==State.ToDoNotify&&TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(task.getOwner())){
                         jLabel3.setText("You got new tasks to do!");
                         jButton1.setVisible(true);
                         flag=true;
@@ -120,8 +134,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         }
     }
-
-    //Methods
+    
     public Project getSelectProject() {
         if (currentProject == null) {
             setSelectedProject();
@@ -317,7 +330,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         jLabelHello = new javax.swing.JLabel();
         jLabelProjectCount = new javax.swing.JLabel();
 
-        setTitle("Project");
+        setTitle("Project & Task Management");
         setResizable(false);
 
         jListProjects.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -435,10 +448,8 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         });
         jScrollPane3.setViewportView(jTableTasks);
-        if (jTableTasks.getColumnModel().getColumnCount() > 0) {
-            jTableTasks.getColumnModel().getColumn(0).setPreferredWidth(3);
-            jTableTasks.getColumnModel().getColumn(1).setPreferredWidth(150);
-        }
+        jTableTasks.getColumnModel().getColumn(0).setPreferredWidth(3);
+        jTableTasks.getColumnModel().getColumn(1).setPreferredWidth(150);
 
         jLabelTaskCount.setText("Tasks: ?");
 
@@ -489,13 +500,14 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ButtonAddTask, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButtonAddTask, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(ButtonCreateProject))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(ButtonCreateProject)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(45, 45, 45)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -514,23 +526,23 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                     .addComponent(jLabel1)
                     .addComponent(jLabel4))
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonAddTask)
+                    .addComponent(ButtonCreateProject)
                     .addComponent(jButton5)
-                    .addComponent(ButtonCreateProject))
-                .addContainerGap())
+                    .addComponent(ButtonAddTask))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+@SuppressWarnings("unchecked")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         NotificationsGUI notifyForm = new NotificationsGUI(this, true);
-        notifyForm.show();
+        notifyForm.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateProjectActionPerformed
@@ -622,14 +634,9 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProjectTaskGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProjectTaskGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProjectTaskGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProjectTaskGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            //java.util.logging.Logger.getLogger(ProjectTaskGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         //</editor-fold>
 

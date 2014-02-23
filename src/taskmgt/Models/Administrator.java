@@ -97,7 +97,7 @@ public class Administrator extends User implements Serializable{
         }
         else{
             TeamLeader leader = (TeamLeader) TaskSystem.getUserByEmail(email);
-            boolean flag=false;
+            boolean flag=true;
             for(Project project:TaskSystem.getProjectList()){
                 if(email.equalsIgnoreCase(project.getOwner())){
                     flag=false;

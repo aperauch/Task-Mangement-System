@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import taskmgt.TaskSystem;
 
 public class Project implements Serializable, Comparable<Project>{
@@ -40,7 +39,8 @@ public class Project implements Serializable, Comparable<Project>{
             this.startDate = simpleDate.parse(strArr[3]);
             this.endDate = simpleDate.parse(strArr[4]);
         } catch (ParseException ex) {
-            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         this.status = State.valueOf(strArr[5]);
@@ -52,6 +52,12 @@ public class Project implements Serializable, Comparable<Project>{
     public String getOwner() { 
         if(this.owner!=null)
             return this.owner.getEmail();
+        else
+            return null;
+    }
+    public String getOwnerName(){
+        if(this.owner!=null)
+            return this.owner.getName();
         else
             return null;
     }

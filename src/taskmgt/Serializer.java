@@ -13,8 +13,6 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
  
 //Good job alex!
@@ -110,11 +108,14 @@ public class Serializer<Type> {
         } catch (InvalidClassException ice) {
             JOptionPane.showMessageDialog(null, "The file " + file.toString() + " has objects that are not recognized.  Consider deleting.", "Error", JOptionPane.ERROR_MESSAGE);
         }  catch (IOException ex) {
-            Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, e);
+            //Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         return null;

@@ -14,8 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import taskmgt.TaskSystem;
 
 public class Task implements Serializable, Comparable<Task> {
@@ -69,7 +68,8 @@ public class Task implements Serializable, Comparable<Task> {
             this.startDate = simpleDate.parse(strArr[4]);
             this.endDate = simpleDate.parse(strArr[5]);
         } catch (ParseException ex) {
-            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         this.status = State.valueOf(strArr[6]);

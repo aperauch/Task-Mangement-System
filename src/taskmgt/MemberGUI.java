@@ -393,13 +393,44 @@ public final class MemberGUI extends javax.swing.JDialog {
             {                 
                 String email=jTable1.getValueAt(row, 0).toString();
                 boolean flag=jTable1.getValueAt(row, 2).toString().equals("Leader");
+                boolean checkFlag=true;
                 if(flag){
                     TeamLeader member = (TeamLeader)TaskSystem.getUserByEmail(email);
-                    member.setActive(false);
+                    for(Project project:TaskSystem.getProjectList()){
+                        if(member.getEmail().equalsIgnoreCase(project.getOwner())){
+                            checkFlag=false;
+                            break;
+                        }
+                        for(Task task:project.getTasks()){
+                            if(member.getEmail().equalsIgnoreCase(task.getOwner())){
+                                checkFlag=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(checkFlag){
+                        member.setActive(false);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"This TeamLeader has projects or tasks!","Warning",JOptionPane.WARNING_MESSAGE);
+                    }
                 }
                 else{
-                    TeamMember member=(TeamMember)TaskSystem.getUserByEmail(email);
-                    member.setActive(false);                   
+                    TeamMember member = (TeamMember)TaskSystem.getUserByEmail(email);
+                    for(Project project:TaskSystem.getProjectList()){
+                        for(Task task:project.getTasks()){
+                            if(member.getEmail().equalsIgnoreCase(task.getOwner())){
+                                checkFlag=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(checkFlag){
+                        member.setActive(false);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"This TeamMember has projects or tasks!","Warning",JOptionPane.WARNING_MESSAGE);
+                    }                   
                 }
             } 
         }
@@ -446,7 +477,8 @@ public final class MemberGUI extends javax.swing.JDialog {
                     TaskSystem.printMemberRpt(selectedMembers);
                 
                 } catch (IOException ex) {
-                    Logger.getLogger(MemberGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    //Logger.getLogger(MemberGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -469,14 +501,9 @@ public final class MemberGUI extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MemberGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MemberGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MemberGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MemberGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            //java.util.logging.Logger.getLogger(MemberGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         //</editor-fold>
 
