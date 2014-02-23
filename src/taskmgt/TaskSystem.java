@@ -278,7 +278,7 @@ public class TaskSystem {
                 
                 // GET THE PROJECT'S TASKS (ALL)
                 LinkedList<Task> taskList = p.getTasks();
-                LinkedList<Task> projectTaskList = new LinkedList<Task>();
+                LinkedList<Task> projectTaskList = new LinkedList();
 
                             for( Task t : taskList)
                             {     

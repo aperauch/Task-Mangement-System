@@ -74,11 +74,11 @@ public class Administrator extends User implements Serializable{
         User newUser = TaskSystem.getUserByEmail(oldEmail);
         
         for(Project project:TaskSystem.getProjectList()){
-            if(project.getOwner().equalsIgnoreCase(oldEmail)){
+            if(oldEmail.equalsIgnoreCase(project.getOwner())){
                 project.setOwner(newEmail);
                 
                 for (Task task:project.getTasks())
-                    if (task.getOwner().equalsIgnoreCase(oldEmail))
+                    if (oldEmail.equalsIgnoreCase(task.getOwner()))
                         task.setOwner(newEmail);
             }
         }
@@ -97,7 +97,14 @@ public class Administrator extends User implements Serializable{
         }
         else{
             TeamLeader leader = (TeamLeader) TaskSystem.getUserByEmail(email);
-            if(leader.getProjects().isEmpty()){
+            boolean flag=false;
+            for(Project project:TaskSystem.getProjectList()){
+                if(email.equalsIgnoreCase(project.getOwner())){
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag){
                 TaskSystem.getUserList().remove(leader);
                 TeamMember member=new TeamMember(leader);
                 TaskSystem.setUserList(member);

@@ -35,7 +35,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         tableModel.setRowCount(0);
         if(noitifyUser instanceof TeamLeader){
             for(Project project:TaskSystem.getProjectList()){
-                if(project.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
+                if(noitifyUser.getEmail().equalsIgnoreCase(project.getOwner())){
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
                             LinkedList<String> row=new LinkedList();
@@ -54,7 +54,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         else{
             for(Project project:TaskSystem.getProjectList()){
                 for(Task task:project.getTasks()){
-                    if(task.getStatus()==State.ToDo&&task.getOwner().equalsIgnoreCase(noitifyUser.getEmail())){
+                    if(task.getStatus()==State.ToDo&&noitifyUser.getEmail().equalsIgnoreCase(task.getOwner())){
                         LinkedList<String> row=new LinkedList();
                         row.add(project.getTitle());
                         row.add(Integer.toString(task.getID()));

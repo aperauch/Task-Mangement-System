@@ -218,7 +218,6 @@
                 </Column>
               </TableColumnModel>
             </Property>
-            <Property name="selectionMode" type="int" value="1"/>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
               <JTableSelectionModel selectionMode="2"/>
             </Property>

@@ -45,7 +45,7 @@ public class TeamLeader extends TeamMember implements Serializable {
         
         Task changedTask = project.getTaskByID(taskID);
         for(Task task:project.getTasks()){
-            if(task.getOwner().equalsIgnoreCase(oldEmail) & task.getID() == taskID){
+            if(oldEmail.equalsIgnoreCase(task.getOwner()) & task.getID() == taskID){
                 task.setOwner(newEmail);
                 break;
             }
