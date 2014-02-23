@@ -11,5 +11,5 @@ package taskmgt.Models;
 
 
 public enum State {
-    New, ToDo, ToDoNotify, Completed, Archive
+    New, ToDo, ToDoNotify, Completed
 }

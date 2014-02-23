@@ -78,6 +78,11 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         }
         );
+        refreshNotificationBox();
+    }
+
+    //Methods
+    public void refreshNotificationBox() {
         //Notification
         if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             boolean flag=false;
@@ -129,8 +134,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         }
     }
-
-    //Methods
+    
     public Project getSelectProject() {
         if (currentProject == null) {
             setSelectedProject();
@@ -600,7 +604,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         if(TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(currentProject.getOwner())){
             ButtonAddTask.setText("Add Task");
         }
-        else{
+        else {
             ButtonAddTask.setText("Request Task");
         }
 
