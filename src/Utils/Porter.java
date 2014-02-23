@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import taskmgt.AdminGUI;
 import taskmgt.TaskSystem;
 import taskmgt.Models.Administrator;
@@ -54,7 +55,8 @@ public class Porter {
             
             return sb.toString();
         } catch (IOException ex) {
-            Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         return null;
@@ -74,7 +76,8 @@ public class Porter {
             fis.close();
             return encText;
         } catch (IOException ex) {
-            Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         return null;
@@ -87,9 +90,11 @@ public class Porter {
                 fos.write(data);
                 fos.close();
             } catch (FileNotFoundException ex) {
-            Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-            Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -126,14 +131,16 @@ public class Porter {
             
             return true;
         } catch (IOException ex) {
-            Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             if (writer != null)
             {
                 try {
                     writer.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+                    //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -210,16 +217,19 @@ public class Porter {
             
             return true;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-            Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             if (reader != null)
             {
                 try {
                     reader.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+                    //Logger.getLogger(Porter.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

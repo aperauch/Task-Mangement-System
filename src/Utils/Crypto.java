@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,10 +38,9 @@ public class Crypto {
             myDesKey = keygenerator.generateKey();
             desCipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
                         
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchPaddingException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException ex) {
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -85,14 +85,17 @@ public class Crypto {
             out.write(dataToWrite);
             out.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 out.close();
             } catch (IOException ex) {
-                Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -104,9 +107,11 @@ public class Crypto {
             myDesKey = keygenerator.generateKey();
             desCipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NoSuchPaddingException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -120,11 +125,14 @@ public class Crypto {
             
             return textEncrypted;
         } catch (InvalidKeyException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IllegalBlockSizeException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (BadPaddingException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         return null;
@@ -142,17 +150,23 @@ public class Crypto {
             
             return new String(textDecrypted);      
         } catch (InvalidKeyException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IllegalBlockSizeException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (BadPaddingException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (InvalidAlgorithmParameterException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NoSuchPaddingException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         return null;

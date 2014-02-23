@@ -1,45 +1,10 @@
 
 MEMBER REPORT
 -------------
-Aron Aperauch (b@mgt.com) - Team Member/Leader
-Ian Holton (d@mgt.com) - Team Member
-
-PROJECT:Project for D only    START DATE:02/19/2014         END DATE:02/22/2014   LEADER:Alex DiNardo      
-------------------------------------------------------------------------------------------------------------
-TASK                          OWNER          START DATE     END DATE       DONE
-------------------------------------------------------------------------------------------------------------
-Task for D                    Ian Holton     02/22/2014     02/22/2014      N   
-Task for D (2)                Ian Holton     02/22/2014     02/22/2014      N   
-
-Ian Holton completed 0 out of 2 tasks (0.0%)
-
-PROJECT:Test Project          START DATE:02/22/2014         END DATE:02/22/2014   LEADER:Alex DiNardo      
-------------------------------------------------------------------------------------------------------------
-TASK                          OWNER          START DATE     END DATE       DONE
-------------------------------------------------------------------------------------------------------------
-Task for B (3)                Aron Aperauch  02/20/2014     02/22/2014      N   
-Task for D (1)                Ian Holton     02/20/2014     02/22/2014      N   
-Task for B                    Aron Aperauch  02/21/2014     02/22/2014      N   
-Task for D (3)                Ian Holton     02/21/2014     02/22/2014      N   
-Task for B (2)                Aron Aperauch  02/22/2014     02/22/2014      N   
-Task for D (3)                Ian Holton     02/23/2014     02/22/2014      N   
-
-Aron Aperauch completed 0 out of 3 tasks (0.0%)
-Ian Holton completed 0 out of 3 tasks (0.0%)
-
-PROJECT:Project for B only    START DATE:02/22/2014         END DATE:02/22/2014   LEADER:Alex DiNardo      
-------------------------------------------------------------------------------------------------------------
-TASK                          OWNER          START DATE     END DATE       DONE
-------------------------------------------------------------------------------------------------------------
-Task                          Aron Aperauch  02/22/2014     02/22/2014      N   
-
-Aron Aperauch completed 0 out of 1 tasks (0.0%)
+member (member@mgt.com) - Team Member
 
 
 TOTALS
 ------------------------------------------------------------------------------------------------------------
 MEMBER                        PROJECTS       TASKS          COMPLETED      (%)       ------------------------------------------------------------------------------------------------------------
-Aron Aperauch                 9              4              0              0.0       
-Ian Holton                    0              5              0              0.0       
-------------------------------------------------------------------------------------------------------------
-GRAND TOTAL                   9              9              0              0.0       
+member                        0              0              0              0.0       
