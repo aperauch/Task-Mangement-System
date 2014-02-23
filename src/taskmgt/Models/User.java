@@ -23,11 +23,11 @@ public abstract class User implements Serializable, Comparable<User> {
     //Constructors
     public User(){};
      
-    public User(String name, String email, String password){
+    public User(String name, String email, String password, boolean active){
         this.name=name;
         this.email=email;
         this.password=password;
-        this.active=true;
+        this.active=active;
     }
    
     //Get

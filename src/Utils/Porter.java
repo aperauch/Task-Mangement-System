@@ -114,11 +114,13 @@ public class Porter {
                 for (Project project:TaskSystem.getProjectList())
                     dataList.add(project.toStringArray());
                 }
-//          else if (type == ModelType.Task)
-//          {
-//              for (Task task:TaskSystem.taskList)
-//                  dataList.add(task.toStringArray());
-//          }
+            else if (type == ModelType.Task)
+            {
+                for (Project project:TaskSystem.getProjectList()) {
+                    for (Task task:project.getTasks())
+                        dataList.add(task.toStringArray());
+                }
+            }
             else
             {
                 for (User user:TaskSystem.getUserList())
@@ -170,27 +172,43 @@ public class Porter {
                     Task t = null;
                     String[] impProject = new String[6];
                     String[] impTask = new String[7];
-                    for (int i = 0; i < strArr.length; i++) {
-                        if (i < 5)
-                            impProject[i] = strArr[i];
-                        else if (i == 5) {
-                            impProject[i] = strArr[i];
-                            p = new Project(impProject);
-                            TaskSystem.setProjectList(p);
+                    
+                    //Get project elements
+                    for (int i = 0; i < 6; i++) {
+                        impProject[i] = strArr[i];                       
+                    }
+                    
+                    //Create the new project and add to list
+                    p = new Project(impProject);
+                    TaskSystem.getProjectList().add(p);
+                    
+                    //If there are project members
+                    if (strArr.length >= 6)
+                    {
+                        //int numMembers = (strArr.length - 5);
+                        for (int i = 6; i < strArr.length; i++)
+                        {
+                            if (TaskSystem.getUserList() != null)
+                            {
+                                User u = TaskSystem.getUserByEmail(strArr[i]);
+                                if (u != null)
+                                    p.addMember(u);
+                            }
                         }
                     }
                 }
 
             }
-            
-//            else if (type == ModelType.Task)
-//            {
-//                for (String[] strArr:dataList)
-//                {
-//                    Task t = new Task(strArr);
-//                    TaskSystem.taskList.add(t);
-//                }
-//            }
+            else if (type == ModelType.Task)
+            {
+                for (String[] strArr:dataList)
+                {
+                    //Create a new task
+                    Task t = new Task(strArr);
+                    //Get the corresponding project and add the newly created task
+                    TaskSystem.getProjectByID(t.getProjectID()).addTask(t);
+                }
+            }
             else
             {
                 for (String[] strArr:dataList)
