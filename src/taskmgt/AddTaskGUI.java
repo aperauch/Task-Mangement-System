@@ -54,7 +54,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
         startDateField.setText(dateFormat.format(parentFrame.getSelectProject().getStartDate()).toString());
         endDateField.setText(dateFormat.format(parentFrame.getSelectProject().getEndDate()).toString());
         
-        if(TaskSystem.getCurrentUser() instanceof TeamLeader){
+        if(TaskSystem.getCurrentUser() instanceof TeamLeader && parentFrame.getSelectProject().getOwner().equalsIgnoreCase(TaskSystem.getCurrentUser().getEmail())){
             this.setTitle("Add Task");
             addTaskBtn.setText("Add");
         }
