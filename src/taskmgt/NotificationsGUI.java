@@ -26,7 +26,7 @@ import taskmgt.Models.User;
  */
 public final class NotificationsGUI extends javax.swing.JDialog {
 
-    private final User noitifyUser;
+    private final User notifyUser;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     private final ProjectTaskGUI ptGUI;
     //Jtable Function
@@ -34,9 +34,9 @@ public final class NotificationsGUI extends javax.swing.JDialog {
     private void fillTable(){
         DefaultTableModel tableModel=(DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
-        if(noitifyUser instanceof TeamLeader){
+        if(notifyUser instanceof TeamLeader){
             for(Project project:TaskSystem.getProjectList()){
-                if(noitifyUser.getEmail().equalsIgnoreCase(project.getOwner())){
+                if(notifyUser.getEmail().equalsIgnoreCase(project.getOwner())){
                     for(Task task:project.getTasks()){
                         if(task.getStatus()==State.New){
                             LinkedList<String> row=new LinkedList();
@@ -47,15 +47,11 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                             row.add(dateFormat.format(task.getStartDate()));
                             row.add(dateFormat.format(task.getEndDate()));   
                             tableModel.addRow(row.toArray());
-                        }
-                    }
-                }
-            }
-        }
-        else{
-            for(Project project:TaskSystem.getProjectList()){
-                for(Task task:project.getTasks()){
-                    if(task.getStatus()==State.ToDo&&noitifyUser.getEmail().equalsIgnoreCase(task.getOwner())){
+                        } //end if
+                } // end for
+            } //end if  
+            for(Task task:project.getTasks()){    
+            if(task.getStatus()==State.ToDoNotify&&notifyUser.getEmail().equalsIgnoreCase(task.getOwner())){
                         LinkedList<String> row=new LinkedList();
                         row.add(project.getTitle());
                         row.add(Integer.toString(task.getID()));
@@ -64,13 +60,13 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                         row.add(dateFormat.format(task.getStartDate()));
                         row.add(dateFormat.format(task.getEndDate()));   
                         tableModel.addRow(row.toArray());
-                    }
-                }
-            }
-            
-        }
+                    } // end if
+            }// end for
+        } //end for
+        } //end if     
         jTable1.setModel(tableModel);
-    }
+    } // end fillTable()
+    
     //Initial Table
     private void initialTable(){
         //Inital table
@@ -89,16 +85,16 @@ public final class NotificationsGUI extends javax.swing.JDialog {
     public NotificationsGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        noitifyUser=TaskSystem.getCurrentUser();
-        if(noitifyUser instanceof TeamLeader){
-            jButton3.setVisible(false);
-            jButton1.setVisible(true);
-            jButton2.setVisible(true);
+        notifyUser=TaskSystem.getCurrentUser();
+        if(notifyUser instanceof TeamLeader){
+            jButtonOk.setVisible(false);
+            jButtonApprove.setVisible(true);
+            jButtonReject.setVisible(true);
         }
         else{
-            jButton3.setVisible(true);
-            jButton1.setVisible(false);
-            jButton2.setVisible(false);
+            jButtonOk.setVisible(true);
+            jButtonApprove.setVisible(false);
+            jButtonReject.setVisible(false);
         }
         initialTable();
         fillTable();
@@ -107,6 +103,17 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
+            for(Project project:TaskSystem.getProjectList()){
+                    for(Task task:project.getTasks()){
+                        if(task.getStatus() == State.ToDoNotify && TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(task.getOwner())){
+                            task.setStatus(State.ToDo);
+                            break;
+                        }
+                    }
+               
+                }
+            TaskSystem.Finalize();
+            fillTable();
                    ptGUI.refreshTasksList();
             }
         }
@@ -121,9 +128,9 @@ public final class NotificationsGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonApprove = new javax.swing.JButton();
+        jButtonReject = new javax.swing.JButton();
+        jButtonOk = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -131,24 +138,24 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         setTitle("Notifications");
         setResizable(false);
 
-        jButton1.setText("Approve");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonApprove.setText("Approve");
+        jButtonApprove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonApproveActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Reject");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonReject.setText("Reject");
+        jButtonReject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonRejectActionPerformed(evt);
             }
         });
 
-        jButton3.setText("OK");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOk.setText("OK");
+        jButtonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonOkActionPerformed(evt);
             }
         });
 
@@ -179,11 +186,11 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonApprove)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonReject, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46))
         );
@@ -194,16 +201,16 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonApprove)
+                    .addComponent(jButtonOk)
+                    .addComponent(jButtonReject))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApproveActionPerformed
 
         if(jTable1.getRowCount()!=0){
             int row = jTable1.getSelectedRow();
@@ -229,14 +236,14 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         
         TaskSystem.Finalize();
         fillTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonApproveActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
                 ptGUI.refreshNotificationBox();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRejectActionPerformed
 
         if(jTable1.getRowCount()!=0){
         int row = jTable1.getSelectedRow();
@@ -259,7 +266,8 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         TaskSystem.Finalize();
         fillTable();
         ptGUI.refreshNotificationBox();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonRejectActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -300,9 +308,9 @@ public final class NotificationsGUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonApprove;
+    private javax.swing.JButton jButtonOk;
+    private javax.swing.JButton jButtonReject;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
