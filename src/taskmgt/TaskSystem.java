@@ -185,7 +185,7 @@ public class TaskSystem {
         LinkedList<Project> projList=new LinkedList();
         if (!TaskSystem.getProjectList().isEmpty()) {
             for (Project project : TaskSystem.getProjectList()) {
-                if (project.getStatus() != State.Archive) {
+
                     if (TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(project.getOwner())) {
                         projList.add(project);
                     } 
@@ -196,7 +196,6 @@ public class TaskSystem {
                                 break;
                             }
                         }
-                    }
                 }
             }
         }

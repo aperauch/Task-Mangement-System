@@ -222,12 +222,17 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                 }
             } 
         }
+        
+        //Update and refresh parent frame notifications
+        ptGUI.refreshNotificationBox();
+        
         TaskSystem.Finalize();
         fillTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
+        ptGUI.refreshNotificationBox();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -252,6 +257,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
         }
         TaskSystem.Finalize();
         fillTable();
+        ptGUI.refreshNotificationBox();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
