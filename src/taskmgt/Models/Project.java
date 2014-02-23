@@ -55,6 +55,12 @@ public class Project implements Serializable, Comparable<Project>{
         else
             return null;
     }
+    public String getOwnerName(){
+        if(this.owner!=null)
+            return this.owner.getName();
+        else
+            return null;
+    }
     public Date getStartDate() { return this.startDate; }
     public Date getEndDate() { return this.endDate; }
     public State getStatus() { return this.status; }
