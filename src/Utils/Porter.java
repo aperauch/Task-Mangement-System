@@ -150,7 +150,7 @@ public class Porter {
         return false;
     }
     
-    public static boolean importCSV(String file, ModelType type, boolean merge) {        
+    public static boolean importCSV(String file, ModelType type) {        
         
         CSVReader reader = null;
         

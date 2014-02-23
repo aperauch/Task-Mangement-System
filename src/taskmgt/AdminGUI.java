@@ -86,14 +86,13 @@ public final class AdminGUI extends javax.swing.JFrame{
         
     }
     
-    public void importCSV(boolean merge) {
-        
-        if (!merge)
-            TaskSystem.clearAllLists();
+    public void importCSV() {
+                
+        TaskSystem.clearAllLists();
        
-        boolean usersOK = Porter.importCSV(".//Imports//Users.csv", ModelType.AllUsers, merge);
-        boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project, merge);
-        boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task, merge);
+        boolean usersOK = Porter.importCSV(".//Imports//Users.csv", ModelType.AllUsers);
+        boolean projectsOK = Porter.importCSV(".//Imports//Projects.csv", ModelType.Project);
+        boolean tasksOK = Porter.importCSV(".//Imports//Tasks.csv", ModelType.Task);
        
         
         if (projectsOK && usersOK && tasksOK) {
@@ -157,7 +156,6 @@ public final class AdminGUI extends javax.swing.JFrame{
         jComboBox1 = new javax.swing.JComboBox();
         jPanelImport = new javax.swing.JPanel();
         importBtn = new javax.swing.JButton();
-        mergeCheckBox = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -166,10 +164,8 @@ public final class AdminGUI extends javax.swing.JFrame{
         jMenuItem4 = new javax.swing.JMenuItem();
         exportMenu = new javax.swing.JMenu();
         exportCSVMenuItem = new javax.swing.JMenuItem();
-        encExportCSVMenuItem = new javax.swing.JMenuItem();
         importMenu = new javax.swing.JMenu();
         importCSVMenuItem = new javax.swing.JMenuItem();
-        encImportCSVMenuItem = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -241,7 +237,7 @@ public final class AdminGUI extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox2, 0, 234, Short.MAX_VALUE)
                 .addGap(28, 28, 28))
             .addGroup(jPanelTransferLayout.createSequentialGroup()
                 .addGap(184, 184, 184)
@@ -256,7 +252,7 @@ public final class AdminGUI extends javax.swing.JFrame{
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
@@ -268,27 +264,21 @@ public final class AdminGUI extends javax.swing.JFrame{
             }
         });
 
-        mergeCheckBox.setText("Merge with existing data?");
-
         javax.swing.GroupLayout jPanelImportLayout = new javax.swing.GroupLayout(jPanelImport);
         jPanelImport.setLayout(jPanelImportLayout);
         jPanelImportLayout.setHorizontalGroup(
             jPanelImportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelImportLayout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addGroup(jPanelImportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mergeCheckBox))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addGap(197, 197, 197)
+                .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelImportLayout.setVerticalGroup(
             jPanelImportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelImportLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(mergeCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(37, 37, 37)
                 .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Member");
@@ -334,9 +324,6 @@ public final class AdminGUI extends javax.swing.JFrame{
         });
         exportMenu.add(exportCSVMenuItem);
 
-        encExportCSVMenuItem.setText("Encrypted Export To CSV Because NSA");
-        exportMenu.add(encExportCSVMenuItem);
-
         jMenuBar1.add(exportMenu);
 
         importMenu.setText("Import");
@@ -349,9 +336,6 @@ public final class AdminGUI extends javax.swing.JFrame{
         });
         importMenu.add(importCSVMenuItem);
 
-        encImportCSVMenuItem.setText("Encrypted Import From CSV");
-        importMenu.add(encImportCSVMenuItem);
-
         jMenuBar1.add(importMenu);
 
         setJMenuBar(jMenuBar1);
@@ -362,7 +346,7 @@ public final class AdminGUI extends javax.swing.JFrame{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelImport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelTransfer, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addComponent(jPanelTransfer, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -447,9 +431,8 @@ public final class AdminGUI extends javax.swing.JFrame{
     }//GEN-LAST:event_importCSVMenuItemActionPerformed
 
     private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
-        // TODO add your handling code here:
-        boolean merge = mergeCheckBox.isSelected();
-        importCSV(merge);
+        // TODO add your handling code here:       
+        importCSV();
     }//GEN-LAST:event_importBtnActionPerformed
 
     /**
@@ -486,8 +469,6 @@ public final class AdminGUI extends javax.swing.JFrame{
     private final User user;
     private boolean transFlag;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem encExportCSVMenuItem;
-    private javax.swing.JMenuItem encImportCSVMenuItem;
     private javax.swing.JMenuItem exportCSVMenuItem;
     private javax.swing.JMenu exportMenu;
     private javax.swing.JButton importBtn;
@@ -512,7 +493,6 @@ public final class AdminGUI extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelImport;
     private javax.swing.JPanel jPanelTransfer;
-    private javax.swing.JCheckBox mergeCheckBox;
     // End of variables declaration//GEN-END:variables
 
 }

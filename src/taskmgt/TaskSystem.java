@@ -144,8 +144,17 @@ public class TaskSystem {
     //Get Object
     public static User getUser(String email, String password){
         for(User user:userList){
-            if(user.getEmail().equals(email) && user.getPassword().equals(password)){
-                 return user;
+            if (user != null) {
+                if (user.getEmail() != null && user.getPassword() != null) {
+                    if(user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password)){
+                         return user;
+                    }
+                } else if (user.getEmail() != null) {
+                    if (user.getEmail().equalsIgnoreCase(email)) {
+                        user.setPassword(null);
+                        return user;
+                    }
+                }
             }
         }
         return null;

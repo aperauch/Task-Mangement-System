@@ -374,7 +374,7 @@ public final class MemberGUI extends javax.swing.JDialog {
         }
         else if(jCheckBox1.isSelected()){
             if(!user.createLeader(name, email)){
-                JOptionPane.showMessageDialog(null,"Member exists!","Warning",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Leader exists!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
         else{
@@ -382,6 +382,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null,"Member exists!","Warning",JOptionPane.WARNING_MESSAGE);
             }
         }
+
         TaskSystem.Finalize();
         fillTable();
     }//GEN-LAST:event_jButtonAddMemberActionPerformed
