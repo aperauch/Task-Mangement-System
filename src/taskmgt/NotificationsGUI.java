@@ -198,19 +198,11 @@ public final class NotificationsGUI extends javax.swing.JDialog {
                 .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-<<<<<<< HEAD
                         .addGap(56, 56, 56)
                         .addComponent(jButtonApprove)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonOK)
                         .addGap(24, 24, 24)
-=======
-                        .addGap(31, 31, 31)
-                        .addComponent(jButtonApprove)
-                        .addGap(56, 56, 56)
-                        .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
->>>>>>> 0f967168ce33e23d68e09f46cc24d17db8821460
                         .addComponent(jButtonReject, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46))
