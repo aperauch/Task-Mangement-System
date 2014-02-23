@@ -22,12 +22,14 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
+import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 public class CsvToBean<T> {
     private Map<Class<?>, PropertyEditor> editorMap = null;
@@ -43,15 +45,17 @@ public class CsvToBean<T> {
         try {
             mapper.captureHeader(csv);
             String[] line;
-            List<T> list = new ArrayList<T>();
+            List<T> list = new ArrayList<>();
             while (null != (line = csv.readNext())) {
                 T obj = processLine(mapper, line);
                 list.add(obj); // TODO: (Kyle) null check object
             }
             return list;
-        } catch (Exception e) {
-            throw new RuntimeException("Error parsing CSV!", e);
+        } catch (IOException | IllegalAccessException | InvocationTargetException | InstantiationException | IntrospectionException e) {
+            //throw new RuntimeException("Error parsing CSV!", e);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        return null;
     }
 
     protected T processLine(MappingStrategy<T> mapper, String[] line) throws IllegalAccessException, InvocationTargetException, InstantiationException, IntrospectionException {
