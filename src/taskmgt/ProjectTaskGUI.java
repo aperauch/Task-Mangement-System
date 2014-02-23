@@ -593,7 +593,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         if(TaskSystem.getCurrentUser().getEmail().equalsIgnoreCase(currentProject.getOwner())){
             ButtonAddTask.setText("Add Task");
         }
-        else{
+        else {
             ButtonAddTask.setText("Request Task");
         }
 
