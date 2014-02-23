@@ -539,10 +539,10 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+@SuppressWarnings("unchecked")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         NotificationsGUI notifyForm = new NotificationsGUI(this, true);
-        notifyForm.show();
+        notifyForm.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ButtonCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateProjectActionPerformed
