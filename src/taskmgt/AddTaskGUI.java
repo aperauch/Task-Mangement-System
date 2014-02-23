@@ -61,7 +61,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
 
             jLabel6.show();
             jLabel5.show();
-            jLabel5.setText("Project Leader");
+            jLabel5.setText("Project Leader:");
             jLabel6.setText(parentFrame.getSelectProject().getOwnerName());
 
         }

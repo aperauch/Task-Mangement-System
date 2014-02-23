@@ -333,6 +333,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
                             for (int i = 0; i < jList2.getModel().getSize(); i++) {
                                 emails.add((String) jList2.getModel().getElementAt(i));
                             }
+                            
                             for (String s : emails) {
                                 userEmail = TaskSystem.getUserByEmail(s);
                                 proj.addMember(userEmail);

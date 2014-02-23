@@ -94,6 +94,7 @@ public final class MemberGUI extends javax.swing.JDialog {
                                 if(!user.changeMemberType(email, false))
                                     JOptionPane.showMessageDialog(null,"This leader is currently in charge of a project!","Warning",JOptionPane.WARNING_MESSAGE);
                             }
+                            
                             break;
                     }
                 }

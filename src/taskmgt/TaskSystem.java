@@ -152,33 +152,7 @@ public class TaskSystem {
         return null;
     }
          
-//    public static TeamMember getMember(String email){
-//        for(User user:userList){
-//            if(user.getEmail().equals(email)&& user.getType() == ModelType.TeamMember){
-//                return (TeamMember) user;
-//            }
-//        }
-//        return null;
-//    }
-    
-//    public static TeamLeader getLeader(String email){
-//        for(User user:userList){
-//            if(user.getEmail().equals(email)&& user.getType() == ModelType.TeamLeader){
-//                return (TeamLeader) user;
-//            }
-//        }
-//        return null;
-//    }
-    
-//    public static LinkedList<Task> getProjectTasks(int projectID){
-//        LinkedList<Task> projectTasks=new LinkedList();
-//        for(Task task:taskList){
-//            if(task.getProjectID()==projectID){
-//                projectTasks.add(task);
-//            }
-//        }
-//        return projectTasks;
-//    }
+
     
     public static LinkedList<Project> refreshProjectList(){
         

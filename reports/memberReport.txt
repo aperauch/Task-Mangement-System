@@ -1,10 +1,10 @@
 
 MEMBER REPORT
 -------------
-member (member@mgt.com) - Team Member
+John THE LEADER (john@mgt.com) - Team Member/Leader
 
 
 TOTALS
 ------------------------------------------------------------------------------------------------------------
 MEMBER                        PROJECTS       TASKS          COMPLETED      (%)       ------------------------------------------------------------------------------------------------------------
-member                        0              0              0              0.0       
+John THE LEADER               0              0              0              0.0       
