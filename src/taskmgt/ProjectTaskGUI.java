@@ -349,7 +349,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -373,9 +373,9 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,8 +435,10 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
             }
         });
         jScrollPane3.setViewportView(jTableTasks);
-        jTableTasks.getColumnModel().getColumn(0).setPreferredWidth(3);
-        jTableTasks.getColumnModel().getColumn(1).setPreferredWidth(150);
+        if (jTableTasks.getColumnModel().getColumnCount() > 0) {
+            jTableTasks.getColumnModel().getColumn(0).setPreferredWidth(3);
+            jTableTasks.getColumnModel().getColumn(1).setPreferredWidth(150);
+        }
 
         jLabelTaskCount.setText("Tasks: ?");
 
@@ -546,7 +548,7 @@ public final class ProjectTaskGUI extends javax.swing.JFrame {//implements ListS
         } else if (jListProjects.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a project to add a task to.");
         } else {
-            AddTaskGUI addTaskForm = new AddTaskGUI(this, true, "add");
+            AddTaskGUI addTaskForm = new AddTaskGUI(this, true);
             addTaskForm.setLocationRelativeTo(null);
             addTaskForm.setVisible(true);
         }

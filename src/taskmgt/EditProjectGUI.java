@@ -306,6 +306,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             endDate = jTextField3.getText().toString();
             for (Project p : TaskSystem.getProjectList()) {
                 if (p.getTitle().equalsIgnoreCase(title)) {
+                    System.out.print(title);
                     JOptionPane.showMessageDialog(null, "The Project Title you enetered already exists.\nPlease choose a different title.", "Duplication", JOptionPane.WARNING_MESSAGE);
                     return;
                 }

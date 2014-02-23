@@ -22,33 +22,11 @@ public class AddTaskGUI extends javax.swing.JDialog {
     ProjectTaskGUI parentFrame;
     Task taskToEdit;
     
-    private void setFormAdd(){
-       this.setTitle("Add Task");
-       addTaskBtn.setText("Add");
-
-       //Populate Start Date and End Date with a date
-       Date date = new Date();
-       startDateField.setText(dateFormat.format(date).toString());
-       endDateField.setText(dateFormat.format(date).toString());
-    }
-    
-     private void setFormEdit(){
-       this.setTitle("Edit Task");
-       addTaskBtn.setText("Edit");
-     }
-     
-    private void setFormEdit(Task task){
-       this.setTitle("Edit Task");
-       addTaskBtn.setText("Edit");
-       
-       //Populate fields for editing
-       taskTitleField.setText(task.getTitle());
-       startDateField.setText(dateFormat.format(task.getStartDate()));
-       endDateField.setText(dateFormat.format(task.getEndDate()));
-    }
     
     /**
      * Creates new form Task
+     * @param parent
+     * @param modal
      */
     //Default Constructor
     public AddTaskGUI(java.awt.Frame parent, boolean modal) {
@@ -72,36 +50,9 @@ public class AddTaskGUI extends javax.swing.JDialog {
         else {
             ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
         }
-    }
-    
-    //Called when adding a task
-    public AddTaskGUI(java.awt.Frame parent, boolean modal, String flag) {
-        super(parent, modal);
-        initComponents();
-        taskToEdit = null;
-        
-        //The parent frame is the window the user was interacting with prior to this window.
-        //This variable allows for updates to be called back to parent.
-        parentFrame = (ProjectTaskGUI) parent;
-        
-        //Populate Members list
-        if (TaskSystem.getCurrentUser() instanceof TeamLeader){
-            LinkedList<User> projMembers=parentFrame.getSelectProject().getMembers();
-            for(User user:projMembers){
-                if(!(user instanceof Administrator) && user.checkActive()){
-                    ownerComboBox.addItem(user.getEmail());
-                }
-            }
-            ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
-        } 
-        else {
-            ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
-        }
-        
-        if(flag.equals("add"))
-            setFormAdd();
-        else
-            setFormEdit();
+        //Load Project Date
+        startDateField.setText(dateFormat.format(parentFrame.getSelectProject().getStartDate()).toString());
+        endDateField.setText(dateFormat.format(parentFrame.getSelectProject().getEndDate()).toString());
         
         if(TaskSystem.getCurrentUser() instanceof TeamLeader){
             this.setTitle("Add Task");
@@ -112,6 +63,45 @@ public class AddTaskGUI extends javax.swing.JDialog {
             addTaskBtn.setText("Request");
         }
     }
+    
+//    //Called when adding a task
+//    public AddTaskGUI(java.awt.Frame parent, boolean modal, String flag) {
+//        super(parent, modal);
+//        initComponents();
+//        taskToEdit = null;
+//        
+//        //The parent frame is the window the user was interacting with prior to this window.
+//        //This variable allows for updates to be called back to parent.
+//        parentFrame = (ProjectTaskGUI) parent;
+//        
+//        //Populate Members list
+//        if (TaskSystem.getCurrentUser() instanceof TeamLeader){
+//            LinkedList<User> projMembers=parentFrame.getSelectProject().getMembers();
+//            for(User user:projMembers){
+//                if(!(user instanceof Administrator) && user.checkActive()){
+//                    ownerComboBox.addItem(user.getEmail());
+//                }
+//            }
+//            ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
+//        } 
+//        else {
+//            ownerComboBox.addItem(TaskSystem.getCurrentUser().getEmail());
+//        }
+//        
+//        if(flag.equals("add"))
+//            setFormAdd();
+//        else
+//            setFormEdit();
+//        
+//        if(TaskSystem.getCurrentUser() instanceof TeamLeader){
+//            this.setTitle("Add Task");
+//            addTaskBtn.setText("Add");
+//        }
+//        else{
+//            this.setTitle("Request Task");
+//            addTaskBtn.setText("Request");
+//        }
+//    }
   
     /**
      * This method is called from within the constructor to initialize the form.
@@ -241,6 +231,16 @@ public class AddTaskGUI extends javax.swing.JDialog {
             end = dateFormat.parse(endDate);
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Please enter date in mm/dd/yyyy format.", "Incorrect Date Value", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        //Validate Start Date End Date
+        if(start.compareTo(parentFrame.getSelectProject().getStartDate())<0){
+            JOptionPane.showMessageDialog(null, "Please choose a date after the start date of Project", "Incorrect Start Date", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        else if(end.compareTo(parentFrame.getSelectProject().getEndDate())>0){
+            JOptionPane.showMessageDialog(null, "Please choose a date before the end date of Project", "Incorrect End Date", JOptionPane.WARNING_MESSAGE);
+            return;       
         }
         
         //If adding a task
