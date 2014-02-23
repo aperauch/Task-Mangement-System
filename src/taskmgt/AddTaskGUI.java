@@ -109,7 +109,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
 
         jLabel2.setText("Start Date:");
 
-        jLabel4.setText("Team Member List:");
+        jLabel4.setText("Task Owner:");
 
         jLabel1.setText("Task Title:");
 
@@ -144,7 +144,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(125, 125, 125)
                         .addComponent(addTaskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,9 +215,6 @@ public class AddTaskGUI extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please choose a date before the end date of Project", "Incorrect End Date", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-
-
         else if(end.compareTo(start)<0){
             JOptionPane.showMessageDialog(null, "End date must after Start Date!", "Incorrect End Date", JOptionPane.WARNING_MESSAGE);
             return;  
@@ -259,6 +256,7 @@ public class AddTaskGUI extends javax.swing.JDialog {
 
             //Update parent frame with new tasks
         }
+        TaskSystem.Finalize();
     }//GEN-LAST:event_addTaskBtnActionPerformed
 
     /**

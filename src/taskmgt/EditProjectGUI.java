@@ -417,7 +417,7 @@ public class EditProjectGUI extends javax.swing.JDialog implements ActionListene
             }
         }
 
-
+        TaskSystem.Finalize();
     }//GEN-LAST:event_jButtonCreateProjectActionPerformed
 
 

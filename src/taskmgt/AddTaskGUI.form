@@ -61,7 +61,7 @@
                       <Component id="addTaskBtn" min="-2" pref="97" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace pref="83" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -126,7 +126,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Team Member List:"/>
+        <Property name="text" type="java.lang.String" value="Task Owner:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="ownerComboBox">
