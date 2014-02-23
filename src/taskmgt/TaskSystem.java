@@ -244,14 +244,14 @@ public class TaskSystem {
            output.println();
            
            //CONSOLIDATES UNIQUE PROJECTS OF EACH MEMBER INTO CONSOLIDATED UNIQUE PROJECT LIST
-           LinkedList<Project> uniqueProjectList = new LinkedList<Project>();    
-           LinkedList<Project> projectList = null;
+           LinkedList<Project> uniqueProjectList = new LinkedList();    
+           LinkedList<Project> ProjectList = null;
             for (TeamMember member: memberList){
                    
-                projectList = member.getProjects();
+               ProjectList = member.getProjects();
                 
                 int i = 0;
-                for (Project p : projectList){
+                for (Project p : ProjectList){
                     totalProjectCount[i]++;
                     if(!uniqueProjectList.contains(p)){uniqueProjectList.add(p);}
                 }
