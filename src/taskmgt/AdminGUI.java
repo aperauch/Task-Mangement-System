@@ -86,7 +86,7 @@ public final class AdminGUI extends javax.swing.JFrame{
         
     }
     
-    public void importCSV() {
+    public void importCSV() throws IOException {
                 
         TaskSystem.clearAllLists();
        
@@ -155,7 +155,6 @@ public final class AdminGUI extends javax.swing.JFrame{
         jComboBox2 = new javax.swing.JComboBox();
         jComboBox1 = new javax.swing.JComboBox();
         jPanelImport = new javax.swing.JPanel();
-        importBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -257,28 +256,15 @@ public final class AdminGUI extends javax.swing.JFrame{
                 .addGap(37, 37, 37))
         );
 
-        importBtn.setText("Import");
-        importBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                importBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelImportLayout = new javax.swing.GroupLayout(jPanelImport);
         jPanelImport.setLayout(jPanelImportLayout);
         jPanelImportLayout.setHorizontalGroup(
             jPanelImportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelImportLayout.createSequentialGroup()
-                .addGap(197, 197, 197)
-                .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 570, Short.MAX_VALUE)
         );
         jPanelImportLayout.setVerticalGroup(
             jPanelImportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelImportLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+            .addGap(0, 126, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Member");
@@ -427,13 +413,13 @@ public final class AdminGUI extends javax.swing.JFrame{
     private void importCSVMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importCSVMenuItemActionPerformed
         // TODO add your handling code here:
         jPanelTransfer.setVisible(false);
-        jPanelImport.setVisible(true);
+        try {
+            importCSV();
+        } catch (IOException ex) {
+            //Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occured!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_importCSVMenuItemActionPerformed
-
-    private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
-        // TODO add your handling code here:       
-        importCSV();
-    }//GEN-LAST:event_importBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,7 +457,6 @@ public final class AdminGUI extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exportCSVMenuItem;
     private javax.swing.JMenu exportMenu;
-    private javax.swing.JButton importBtn;
     private javax.swing.JMenuItem importCSVMenuItem;
     private javax.swing.JMenu importMenu;
     private javax.swing.JButton jButton1;

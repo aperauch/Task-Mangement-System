@@ -279,6 +279,7 @@ public final class NotificationsGUI extends javax.swing.JDialog {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         clearNotifications();
         ptGUI.refreshNotificationBox();
+        TaskSystem.Finalize();
         this.dispose();
     }//GEN-LAST:event_jButtonOKActionPerformed
 

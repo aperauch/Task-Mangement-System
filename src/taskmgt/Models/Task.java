@@ -187,5 +187,7 @@ public class Task implements Serializable, Comparable<Task> {
          String t = String.format("%-30s%-15s%-15s%-16s%-4s", title, owner.getName(), simpleDate.format(startDate),simpleDate.format(endDate),s);
          return(t);
     }
+
+  
     
 }
