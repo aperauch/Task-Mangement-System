@@ -1,7 +1,7 @@
-TMS-Twink
+Task Management System
 =========
 
-Task Management Application for School Project
+Task Management System application for class project.
 
 
 Partial Demo Video:  http://www.youtube.com/watch?v=VDFmPHvZP9U
